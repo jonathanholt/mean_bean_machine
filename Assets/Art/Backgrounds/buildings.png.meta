@@ -1,0 +1,125 @@
+fileFormatVersion: 2
+guid: 3fa4f04e38d66444c9677eb98718690c
+timeCreated: 1479674424
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: buildings_0
+    21300002: buildings_1
+    21300004: buildings_2
+    21300006: buildings_3
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: 2
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 20
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: buildings_0
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 0
+        width: 104
+        height: 159
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -52, y: 79.5}
+        - {x: -52, y: -79.5}
+        - {x: 52, y: -79.5}
+        - {x: 52, y: 79.5}
+    - name: buildings_1
+      rect:
+        serializedVersion: 2
+        x: 242
+        y: 8
+        width: 78
+        height: 167
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -39, y: 83.5}
+        - {x: -39, y: -83.5}
+        - {x: 39, y: -83.5}
+        - {x: 39, y: 83.5}
+    - name: buildings_2
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 0
+        width: 95
+        height: 211
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -20.5, y: 105.5}
+        - {x: -36.5, y: 105.5}
+        - {x: -37.5, y: 104.5}
+        - {x: -47.5, y: 104.5}
+        - {x: -47.5, y: -105.5}
+        - {x: 47.5, y: -105.5}
+        - {x: 47.5, y: 104.5}
+        - {x: -20.5, y: 104.5}
+    - name: buildings_3
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 34
+        height: 175
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -17, y: 87.5}
+        - {x: -17, y: -87.5}
+        - {x: 17, y: -87.5}
+        - {x: 17, y: 87.5}
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

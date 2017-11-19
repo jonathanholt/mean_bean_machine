@@ -1,0 +1,114 @@
+fileFormatVersion: 2
+guid: 13be6bdde05511043b3569be500eacb6
+timeCreated: 1472586157
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: Mountain1
+    21300002: Mountain2
+    21300004: Mountain3
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -3
+  maxTextureSize: 256
+  textureSettings:
+    filterMode: 0
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 16
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: Mountain1
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 185
+        width: 121
+        height: 52
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -3.5, y: 26}
+        - {x: -60.5, y: -13}
+        - {x: -60.5, y: -26}
+        - {x: 60.5, y: -26}
+        - {x: 60.5, y: -21}
+        - {x: 56.5, y: -12}
+        - {x: 35.5, y: 26}
+    - name: Mountain2
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 197
+        width: 96
+        height: 40
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 9, y: 20}
+        - {x: -47, y: 0}
+        - {x: -48, y: -4}
+        - {x: -48, y: -20}
+        - {x: 48, y: -20}
+        - {x: 48, y: -14}
+        - {x: 26, y: 20}
+    - name: Mountain3
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 116
+        width: 247
+        height: 34
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 55.5, y: 17}
+        - {x: -100.5, y: 17}
+        - {x: -123.5, y: -9}
+        - {x: -123.5, y: -17}
+        - {x: 123.5, y: -17}
+        - {x: 123.5, y: -14}
+        - {x: 94.5, y: 12}
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
