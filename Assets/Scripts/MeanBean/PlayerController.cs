@@ -128,34 +128,40 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	public void updateGrid(){
-		squares[row-1] += 2;
-		int square1RowtoAdd = 0;
-		int square2RowtoAdd = 0;
-		int square2ColumntoAdd = 0;
-		//0 is normal
-		//-1 is normal is square 2 on the left of square 1
-		//-2 is square 1 is above square2
-		// -3 is normal is square 2 on the right of square 1
-		if (beanOrientation == -2) {
-			square1RowtoAdd = +1;
-			square2RowtoAdd = -1;
-		} else if (beanOrientation == -1) {
-			square2ColumntoAdd = -1;
-			square2RowtoAdd = -1;
-			if(((squares[row-1] - 2)+square1RowtoAdd) != 0){
-				square1RowtoAdd = -1;
-				square2RowtoAdd -= 1;
-			}
-		} else if (beanOrientation == -3) {
-			square2ColumntoAdd = +1;
-			square2RowtoAdd = -1;
-			if(((squares[row-1] - 2)+square1RowtoAdd) != 0){
-				square1RowtoAdd = -1;
-				square2RowtoAdd -= 1;
-			}
+
+		int beanOrientationPositive = Mathf.Abs(beanOrientation);
+		string square1FindString;
+		string square2FindString;
+		if(beanOrientationPositive == 1){
+			squares[row-1] += 1;
+			squares[row-2] += 1;
+			square1FindString = "Grid-" + (row - 1) + "-" + (squares [row - 1] - 1);
+				square2FindString = "Grid-"+(row-2)+"-"+(squares[row-1] - 1);
 		}
-		square1 = GameObject.Find("Grid-"+(row-1)+"-"+((squares[row-1] - 2)+square1RowtoAdd));
-		square2 = GameObject.Find("Grid-"+((row-1)+square2ColumntoAdd)+"-"+((squares[row-1] - 1)+square2RowtoAdd));
+		else if(beanOrientationPositive == 2){
+			squares[row-1] += 2;
+			square1FindString = "Grid-"+(row-1)+"-"+(squares[row-1] - 1);
+				square2FindString = "Grid-"+(row-1)+"-"+(squares[row-1] - 2);
+		}
+		else if (beanOrientationPositive == 3){
+			squares[row-1] += 1;
+			squares[row] += 1;
+			square1FindString = "Grid-"+(row-1)+"-"+(squares[row-1] - 1);
+				square2FindString = "Grid-"+(row)+"-"+(squares[row-1] - 1);
+		}
+		else{
+			//beanOrientationPositive should == 0
+			squares[row-1] += 2;
+			square1FindString = "Grid-"+(row-1)+"-"+(squares[row-1] - 2);
+				square2FindString = "Grid-"+(row-1)+"-"+(squares[row-1] - 1);
+		}
+
+
+
+
+
+		square1 = GameObject.Find(square1FindString);
+		square2 = GameObject.Find(square2FindString);
 		Object [] sprites;
 		sprites = Resources.LoadAll ("beans");
 		square1.GetComponent<SpriteRenderer>().sprite = (Sprite)sprites [NewBean.randomBean1];
@@ -174,6 +180,22 @@ public class PlayerController : MonoBehaviour {
 		}
 		square1.tag = "Ground";
 		square2.tag = "Ground";
+
+		findMatches (square1FindString, square2FindString);
+	}
+
+	public void findMatches(string bean1InGrid, string bean2InGrid){
+		GameObject squareAbove;
+		//SECOND DIGIT PLUS ONE
+
+		GameObject squareLeft;
+		// FIRST DIGIT PLUS ONE
+
+		GameObject squareRight;
+		// FIRST DIGIT MINUS ONE
+
+		GameObject squareBelow;
+		//SECOND DIGIT MINUS ONE
 	}
 
 	public void shiftAntiClockwise(){
