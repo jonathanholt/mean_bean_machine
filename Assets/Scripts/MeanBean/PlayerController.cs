@@ -38,10 +38,7 @@ public class PlayerController : MonoBehaviour {
 	//Mean Bean Variables
 	private GameObject startPoint;
 	private int row;
-
 	private int[] squares = new int[] {0, 0, 0, 0, 0, 0};
-
-
 	public GameObject square1;
 	public GameObject square2;
 	public int beanOrientation;
@@ -155,11 +152,9 @@ public class PlayerController : MonoBehaviour {
 			squares[row-1] += 1;
 			squares[row] += 1;
 			if (squares [row] > squares [row - 1]) {
-				Debug.Log ("if statement 1...");
 				square1DropNumber = squares [row] - squares [row - 1];
 			}
 			if (squares [row] < squares [row - 1]) {
-				Debug.Log ("if statement 2...");
 				square2DropNumber = squares[row-1] - squares[row];
 			}
 
@@ -174,12 +169,6 @@ public class PlayerController : MonoBehaviour {
 			square1FindString = "Grid-"+(row-1)+"-"+(squares[row-1] - 2);
 			square2FindString = "Grid-"+(row-1)+"-"+(squares[row-1] - 1);
 		}
-
-
-
-		Debug.Log ("Bean Orientation..." + beanOrientationPositive);
-		Debug.Log ("Square 1..." + square1FindString);
-		Debug.Log ("Square 2..." + square2FindString);
 
 		square1 = GameObject.Find(square1FindString);
 		square2 = GameObject.Find(square2FindString);
@@ -201,7 +190,10 @@ public class PlayerController : MonoBehaviour {
 		}
 		square1.tag = "Ground";
 		square2.tag = "Ground";
+
+		//updateSquares(square1FindString, NewBean.randomBean1);
 	}
+
 
 	public void shiftAntiClockwise(){
 		beanOrientation -= 1;
@@ -220,4 +212,42 @@ public class PlayerController : MonoBehaviour {
 		moveBeanTo = GameObject.Find(positions[Mathf.Abs(beanOrientation)]);
 		beanToMove.transform.position = moveBeanTo.transform.position;
 	}
+
+	public void updateSquares(string squareString, int colour){
+		GameObject square = GameObject.Find(squareString);
+		Square squaresquare = (Square)square.GetComponent (typeof(Square));
+		squaresquare.setColour ("test");
+		//load neighbour 1
+		GameObject neighbour1 = GameObject.Find(squarestringAlteration(squareString, 1));
+		//load neighbour 2
+		GameObject neighbour2 = GameObject.Find(squarestringAlteration(squareString, 2));
+		//load neighbour 3
+		GameObject neighbour3 = GameObject.Find(squarestringAlteration(squareString, 3));
+		//load neighbour 4
+		GameObject neighbour4 = GameObject.Find(squarestringAlteration(squareString, 4));
+	}
+
+	public string squarestringAlteration(string original, int neighbour){
+		string[] textSplit = original.Split(new string[]{"-"}, System.StringSplitOptions.None);
+		int firstNumber = int.Parse (textSplit [1]);
+		int secondNumber = int.Parse (textSplit [2]);
+		if (neighbour == 1) {
+		}
+		else if(neighbour == 2){
+			
+		}
+			else if(neighbour == 3){
+				
+			}
+			else if(neighbour == 4){
+				
+			}
+		return "in progress";
+	}
+
+	//Get the Square script for the square object
+	//Update the colour of the square
+	//Load the square to the left, check the colour...if we have a match, update the chain and directmatches appropriately
+	//updating the chain means check the neighbours chain value, adding that to your own and updating your chain and all the other values
+	//in the chain by one. 
 }
