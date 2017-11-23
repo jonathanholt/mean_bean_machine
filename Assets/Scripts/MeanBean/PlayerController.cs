@@ -155,13 +155,15 @@ public class PlayerController : MonoBehaviour {
 			squares[row-1] += 1;
 			squares[row] += 1;
 			if (squares [row] > squares [row - 1]) {
-				square2DropNumber = squares [row] - squares [row - 1];
+				Debug.Log ("if statement 1...");
+				square1DropNumber = squares [row] - squares [row - 1];
 			}
 			if (squares [row] < squares [row - 1]) {
-				square1DropNumber = squares [row - 1] - squares [row];
+				Debug.Log ("if statement 2...");
+				square2DropNumber = squares[row-1] - squares[row];
 			}
 
-			square1FindString = "Grid-"+(row-1)+"-"+((squares[row-1] - 1) - - square1DropNumber);
+			square1FindString = "Grid-"+(row-1)+"-"+((squares[row-1] - 1) - square1DropNumber);
 			square2FindString = "Grid-"+(row)+"-"+((squares[row-1] - 1) - square2DropNumber);
 
 			//Debug.Log ("1. "+squares[row-1]+ " & 2. " +squares[row]);
@@ -175,9 +177,10 @@ public class PlayerController : MonoBehaviour {
 
 
 
+		Debug.Log ("Bean Orientation..." + beanOrientationPositive);
+		Debug.Log ("Square 1..." + square1FindString);
+		Debug.Log ("Square 2..." + square2FindString);
 
-		//Debug.Log (square1FindString);
-		//Debug.Log (square2FindString);
 		square1 = GameObject.Find(square1FindString);
 		square2 = GameObject.Find(square2FindString);
 		Object [] sprites;
