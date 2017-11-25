@@ -191,7 +191,7 @@ public class PlayerController : MonoBehaviour {
 		square1.tag = "Ground";
 		square2.tag = "Ground";
 
-		//updateSquares(square1FindString, NewBean.randomBean1);
+		matchingFunction(square1FindString, square1, NewBean.randomBean1);
 	}
 
 
@@ -213,36 +213,72 @@ public class PlayerController : MonoBehaviour {
 		beanToMove.transform.position = moveBeanTo.transform.position;
 	}
 
-	public void updateSquares(string squareString, int colour){
-		GameObject square = GameObject.Find(squareString);
-		Square squaresquare = (Square)square.GetComponent (typeof(Square));
-		squaresquare.setColour ("test");
+	//public void updateSquares(string squareString, int colour){
+	//	GameObject square = GameObject.Find(squareString);
+	//	Square squaresquare = (Square)square.GetComponent (typeof(Square));
+	//	squaresquare.setColour ("test");
 		//load neighbour 1
-		GameObject neighbour1 = GameObject.Find(squarestringAlteration(squareString, 1));
+	//	GameObject neighbour1 = GameObject.Find(squarestringAlteration(squareString, 1));
 		//load neighbour 2
-		GameObject neighbour2 = GameObject.Find(squarestringAlteration(squareString, 2));
+	//	GameObject neighbour2 = GameObject.Find(squarestringAlteration(squareString, 2));
 		//load neighbour 3
-		GameObject neighbour3 = GameObject.Find(squarestringAlteration(squareString, 3));
+	//	GameObject neighbour3 = GameObject.Find(squarestringAlteration(squareString, 3));
 		//load neighbour 4
-		GameObject neighbour4 = GameObject.Find(squarestringAlteration(squareString, 4));
-	}
+	//	GameObject neighbour4 = GameObject.Find(squarestringAlteration(squareString, 4));
+	//}
 
-	public string squarestringAlteration(string original, int neighbour){
-		string[] textSplit = original.Split(new string[]{"-"}, System.StringSplitOptions.None);
+	public void matchingFunction(string currentSquare, GameObject square1, int colour){
+		Square squaresquare = (Square)square1.GetComponent (typeof(Square));
+		string[] colours = {"blue","green","purple","red","yellow"};
+		squaresquare.setColour (colours[colour-1]);
+		string[] textSplit = currentSquare.Split (new string[]{ "-" }, System.StringSplitOptions.None);
 		int firstNumber = int.Parse (textSplit [1]);
 		int secondNumber = int.Parse (textSplit [2]);
-		if (neighbour == 1) {
-		}
-		else if(neighbour == 2){
-			
-		}
-			else if(neighbour == 3){
-				
+		for (int i = 0; i < 4; i++) {
+			string newString;
+			if (i == 0 && (firstNumber - 1) > -1) {
+				newString = "Grid-"+(firstNumber-1)+"-"+secondNumber;
+				checkingMatches (newString, square1);
+			} else if (i == 1 && (secondNumber - 1) > -1) {
+				newString = "Grid-"+firstNumber+"-"+(secondNumber-1);
+				checkingMatches (newString, square1);
+			} else if (i == 2 && (firstNumber + 1) < 6) {
+				newString = "Grid-"+(firstNumber+1)+"-"+secondNumber;
+				checkingMatches (newString, square1);
+			} else if (i == 3 && (secondNumber + 1) < 12) {
+				newString = "Grid-"+firstNumber+"-"+(secondNumber+1);
+				checkingMatches (newString, square1);
 			}
-			else if(neighbour == 4){
-				
+		}
+	}
+
+	public void checkingMatches(string newString, GameObject square1){
+		Debug.Log (newString);
+		GameObject newSquare = GameObject.Find(newString);
+		Square squaresquare = (Square)square1.GetComponent (typeof(Square));
+		Square newsquaresquare = (Square)newSquare.GetComponent (typeof(Square));
+		/** if(newsquaresquare.getColour() == squaresquare.getColour()){
+			newsquaresquare.setDirectmatches(newsquaresquare.getDirectmatches()+1);
+			if(newsquaresquare.getDirectmatches() == 4){
+				getDeleting();
 			}
-		return "in progress";
+			squaresquare.setDirectmatches(squaresquare.getDirectmatches()+1);
+			if(squaresquare.getDirectmatches() == 4){
+				getDeleting();
+			}
+			newsquaresquare.setChain(newsquaresquare.getChain()+1);
+			if(newsquaresquare.getChain() == 4){
+				getDeleting();
+			}
+			squaresquare.setChain(squaresquare.getChain()+1);
+			if(squaresquare.getChain() == 4){
+				getDeleting();
+			}
+		} **/
+	}
+
+	public void getDeleting(){
+	
 	}
 
 	//Get the Square script for the square object

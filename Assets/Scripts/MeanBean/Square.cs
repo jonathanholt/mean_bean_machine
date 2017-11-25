@@ -8,6 +8,8 @@ public class Square : MonoBehaviour {
 	private string colour;
 	private int directMatches;
 	private int readyForDeletion;
+	public GameObject[] matches;
+	public GameObject[] chains;
 
 	// Use this for initialization
 	void Start () {
