@@ -192,6 +192,7 @@ public class PlayerController : MonoBehaviour {
 		square2.tag = "Ground";
 
 		matchingFunction(square1FindString, square1, NewBean.randomBean1);
+		matchingFunction(square2FindString, square2, NewBean.randomBean2);
 	}
 
 
@@ -228,7 +229,7 @@ public class PlayerController : MonoBehaviour {
 	//}
 
 	public void matchingFunction(string currentSquare, GameObject square1, int colour){
-		Square squaresquare = (Square)square1.GetComponent (typeof(Square));
+		Square squaresquare = square1.GetComponent<Square>();
 		string[] colours = {"blue","green","purple","red","yellow"};
 		squaresquare.setColour (colours[colour-1]);
 		string[] textSplit = currentSquare.Split (new string[]{ "-" }, System.StringSplitOptions.None);
@@ -253,11 +254,13 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	public void checkingMatches(string newString, GameObject square1){
-		Debug.Log (newString);
-		GameObject newSquare = GameObject.Find(newString);
-		Square squaresquare = (Square)square1.GetComponent (typeof(Square));
-		Square newsquaresquare = (Square)newSquare.GetComponent (typeof(Square));
-		/** if(newsquaresquare.getColour() == squaresquare.getColour()){
+		//Debug.Log ("Checking "+newString+"...");
+		GameObject newSquareOb = GameObject.Find(newString);
+		Square squaresquare = square1.GetComponent<Square>();
+		Square newsquaresquare = newSquareOb.GetComponent<Square>();
+		if(newsquaresquare.getColour() != "" && squaresquare.getColour() != "" && newsquaresquare.getColour() == squaresquare.getColour()){
+			Debug.Log ("match! "+newsquaresquare.getColour()+" "+squaresquare.getColour());
+
 			newsquaresquare.setDirectmatches(newsquaresquare.getDirectmatches()+1);
 			if(newsquaresquare.getDirectmatches() == 4){
 				getDeleting();
@@ -266,19 +269,23 @@ public class PlayerController : MonoBehaviour {
 			if(squaresquare.getDirectmatches() == 4){
 				getDeleting();
 			}
-			newsquaresquare.setChain(newsquaresquare.getChain()+1);
+			if (newsquaresquare.getChain () == 0 && squaresquare.getChain () == 0) {
+				newsquaresquare.setChain (newsquaresquare.getChain () + 1 + squaresquare.getChain () + 1);
+			} else {
+				newsquaresquare.setChain (newsquaresquare.getChain () + squaresquare.getChain () + 1);
+			}
 			if(newsquaresquare.getChain() == 4){
 				getDeleting();
 			}
-			squaresquare.setChain(squaresquare.getChain()+1);
+			squaresquare.setChain(squaresquare.getChain() + newsquaresquare.getChain());
 			if(squaresquare.getChain() == 4){
 				getDeleting();
 			}
-		} **/
+		}
 	}
 
 	public void getDeleting(){
-	
+		Debug.Log ("DELETING!!");
 	}
 
 	//Get the Square script for the square object

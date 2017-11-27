@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Square : MonoBehaviour {
 
-	private int chain;
+	public int chain;
 	private string colour;
-	private int directMatches;
+	public int directMatches;
 	private int readyForDeletion;
 	public GameObject[] matches;
 	public GameObject[] chains;
@@ -36,11 +36,13 @@ public class Square : MonoBehaviour {
 	}
 
 	public void setColour(string newColour){
+		//Debug.Log (newColour);
 		colour = newColour;
 	}
 
 	public void setDirectmatches(int newDirectmatches){
 		directMatches = newDirectmatches;
+		Debug.Log("new direct matches= "+directMatches);
 	}
 
 }
