@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class PlayerController : MonoBehaviour {
 
@@ -43,6 +44,7 @@ public class PlayerController : MonoBehaviour {
 	public GameObject square2;
 	public int beanOrientation;
 	public string[] positions = new string[] {"beanHolderUp", "beanHolderLeft", "beanHolderDown", "beanHolderRight"};
+	public List<GameObject> matches;
 
 
 	// Use this for initialization
@@ -172,6 +174,8 @@ public class PlayerController : MonoBehaviour {
 
 		square1 = GameObject.Find(square1FindString);
 		square2 = GameObject.Find(square2FindString);
+		//Debug.Log ("Square 1 ... " + square1FindString);
+		//Debug.Log ("Square 2 ... " + square2FindString);
 		Object [] sprites;
 		sprites = Resources.LoadAll ("beans");
 		square1.GetComponent<SpriteRenderer>().sprite = (Sprite)sprites [NewBean.randomBean1];
@@ -259,33 +263,70 @@ public class PlayerController : MonoBehaviour {
 		Square squaresquare = square1.GetComponent<Square>();
 		Square newsquaresquare = newSquareOb.GetComponent<Square>();
 		if(newsquaresquare.getColour() != "" && squaresquare.getColour() != "" && newsquaresquare.getColour() == squaresquare.getColour()){
-			Debug.Log ("match! "+newsquaresquare.getColour()+" "+squaresquare.getColour());
+			//Debug.Log ("match! "+newsquaresquare.getColour()+" "+squaresquare.getColour());
 
 			newsquaresquare.setDirectmatches(newsquaresquare.getDirectmatches()+1);
+			newsquaresquare.addMatch (square1);
 			if(newsquaresquare.getDirectmatches() == 4){
-				getDeleting();
+				Debug.Log ("from match 1...");
+				getDeleting(newsquaresquare.getMatchList(), newSquareOb);
+				getDeleting(newsquaresquare.getChainList(), newSquareOb);
 			}
 			squaresquare.setDirectmatches(squaresquare.getDirectmatches()+1);
+			squaresquare.addMatch (newSquareOb);
 			if(squaresquare.getDirectmatches() == 4){
-				getDeleting();
+				Debug.Log ("from match 2...");
+				getDeleting(squaresquare.getMatchList(), square1);
+				getDeleting(squaresquare.getChainList(), square1);
 			}
+
+
+
 			if (newsquaresquare.getChain () == 0 && squaresquare.getChain () == 0) {
 				newsquaresquare.setChain (newsquaresquare.getChain () + 1 + squaresquare.getChain () + 1);
+				newsquaresquare.addChain (square1);
+				newsquaresquare.addChain (newSquareOb);
+				squaresquare.addChain (newSquareOb);
+				squaresquare.addChain (square1);
 			} else {
 				newsquaresquare.setChain (newsquaresquare.getChain () + squaresquare.getChain () + 1);
+				newsquaresquare.addChainLink (squaresquare.getChainList());
+			
 			}
 			if(newsquaresquare.getChain() == 4){
-				getDeleting();
+				Debug.Log ("from chain 3...");
+				getDeleting(newsquaresquare.getChainList(), newSquareOb);
+				getDeleting(newsquaresquare.getMatchList(), newSquareOb);
 			}
 			squaresquare.setChain(squaresquare.getChain() + newsquaresquare.getChain());
+			squaresquare.addChainLink (newsquaresquare.getChainList ());
 			if(squaresquare.getChain() == 4){
-				getDeleting();
+				Debug.Log ("from chain 4...");
+				getDeleting(squaresquare.getChainList(), square1);
+				getDeleting(squaresquare.getMatchList(), square1);
 			}
 		}
 	}
 
-	public void getDeleting(){
-		Debug.Log ("DELETING!!");
+	public void getDeleting(List<GameObject> culprits, GameObject finalDeletion){
+		Debug.Log ("DELETE");
+		matches = culprits;
+		//iterate through the list
+		foreach(GameObject newgameobject in culprits){
+			Debug.Log (newgameobject.transform.name);
+			newgameobject.GetComponent<SpriteRenderer> ().sprite = null;
+			Square squaresquare = newgameobject.GetComponent<Square>();	
+			List<GameObject> matchesmatches = squaresquare.getMatchList ();
+			foreach(GameObject newgameobjectinner in matchesmatches){
+				newgameobject.GetComponent<SpriteRenderer> ().sprite = null;
+			}
+			List<GameObject> matchesmatches2 = squaresquare.getChainList ();
+			foreach(GameObject newgameobjectinner in matchesmatches2){
+				newgameobject.GetComponent<SpriteRenderer> ().sprite = null;
+			}
+		}
+		finalDeletion.GetComponent<SpriteRenderer> ().sprite = null;
+		//foreach, get the name of the object and change it's sprite to the box
 	}
 
 	//Get the Square script for the square object

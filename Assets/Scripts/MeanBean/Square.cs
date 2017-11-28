@@ -8,8 +8,8 @@ public class Square : MonoBehaviour {
 	private string colour;
 	public int directMatches;
 	private int readyForDeletion;
-	public GameObject[] matches;
-	public GameObject[] chains;
+	public List<GameObject> matches;
+	public List<GameObject> chains;
 
 	// Use this for initialization
 	void Start () {
@@ -42,7 +42,31 @@ public class Square : MonoBehaviour {
 
 	public void setDirectmatches(int newDirectmatches){
 		directMatches = newDirectmatches;
-		Debug.Log("new direct matches= "+directMatches);
+		//Debug.Log("new direct matches= "+directMatches);
+	}
+
+	public void addMatch(GameObject match){
+		matches.Add(match);
+	}
+
+	public void addChain(GameObject chain){
+		chains.Add(chain);
+	}
+
+	public int chainCount(){
+		return chains.Count;
+	}
+
+	public List<GameObject> getChainList(){
+		return chains;
+	}
+
+	public List<GameObject> getMatchList(){
+		return matches;
+	}
+
+	public void addChainLink(List<GameObject> newChain){
+		chains.AddRange(newChain);
 	}
 
 }
