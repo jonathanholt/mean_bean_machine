@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 public class PlayerController : MonoBehaviour {
 
@@ -270,14 +271,12 @@ public class PlayerController : MonoBehaviour {
 			if(newsquaresquare.getDirectmatches() == 4){
 				Debug.Log ("from match 1...");
 				getDeleting(newsquaresquare.getMatchList(), newSquareOb);
-				getDeleting(newsquaresquare.getChainList(), newSquareOb);
 			}
 			squaresquare.setDirectmatches(squaresquare.getDirectmatches()+1);
 			squaresquare.addMatch (newSquareOb);
 			if(squaresquare.getDirectmatches() == 4){
 				Debug.Log ("from match 2...");
 				getDeleting(squaresquare.getMatchList(), square1);
-				getDeleting(squaresquare.getChainList(), square1);
 			}
 
 
@@ -296,7 +295,7 @@ public class PlayerController : MonoBehaviour {
 			if(newsquaresquare.getChain() == 4){
 				Debug.Log ("from chain 3...");
 				getDeleting(newsquaresquare.getChainList(), newSquareOb);
-				getDeleting(newsquaresquare.getMatchList(), newSquareOb);
+				getDeleting(squaresquare.getMatchList(), square1);
 			}
 			squaresquare.setChain(squaresquare.getChain() + newsquaresquare.getChain());
 			squaresquare.addChainLink (newsquaresquare.getChainList ());
@@ -310,23 +309,49 @@ public class PlayerController : MonoBehaviour {
 
 	public void getDeleting(List<GameObject> culprits, GameObject finalDeletion){
 		Debug.Log ("DELETE");
+		List<GameObject> affectedSquares = new List<GameObject>();
 		matches = culprits;
 		//iterate through the list
 		foreach(GameObject newgameobject in culprits){
+			affectedSquares.Add (newgameobject);
 			Debug.Log (newgameobject.transform.name);
 			newgameobject.GetComponent<SpriteRenderer> ().sprite = null;
 			Square squaresquare = newgameobject.GetComponent<Square>();	
 			List<GameObject> matchesmatches = squaresquare.getMatchList ();
 			foreach(GameObject newgameobjectinner in matchesmatches){
 				newgameobject.GetComponent<SpriteRenderer> ().sprite = null;
+				affectedSquares.Add (newgameobjectinner);
 			}
 			List<GameObject> matchesmatches2 = squaresquare.getChainList ();
 			foreach(GameObject newgameobjectinner in matchesmatches2){
 				newgameobject.GetComponent<SpriteRenderer> ().sprite = null;
+				affectedSquares.Add (newgameobjectinner);
 			}
 		}
 		finalDeletion.GetComponent<SpriteRenderer> ().sprite = null;
+
+		List<GameObject> noDupes = affectedSquares.Distinct().ToList();
+		foreach (GameObject noDupe in noDupes) {
+			string name = noDupe.transform.name;
+			string[] textSplit = name.Split (new string[]{ "-" }, System.StringSplitOptions.None);
+			int firstNumber = int.Parse (textSplit [1]);
+			int secondNumber = int.Parse (textSplit [2]);
+			squares [secondNumber] -= 1;
+			for (int i = secondNumber; i < (12 - secondNumber); i++) {
+				string texttosearch = "Grid=" + firstNumber + "-" + secondNumber;
+				string secondtexttosearch = "Grid=" + firstNumber + "-" + (secondNumber-1);
+				square1 = GameObject.Find(texttosearch);
+				square2 = GameObject.Find(secondtexttosearch);
+				square2.GetComponent<SpriteRenderer> ().sprite = square1.GetComponent<SpriteRenderer> ().sprite;
+
+
+			}
+		}
 		//foreach, get the name of the object and change it's sprite to the box
+
+		//get a list of all squares that had a deletion
+		//for each square, get string and check if there is a square on top.
+		//if there is, move it down. If there is a square on top of that, move it down too
 	}
 
 	//Get the Square script for the square object
