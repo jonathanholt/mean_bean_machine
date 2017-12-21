@@ -5,9 +5,8 @@ using UnityEngine;
 public class Square : MonoBehaviour {
 
 	public int chain;
-	private string colour;
+	public string colour;
 	public int directMatches;
-	private int readyForDeletion;
 	public List<GameObject> matches;
 	public List<GameObject> chains;
 
@@ -16,7 +15,6 @@ public class Square : MonoBehaviour {
 		chain = 0;
 		colour = "";
 		directMatches = 0;
-		readyForDeletion = 0;
 	}
 
 	public int getChain(){
