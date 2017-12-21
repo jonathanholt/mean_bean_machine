@@ -57,12 +57,10 @@ public class TextBoxManager : MonoBehaviour {
 
 	public void EnableTextBox(){
 		textBox.SetActive (true);
-		player.canMove = false;
 	}
 
 	public void DisableTextBox(){
 		textBox.SetActive (false);
-		player.canMove = true;
 	}
 
 	public void ReloadScript(TextAsset theText){

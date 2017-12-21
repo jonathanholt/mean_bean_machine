@@ -61,7 +61,5 @@ public class LevelLoader : MonoBehaviour {
 	void levelEnd(){
 		if(audioSource)
 			audioSource.Play ();
-		player.Jump ();
-		player.canMove = false;
 	}
 }

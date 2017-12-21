@@ -5,39 +5,6 @@ using System.Linq;
 
 public class PlayerController : MonoBehaviour {
 
-	public float moveSpeed;
-	private float moveVelocity;
-	public float jumpHeight;
-
-    public Transform groundCheck;
-    public float groundCheckRadius;
-    public LayerMask whatIsGround;
-    private bool grounded;
-    private bool doubleJumped;
-	private Animator anim;
-	public Transform firePoint;
-	public GameObject ninjaStar;
-
-	private Rigidbody2D myrigidbody2D;
-
-	public float knockback;
-	public float knockbackLength;
-	public float knockbackCount;
-	public bool knockFromRight;
-
-	public bool onLadder;
-	public float climbSpeed;
-	private float climbVelocity;
-	public float gravityStore;
-
-
-
-	public bool canMove;
-	private bool collidedTrue;
-
-
-
-	//Mean Bean Variables
 	private GameObject startPoint;
 	private int row;
 	private int[] squares = new int[] {0, 0, 0, 0, 0, 0};
@@ -48,19 +15,20 @@ public class PlayerController : MonoBehaviour {
 	public List<GameObject> matches;
 
 
-	// Use this for initialization
+	/*
+	 * 	Called at the start of the level once. Sets some basic variable values
+	 */ 
 	void Start () {
-		anim = GetComponent<Animator>();
-		collidedTrue = false;
 		startPoint = GameObject.Find("StartPoint");
 		row = 3;
 		beanOrientation = 0;
 	}
 	
-	// Update is called once per frame
+	/*
+	 *	Update is called once per frame. Used to detect key up events
+	 */ 
 	void Update () {
-		if (Input.GetKeyUp ("down")) {
-		
+		if (Input.GetKeyUp ("down")) {	
 		}
 		if (Input.GetKeyUp ("left") && row > 1) {
 			transform.position += Vector3.left * 0.53f;
@@ -76,54 +44,22 @@ public class PlayerController : MonoBehaviour {
 		if (Input.GetKeyUp ("s")) {
 			shiftClockwise ();		
 		}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-		if (!canMove) {
-			GetComponent<Rigidbody2D> ().velocity = new Vector2 (0, 0);
-			//Debug.Log ("state 1");
-			return;
-		}
-
-		anim.SetBool("Grounded", grounded);
-
-		if (knockbackCount <= 0) {
-			GetComponent<Rigidbody2D> ().velocity = new Vector2 (moveVelocity, GetComponent<Rigidbody2D> ().velocity.y);
-		} else {
-			if (knockFromRight) {
-				GetComponent<Rigidbody2D> ().velocity = new Vector2 (-knockback, knockback);
-			}
-			if (!knockFromRight) {
-				GetComponent<Rigidbody2D> ().velocity = new Vector2 (knockback, knockback);
-			}
-			knockbackCount -= Time.deltaTime;
-		}
-
-		anim.SetFloat("Speed", Mathf.Abs(GetComponent<Rigidbody2D>().velocity.x));
     }
 
-    public void Jump()
-    {
-        GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x, jumpHeight);
-    }
-
+	/*
+	 * 	Detect Player collision with the bottom of the grid and call functions
+	 */ 
 	public void OnCollisionEnter2D(Collision2D other){
 		updateGrid ();
+		reinitGame ();
+	}
+
+	/*
+	 * 	Start player off at top of screen with new bean pair
+	 */ 
+	public void reinitGame(){
 		transform.position = startPoint.transform.position;
-		NewBean.getNewBean ();
+		NewBean.createNewBeanPair ();
 		row = 3;
 	}
 
@@ -269,13 +205,13 @@ public class PlayerController : MonoBehaviour {
 			newsquaresquare.setDirectmatches(newsquaresquare.getDirectmatches()+1);
 			newsquaresquare.addMatch (square1);
 			if(newsquaresquare.getDirectmatches() == 4){
-				Debug.Log ("from match 1...");
+				//Debug.Log ("from match 1...");
 				getDeleting(newsquaresquare.getMatchList(), newSquareOb);
 			}
 			squaresquare.setDirectmatches(squaresquare.getDirectmatches()+1);
 			squaresquare.addMatch (newSquareOb);
 			if(squaresquare.getDirectmatches() == 4){
-				Debug.Log ("from match 2...");
+				//Debug.Log ("from match 2...");
 				getDeleting(squaresquare.getMatchList(), square1);
 			}
 
@@ -293,38 +229,44 @@ public class PlayerController : MonoBehaviour {
 			
 			}
 			if(newsquaresquare.getChain() == 4){
-				Debug.Log ("from chain 3...");
+				//Debug.Log ("from chain 3...");
 				getDeleting(newsquaresquare.getChainList(), newSquareOb);
 				getDeleting(squaresquare.getMatchList(), square1);
 			}
 			squaresquare.setChain(squaresquare.getChain() + newsquaresquare.getChain());
 			squaresquare.addChainLink (newsquaresquare.getChainList ());
 			if(squaresquare.getChain() == 4){
-				Debug.Log ("from chain 4...");
+				//Debug.Log ("from chain 4...");
 				getDeleting(squaresquare.getChainList(), square1);
 				getDeleting(squaresquare.getMatchList(), square1);
 			}
 		}
 	}
 
+
+
 	public void getDeleting(List<GameObject> culprits, GameObject finalDeletion){
-		Debug.Log ("DELETE");
+		//Debug.Log ("DELETE");
 		List<GameObject> affectedSquares = new List<GameObject>();
 		matches = culprits;
 		//iterate through the list
 		foreach(GameObject newgameobject in culprits){
 			affectedSquares.Add (newgameobject);
-			Debug.Log (newgameobject.transform.name);
+			//Debug.Log (newgameobject.transform.name);
 			newgameobject.GetComponent<SpriteRenderer> ().sprite = null;
+			Destroy(newgameobject.GetComponent<BoxCollider2D> ());
+
 			Square squaresquare = newgameobject.GetComponent<Square>();	
 			List<GameObject> matchesmatches = squaresquare.getMatchList ();
 			foreach(GameObject newgameobjectinner in matchesmatches){
 				newgameobject.GetComponent<SpriteRenderer> ().sprite = null;
+				Destroy(newgameobject.GetComponent<BoxCollider2D> ());
 				affectedSquares.Add (newgameobjectinner);
 			}
 			List<GameObject> matchesmatches2 = squaresquare.getChainList ();
 			foreach(GameObject newgameobjectinner in matchesmatches2){
 				newgameobject.GetComponent<SpriteRenderer> ().sprite = null;
+
 				affectedSquares.Add (newgameobjectinner);
 			}
 		}
@@ -337,26 +279,54 @@ public class PlayerController : MonoBehaviour {
 			int firstNumber = int.Parse (textSplit [1]);
 			int secondNumber = int.Parse (textSplit [2]);
 			squares [secondNumber] -= 1;
-			for (int i = secondNumber; i < (12 - secondNumber); i++) {
-				string texttosearch = "Grid=" + firstNumber + "-" + secondNumber;
-				string secondtexttosearch = "Grid=" + firstNumber + "-" + (secondNumber-1);
-				square1 = GameObject.Find(texttosearch);
-				square2 = GameObject.Find(secondtexttosearch);
-				square2.GetComponent<SpriteRenderer> ().sprite = square1.GetComponent<SpriteRenderer> ().sprite;
+				//string texttosearch = "Grid=" + firstNumber + "-" + secondNumber;
+				//string secondtexttosearch = "Grid=" + firstNumber + "-" + (secondNumber+1);
+				//square1 = GameObject.Find(texttosearch);
+				//square2 = GameObject.Find(secondtexttosearch);
+
+				//square1.GetComponent<SpriteRenderer> ().sprite = square2.GetComponent<SpriteRenderer> ().sprite;
+			}
+
+		gridRearrange ();
+		}
 
 
+	public void gridRearrange(){
+		for (int i = 0; i < 12; i++) {
+			for (int j = 0; j < 6; j++) {
 			}
 		}
+
+		Debug.Log ("Here");
+
+		for(int newintorig = 0; newintorig < 6; newintorig ++){
+			int[] squareValues = new int[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+			for(int newint = 0; newint < 12; newint ++){
+				GameObject newSquareOb = GameObject.Find("Grid-"+newintorig+"-"+newint);
+				Square newsquaresquare = newSquareOb.GetComponent<Square>();
+				if(newsquaresquare.getColour() != ""){
+					Debug.Log ("Grid-" + newintorig + "-" + newint);
+				//	squareValues[integer] = 1;
+				}
+			}
+		}
+
+
 		//foreach, get the name of the object and change it's sprite to the box
 
 		//get a list of all squares that had a deletion
 		//for each square, get string and check if there is a square on top.
 		//if there is, move it down. If there is a square on top of that, move it down too
 	}
+	
 
 	//Get the Square script for the square object
 	//Update the colour of the square
 	//Load the square to the left, check the colour...if we have a match, update the chain and directmatches appropriately
 	//updating the chain means check the neighbours chain value, adding that to your own and updating your chain and all the other values
 	//in the chain by one. 
+
+
+
+
 }

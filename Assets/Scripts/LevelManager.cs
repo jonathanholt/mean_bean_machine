@@ -47,7 +47,6 @@ public class LevelManager : MonoBehaviour {
 		//player.GetComponent<Rigidbody2D> ().gravityScale = gravityStore;
 		Application.LoadLevel(Application.loadedLevel);
 		player.transform.position = currentCheckpoint.transform.position;
-		player.knockbackCount = 0;
 		camera.isFollowing = true;
 		player.enabled = true;
 		player.GetComponent<Renderer> ().enabled = true;
