@@ -41,20 +41,32 @@ public class PlayerController : MonoBehaviour {
 			row++;
 		}
 		if (Input.GetKeyUp ("a")) {
-			beanOrientation -= 1;
-			rotate ();		
+			//anticlockwise
+			if ((beanOrientation%4 == 0 && row == 1) || (row == 6 && beanOrientation%4 == -2)) {
+				Debug.Log ("Not OKAY!");
+			} else {
+				Debug.Log ("0 = " + beanOrientation + " r = " + row);
+				beanOrientation -= 1;
+				rotate ();
+			}
 		}
 		if (Input.GetKeyUp ("s")) {
-			beanOrientation += 1;
-			rotate ();		
+			//anticlockwise
+			if ((beanOrientation % 4 == 2 && row == 1) || (row == 6 && beanOrientation % 4 == 0)) {
+				Debug.Log ("Not OKAY!");
+			} else {
+				//clockwise
+				beanOrientation += 1;
+				rotate ();
+			}
 		}
     }
 
 	public void rotate(){
 		beanOrientation = beanOrientation % 4;
+		Debug.Log (beanOrientation);
 		GameObject beanToMove = GameObject.Find("bean2");
 		beanToMove.transform.position = GameObject.Find(positions[Mathf.Abs(beanOrientation)]).transform.position;
-
 	}
 
 	/*
