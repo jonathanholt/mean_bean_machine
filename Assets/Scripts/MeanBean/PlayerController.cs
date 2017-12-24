@@ -32,11 +32,12 @@ public class PlayerController : MonoBehaviour {
 		if (Input.GetKeyUp ("down")) {
 		
 		}
-		if (Input.GetKeyUp ("left") && row > 1) {
+		if (Input.GetKeyUp ("left") && row > 1 && !(beanOrientation == 1 && row == 2)) {
 			transform.position += Vector3.left * 0.53f;
 			row--;
 		}
-		if (Input.GetKeyUp ("right") && row < 6) {
+		if (Input.GetKeyUp ("right") && row < 6 && !(beanOrientation == 3 && row == 5)) {
+			Debug.Log (beanOrientation + " " + row);
 			transform.position += Vector3.right * 0.53f;
 			row++;
 		}
@@ -63,7 +64,7 @@ public class PlayerController : MonoBehaviour {
 
 	public void rotate(){
 		beanOrientation = beanOrientation % 4;
-		Debug.Log (beanOrientation);
+		//Debug.Log (beanOrientation);
 		GameObject beanToMove = GameObject.Find("bean2");
 		beanToMove.transform.position = GameObject.Find(positions[Mathf.Abs(beanOrientation)]).transform.position;
 	}
