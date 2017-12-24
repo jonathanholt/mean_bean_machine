@@ -45,8 +45,7 @@ public class PlayerController : MonoBehaviour {
 			if ((beanOrientation%4 == 0 && row == 1) || (row == 6 && beanOrientation%4 == -2)) {
 				Debug.Log ("Not OKAY!");
 			} else {
-				Debug.Log ("0 = " + beanOrientation + " r = " + row);
-				beanOrientation -= 1;
+				beanOrientation += 3;
 				rotate ();
 			}
 		}
