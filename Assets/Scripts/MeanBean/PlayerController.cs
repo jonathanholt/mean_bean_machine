@@ -42,17 +42,17 @@ public class PlayerController : MonoBehaviour {
 			row++;
 		}
 		if (Input.GetKeyUp ("a")) {
-			//anticlockwise
-			if ((beanOrientation%4 == 0 && row == 1) || (row == 6 && beanOrientation%4 == -2)) {
+			//anticlockwise 
+			if ((beanOrientation % 4 == 2 && row == 1) || (row == 6 && beanOrientation % 4 == 0)) {
 				Debug.Log ("Not OKAY!");
-			} else {
+			}else {
 				beanOrientation += 3;
 				rotate ();
 			}
 		}
 		if (Input.GetKeyUp ("s")) {
 			//anticlockwise
-			if ((beanOrientation % 4 == 2 && row == 1) || (row == 6 && beanOrientation % 4 == 0)) {
+			if ((beanOrientation%4 == 0 && row == 1) || (row == 6 && beanOrientation%4 == 2)) {
 				Debug.Log ("Not OKAY!");
 			} else {
 				//clockwise
