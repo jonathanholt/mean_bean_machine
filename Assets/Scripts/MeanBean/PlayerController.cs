@@ -41,29 +41,20 @@ public class PlayerController : MonoBehaviour {
 			row++;
 		}
 		if (Input.GetKeyUp ("a")) {
-			shiftAntiClockwise ();		
+			beanOrientation -= 1;
+			rotate ();		
 		}
 		if (Input.GetKeyUp ("s")) {
-			shiftClockwise ();		
+			beanOrientation += 1;
+			rotate ();		
 		}
     }
 
-	public void shiftAntiClockwise(){
-		beanOrientation -= 1;
+	public void rotate(){
 		beanOrientation = beanOrientation % 4;
 		GameObject beanToMove = GameObject.Find("bean2");
-		GameObject moveBeanTo = new GameObject ();
-		moveBeanTo = GameObject.Find(positions[Mathf.Abs(beanOrientation)]);
-		beanToMove.transform.position = moveBeanTo.transform.position;
-	}
+		beanToMove.transform.position = GameObject.Find(positions[Mathf.Abs(beanOrientation)]).transform.position;
 
-	public void shiftClockwise(){
-		beanOrientation += 1;
-		beanOrientation = beanOrientation % 4;
-		GameObject beanToMove = GameObject.Find("bean2");
-		GameObject moveBeanTo = new GameObject ();
-		moveBeanTo = GameObject.Find(positions[Mathf.Abs(beanOrientation)]);
-		beanToMove.transform.position = moveBeanTo.transform.position;
 	}
 
 	/*
@@ -278,28 +269,45 @@ public class PlayerController : MonoBehaviour {
 	 * 	Post-deletion reorganisation of grid.
 	 */ 
 	public void gridRearrange(){
-		Debug.Log ("Here");
-
 		for(int newintorig = 0; newintorig < 6; newintorig ++){
 			int[] squareValues = new int[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 			for(int newint = 0; newint < 12; newint ++){
 				GameObject newSquareOb = GameObject.Find("Grid-"+newintorig+"-"+newint);
 				Square newsquaresquare = newSquareOb.GetComponent<Square>();
 				if(newsquaresquare.getColour() != "" ){
-					Debug.Log ("Grid-" + newintorig + "-" + newint);
 					squareValues [newint] = 1;
 				}
 			}
+
 			bool hitAZero = false;
-			int firstZeroPosition;
+			int firstZeroPosition = 0;
 			int counter = 0;
 			foreach(int squareValue in squareValues){
-				if(squareValue == 0){
+				//Debug.Log ("Grid-"+newintorig+"-"+counter+" = "+squareValue);
+				if(squareValue == 0 && !hitAZero){
 					hitAZero = true;
 					firstZeroPosition = counter;
 				}
 				if(squareValue == 1 && hitAZero){
+					//Debug.Log ("First zero position = " + firstZeroPosition);
+					//Debug.Log ("This is square..." + "Grid-" + newintorig + "-" + firstZeroPosition);
 					//do all of the swapping here!
+					GameObject newSquareOb = GameObject.Find("Grid-"+newintorig+"-"+counter);
+					Square newsquaresquare = newSquareOb.GetComponent<Square>();
+					GameObject newSquareOb2 = GameObject.Find("Grid-"+newintorig+"-"+firstZeroPosition);
+					Square newsquaresquare2 = newSquareOb.GetComponent<Square>();
+
+					Sprite placeHolderSprite = newsquaresquare.GetComponent<SpriteRenderer> ().sprite;
+					Sprite placeHolderSprite2 = newsquaresquare2.GetComponent<SpriteRenderer> ().sprite;
+
+					Object [] sprites;
+					sprites = Resources.LoadAll ("beans");
+					newsquaresquare.GetComponent<SpriteRenderer>().sprite = (Sprite)sprites [NewBean.randomBean1];
+					newsquaresquare2.GetComponent<SpriteRenderer>().sprite = (Sprite)sprites [NewBean.randomBean2];
+					Debug.Log ("Swapping happening");
+					Debug.Log ("Grid-"+newintorig+"-"+counter);
+					Debug.Log ("Grid-"+newintorig+"-"+firstZeroPosition);
+					return;
 				}
 				counter ++;
 		}
