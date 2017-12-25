@@ -37,14 +37,14 @@ public class PlayerController : MonoBehaviour {
 			row--;
 		}
 		if (Input.GetKeyUp ("right") && row < 6 && !(beanOrientation == 3 && row == 5)) {
-			Debug.Log (beanOrientation + " " + row);
+			//Debug.Log (beanOrientation + " " + row);
 			transform.position += Vector3.right * 0.53f;
 			row++;
 		}
 		if (Input.GetKeyUp ("a")) {
 			//anticlockwise 
 			if ((beanOrientation % 4 == 2 && row == 1) || (row == 6 && beanOrientation % 4 == 0)) {
-				Debug.Log ("Not OKAY!");
+				//Debug.Log ("Not OKAY!");
 			}else {
 				beanOrientation += 3;
 				rotate ();
@@ -53,7 +53,7 @@ public class PlayerController : MonoBehaviour {
 		if (Input.GetKeyUp ("s")) {
 			//anticlockwise
 			if ((beanOrientation%4 == 0 && row == 1) || (row == 6 && beanOrientation%4 == 2)) {
-				Debug.Log ("Not OKAY!");
+				//Debug.Log ("Not OKAY!");
 			} else {
 				//clockwise
 				beanOrientation += 1;
@@ -77,6 +77,10 @@ public class PlayerController : MonoBehaviour {
 		reinitGame ();
 	}
 
+	public void childCollision(){
+		Debug.Log ("test");
+	}
+
 	/*
 	 * 	Start player off at top of screen with new bean pair
 	 */ 
@@ -95,11 +99,12 @@ public class PlayerController : MonoBehaviour {
 	 */ 
 	public void getSquaresToUpdate(){
 		int beanOrientationPositive = Mathf.Abs(beanOrientation);
-		string square1FindString;
-		string square2FindString;
+		string square1FindString = null;
+		string square2FindString = null;
 		int square1DropNumber = 0;
 		int square2DropNumber = 0;
 		if(beanOrientationPositive == 1){
+			Debug.Log ("B");
 			squares[row-1] += 1;
 			squares[row-2] += 1;
 			if (squares [row - 1] > squares [row - 2]) {
@@ -112,11 +117,13 @@ public class PlayerController : MonoBehaviour {
 			square2FindString = "Grid-"+(row-2)+"-"+((squares[row-1] - 1) - square2DropNumber);
 		}
 		else if(beanOrientationPositive == 2){
+			Debug.Log ("C");
 			squares[row-1] += 2;
 			square1FindString = "Grid-"+(row-1)+"-"+(squares[row-1] - 1);
 				square2FindString = "Grid-"+(row-1)+"-"+(squares[row-1] - 2);
 		}
 		else if (beanOrientationPositive == 3){
+			Debug.Log ("D");
 			squares[row-1] += 1;
 			squares[row] += 1;
 			if (squares [row] > squares [row - 1]) {
@@ -125,11 +132,17 @@ public class PlayerController : MonoBehaviour {
 			if (squares [row] < squares [row - 1]) {
 				square2DropNumber = squares[row-1] - squares[row];
 			}
-
-			square1FindString = "Grid-"+(row-1)+"-"+((squares[row-1] - 1) - square1DropNumber);
+			Debug.Log ("Before..." + square1FindString);
+			square1FindString = "Grid-" + (row - 1);
+			Debug.Log ("After..." + square1FindString);
+			square1FindString = square1FindString + "-";
+			Debug.Log ("After 2..." + square1FindString);
+			square1FindString = square1FindString + ((squares[row-1] - 1) - square1DropNumber);
+			Debug.Log ("After 3..." + square1FindString);
 			square2FindString = "Grid-"+(row)+"-"+((squares[row-1] - 1) - square2DropNumber);
 		}
 		else{
+			Debug.Log ("E");
 			squares[row-1] += 2;
 			square1FindString = "Grid-"+(row-1)+"-"+(squares[row-1] - 2);
 			square2FindString = "Grid-"+(row-1)+"-"+(squares[row-1] - 1);
@@ -137,6 +150,7 @@ public class PlayerController : MonoBehaviour {
 			
 		square1 = GameObject.Find(square1FindString);
 		square2 = GameObject.Find(square2FindString);
+		Debug.Log (square1FindString + " " + square2FindString);
 		updateSquareProperties (square1, square2, square1FindString, square2FindString);
 	}
 
@@ -316,9 +330,9 @@ public class PlayerController : MonoBehaviour {
 					sprites = Resources.LoadAll ("beans");
 					newsquaresquare.GetComponent<SpriteRenderer>().sprite = (Sprite)sprites [NewBean.randomBean1];
 					newsquaresquare2.GetComponent<SpriteRenderer>().sprite = (Sprite)sprites [NewBean.randomBean2];
-					Debug.Log ("Swapping happening");
-					Debug.Log ("Grid-"+newintorig+"-"+counter);
-					Debug.Log ("Grid-"+newintorig+"-"+firstZeroPosition);
+					//Debug.Log ("Swapping happening");
+					//Debug.Log ("Grid-"+newintorig+"-"+counter);
+					//Debug.Log ("Grid-"+newintorig+"-"+firstZeroPosition);
 					return;
 				}
 				counter ++;
