@@ -129,11 +129,19 @@ public class PlayerController : MonoBehaviour {
 			Debug.Log (objectCollidedWith);
 			//if the row from the number above doesn't equal the equation below, we need to do something different
 			//so we need to break down this string
+			square1FindString = null;
+			square2FindString = null;
 			if (objectCollidedWith != "Ground") {
 				string[] textSplit = objectCollidedWith.Split (new string[]{ "-" }, System.StringSplitOptions.None);
 				int firstNumber = int.Parse (textSplit [1]);
 				int secondNumber = int.Parse (textSplit [2]);
-				Debug.Log ("Are these the same..?" + firstNumber + " " + (row - 1));
+					if (firstNumber != row - 1) {
+						Debug.Log ("Are these the same..?" + firstNumber + " " + (row - 1)); 
+						square2FindString = "Grid-"+(row)+"-"+((squares[row]));
+						Debug.Log ("Looky here..." + square2FindString);
+						square1FindString = "Grid-" + (row - 1)+ "-"+((squares[row-1]));
+						Debug.Log ("Looky here again..." + square1FindString);
+					}
 			}
 			squares[row-1] += 1;
 			squares[row] += 1;
@@ -143,6 +151,7 @@ public class PlayerController : MonoBehaviour {
 			if (squares [row] < squares [row - 1]) {
 				square2DropNumber = squares[row-1] - squares[row];
 			}
+			if(square1FindString == null){
 			//Debug.Log ("Before..." + square1FindString);
 			square1FindString = "Grid-" + (row - 1);
 			//Debug.Log ("After..." + square1FindString);
@@ -150,7 +159,13 @@ public class PlayerController : MonoBehaviour {
 			//Debug.Log ("After 2..." + square1FindString);
 			square1FindString = square1FindString + ((squares[row-1] - 1) - square1DropNumber);
 			//Debug.Log ("After 3..." + square1FindString);
-			square2FindString = "Grid-"+(row)+"-"+((squares[row-1] - 1) - square2DropNumber);
+			}
+			if(square2FindString == null){
+				square2FindString = "Grid-"+(row)+"-"+((squares[row-1] - 1) - square2DropNumber);
+			}
+			Debug.Log(square1FindString);
+			Debug.Log (square2FindString);
+
 		}
 		else{
 			//Debug.Log ("E");
