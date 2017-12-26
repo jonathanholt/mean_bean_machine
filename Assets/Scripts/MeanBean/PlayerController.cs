@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour {
 	public int beanOrientation;
 	public string[] positions = new string[] {"beanHolderUp", "beanHolderLeft", "beanHolderDown", "beanHolderRight"};
 	public List<GameObject> matches;
+	public string objectCollidedWith;
 
 
 	/*
@@ -73,12 +74,13 @@ public class PlayerController : MonoBehaviour {
 	 * 	Detect Player collision with the bottom of the grid and call functions
 	 */ 
 	public void OnCollisionEnter2D(Collision2D other){
+		objectCollidedWith = other.collider.gameObject.name;
 		updateGrid ();
 		reinitGame ();
 	}
 
 	public void childCollision(){
-		Debug.Log ("test");
+		Debug.Log ("Child Collision");
 	}
 
 	/*
@@ -104,7 +106,7 @@ public class PlayerController : MonoBehaviour {
 		int square1DropNumber = 0;
 		int square2DropNumber = 0;
 		if(beanOrientationPositive == 1){
-			Debug.Log ("B");
+			//Debug.Log ("B");
 			squares[row-1] += 1;
 			squares[row-2] += 1;
 			if (squares [row - 1] > squares [row - 2]) {
@@ -117,13 +119,22 @@ public class PlayerController : MonoBehaviour {
 			square2FindString = "Grid-"+(row-2)+"-"+((squares[row-1] - 1) - square2DropNumber);
 		}
 		else if(beanOrientationPositive == 2){
-			Debug.Log ("C");
+			//Debug.Log ("C");
 			squares[row-1] += 2;
 			square1FindString = "Grid-"+(row-1)+"-"+(squares[row-1] - 1);
 				square2FindString = "Grid-"+(row-1)+"-"+(squares[row-1] - 2);
 		}
 		else if (beanOrientationPositive == 3){
 			Debug.Log ("D");
+			Debug.Log (objectCollidedWith);
+			//if the row from the number above doesn't equal the equation below, we need to do something different
+			//so we need to break down this string
+			if (objectCollidedWith != "Ground") {
+				string[] textSplit = objectCollidedWith.Split (new string[]{ "-" }, System.StringSplitOptions.None);
+				int firstNumber = int.Parse (textSplit [1]);
+				int secondNumber = int.Parse (textSplit [2]);
+				Debug.Log ("Are these the same..?" + firstNumber + " " + (row - 1));
+			}
 			squares[row-1] += 1;
 			squares[row] += 1;
 			if (squares [row] > squares [row - 1]) {
@@ -132,17 +143,17 @@ public class PlayerController : MonoBehaviour {
 			if (squares [row] < squares [row - 1]) {
 				square2DropNumber = squares[row-1] - squares[row];
 			}
-			Debug.Log ("Before..." + square1FindString);
+			//Debug.Log ("Before..." + square1FindString);
 			square1FindString = "Grid-" + (row - 1);
-			Debug.Log ("After..." + square1FindString);
+			//Debug.Log ("After..." + square1FindString);
 			square1FindString = square1FindString + "-";
-			Debug.Log ("After 2..." + square1FindString);
+			//Debug.Log ("After 2..." + square1FindString);
 			square1FindString = square1FindString + ((squares[row-1] - 1) - square1DropNumber);
-			Debug.Log ("After 3..." + square1FindString);
+			//Debug.Log ("After 3..." + square1FindString);
 			square2FindString = "Grid-"+(row)+"-"+((squares[row-1] - 1) - square2DropNumber);
 		}
 		else{
-			Debug.Log ("E");
+			//Debug.Log ("E");
 			squares[row-1] += 2;
 			square1FindString = "Grid-"+(row-1)+"-"+(squares[row-1] - 2);
 			square2FindString = "Grid-"+(row-1)+"-"+(squares[row-1] - 1);
@@ -176,8 +187,8 @@ public class PlayerController : MonoBehaviour {
 		}
 		square1.tag = "Ground";
 		square2.tag = "Ground";
-		findAdjacentSquares(square1FindString, square1, NewBean.randomBean1);
-		findAdjacentSquares(square2FindString, square2, NewBean.randomBean2);
+		//findAdjacentSquares(square1FindString, square1, NewBean.randomBean1);
+		//findAdjacentSquares(square2FindString, square2, NewBean.randomBean2);
 	}
 
 	/*
