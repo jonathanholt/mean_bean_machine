@@ -24,6 +24,10 @@ public class PlayerController : MonoBehaviour {
 		startPoint = GameObject.Find("StartPoint");
 		row = 3;
 		beanOrientation = 0;
+		GameObject rightBeanHolder = GameObject.Find("beanHolderRight");
+		GameObject leftBeanHolder = GameObject.Find("beanHolderLeft");
+		rightBeanHolder.GetComponent<Collider2D>().enabled = false;
+		leftBeanHolder.GetComponent<Collider2D>().enabled = false;
 	}
 	
 	/*
@@ -68,6 +72,24 @@ public class PlayerController : MonoBehaviour {
 		//Debug.Log (beanOrientation);
 		GameObject beanToMove = GameObject.Find("bean2");
 		beanToMove.transform.position = GameObject.Find(positions[Mathf.Abs(beanOrientation)]).transform.position;
+		if (beanOrientation == 1) {
+			GameObject rightBeanHolder = GameObject.Find("beanHolderRight");
+			GameObject leftBeanHolder = GameObject.Find("beanHolderLeft");
+			rightBeanHolder.GetComponent<Collider2D>().enabled = true;
+			leftBeanHolder.GetComponent<Collider2D> ().enabled = false;
+		}
+		else if(beanOrientation == 3){
+			GameObject rightBeanHolder = GameObject.Find("beanHolderRight");
+			GameObject leftBeanHolder = GameObject.Find("beanHolderLeft");
+			leftBeanHolder.GetComponent<Collider2D>().enabled = true;
+			rightBeanHolder.GetComponent<Collider2D>().enabled = false;
+		}
+		else{
+			GameObject rightBeanHolder = GameObject.Find("beanHolderRight");
+			GameObject leftBeanHolder = GameObject.Find("beanHolderLeft");
+			rightBeanHolder.GetComponent<Collider2D>().enabled = false;
+			leftBeanHolder.GetComponent<Collider2D>().enabled = false;
+		}
 	}
 
 	/*
