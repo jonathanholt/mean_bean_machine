@@ -72,13 +72,13 @@ public class PlayerController : MonoBehaviour {
 		//Debug.Log (beanOrientation);
 		GameObject beanToMove = GameObject.Find("bean2");
 		beanToMove.transform.position = GameObject.Find(positions[Mathf.Abs(beanOrientation)]).transform.position;
-		if (beanOrientation == 1) {
+		if (beanOrientation == 3) {
 			GameObject rightBeanHolder = GameObject.Find("beanHolderRight");
 			GameObject leftBeanHolder = GameObject.Find("beanHolderLeft");
 			rightBeanHolder.GetComponent<Collider2D>().enabled = true;
 			leftBeanHolder.GetComponent<Collider2D> ().enabled = false;
 		}
-		else if(beanOrientation == 3){
+		else if(beanOrientation == 1){
 			GameObject rightBeanHolder = GameObject.Find("beanHolderRight");
 			GameObject leftBeanHolder = GameObject.Find("beanHolderLeft");
 			leftBeanHolder.GetComponent<Collider2D>().enabled = true;
@@ -97,6 +97,15 @@ public class PlayerController : MonoBehaviour {
 	 */ 
 	public void OnCollisionEnter2D(Collision2D other){
 		objectCollidedWith = other.collider.gameObject.name;
+		Debug.Log (objectCollidedWith);
+		if(objectCollidedWith != "Ground"){
+			string[] textSplit = objectCollidedWith.Split (new string[]{ "-" }, System.StringSplitOptions.None);
+			int firstNumber = int.Parse (textSplit [1]);
+			int secondNumber = int.Parse (textSplit [2]);
+			//firstNumber tells us the row. We can refer to the rows array and compare the value with the one we have here.
+			//If the one we have here is lower then we need to move our player BACK to where they came from
+			//So we will need a variable somewhere to say where the last place we moved was
+		}
 		updateGrid ();
 		reinitGame ();
 	}
@@ -217,7 +226,7 @@ public class PlayerController : MonoBehaviour {
 			
 		square1 = GameObject.Find(square1FindString);
 		square2 = GameObject.Find(square2FindString);
-		Debug.Log (square1FindString + " " + square2FindString);
+		//Debug.Log (square1FindString + " " + square2FindString);
 		updateSquareProperties (square1, square2, square1FindString, square2FindString);
 	}
 
