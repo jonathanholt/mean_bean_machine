@@ -15,6 +15,8 @@ public class PlayerController : MonoBehaviour {
 	public string[] positions = new string[] {"beanHolderUp", "beanHolderLeft", "beanHolderDown", "beanHolderRight"};
 	public List<GameObject> matches;
 	public string objectCollidedWith;
+	public string lastPressed;
+	public Vector3 oldPosition;
 
 
 	/*
@@ -38,10 +40,14 @@ public class PlayerController : MonoBehaviour {
 		
 		}
 		if (Input.GetKeyUp ("left") && row > 1 && !(beanOrientation == 1 && row == 2)) {
+			oldPosition = transform.position;
+			lastPressed = "l";
 			transform.position += Vector3.left * 0.53f;
 			row--;
 		}
 		if (Input.GetKeyUp ("right") && row < 6 && !(beanOrientation == 3 && row == 5)) {
+			oldPosition = transform.position;
+			lastPressed = "r";
 			//Debug.Log (beanOrientation + " " + row);
 			transform.position += Vector3.right * 0.53f;
 			row++;
@@ -97,17 +103,45 @@ public class PlayerController : MonoBehaviour {
 	 */ 
 	public void OnCollisionEnter2D(Collision2D other){
 		objectCollidedWith = other.collider.gameObject.name;
-		Debug.Log (objectCollidedWith);
-		if(objectCollidedWith != "Ground"){
+		//Debug.Log (objectCollidedWith);
+		if (objectCollidedWith != "Ground") {
 			string[] textSplit = objectCollidedWith.Split (new string[]{ "-" }, System.StringSplitOptions.None);
 			int firstNumber = int.Parse (textSplit [1]);
 			int secondNumber = int.Parse (textSplit [2]);
+			if (isMoveAllowed (firstNumber, secondNumber)) {
+				updateGrid ();
+				reinitGame ();
+			} else {
+				transform.position = oldPosition;
+				if (lastPressed == "r") {
+					row--;
+				}
+				if (lastPressed == "l") {
+					row++;
+				}
+				//transform.position += Vector3.right * 0.53f;
+				//row++;
+				//transform.position += Vector3.left * 0.53f;
+
+			}
 			//firstNumber tells us the row. We can refer to the rows array and compare the value with the one we have here.
 			//If the one we have here is lower then we need to move our player BACK to where they came from
 			//So we will need a variable somewhere to say where the last place we moved was
+		} else {
+			updateGrid ();
+			reinitGame ();
 		}
-		updateGrid ();
-		reinitGame ();
+	}
+
+	public bool isMoveAllowed(int firstNumber, int secondNumber){
+		//Debug.Log ("In new function we do a comparison..."+squares[firstNumber]+" vs "+(secondNumber + 1));
+		//Debug.Log ("Lets also compare these..if they are the same..." + firstNumber + " vs " + row);
+		if ((secondNumber + 1) < squares [firstNumber]) {
+			//Debug.Log ("This move cannot be allowed");
+			return false;
+		} else {
+			return true;
+		}
 	}
 
 	public void childCollision(){
@@ -144,9 +178,9 @@ public class PlayerController : MonoBehaviour {
 				int secondNumber = int.Parse (textSplit [2]);
 			
 				square1FindString = "Grid-" + (row - 1) + "-" + ((squares [row - 1]));
-				Debug.Log ("This is the one"+square1FindString);
+				//Debug.Log ("This is the one"+square1FindString);
 				square2FindString = "Grid-"+(row-2)+"-"+((squares[row-2]));
-				Debug.Log ("This is the other" + square2FindString);
+				//Debug.Log ("This is the other" + square2FindString);
 
 
 			}
@@ -165,8 +199,8 @@ public class PlayerController : MonoBehaviour {
 			if (square2FindString == null) {
 				square2FindString = "Grid-" + (row - 2) + "-" + ((squares [row - 1] - 1) - square2DropNumber);
 			}
-			Debug.Log ("Needy 1 ... " + square1FindString);
-			Debug.Log ("Needy 2 ... " + square2FindString);
+			//Debug.Log ("Needy 1 ... " + square1FindString);
+			//Debug.Log ("Needy 2 ... " + square2FindString);
 		}
 		else if(beanOrientationPositive == 2){
 			//Debug.Log ("C");
