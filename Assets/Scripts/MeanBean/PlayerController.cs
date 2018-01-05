@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour {
 	public string objectCollidedWith;
 	public string lastPressed;
 	public Vector3 oldPosition;
+	public Rigidbody2D rigid2D;
 
 
 	/*
@@ -26,6 +27,8 @@ public class PlayerController : MonoBehaviour {
 		startPoint = GameObject.Find("StartPoint");
 		row = 3;
 		beanOrientation = 0;
+		rigid2D = GetComponent<Rigidbody2D>();
+		rigid2D.velocity = new Vector3(0, -2, 0);
 		GameObject rightBeanHolder = GameObject.Find("beanHolderRight");
 		GameObject leftBeanHolder = GameObject.Find("beanHolderLeft");
 		rightBeanHolder.GetComponent<Collider2D>().enabled = false;
@@ -36,8 +39,13 @@ public class PlayerController : MonoBehaviour {
 	 *	Update is called once per frame. Used to detect key up events
 	 */ 
 	void Update () {
+
+		if (Input.GetKeyDown ("down")) {
+			Debug.Log ("FAST!");
+			rigid2D.velocity = new Vector3 (0, -4, 0);
+		}
 		if (Input.GetKeyUp ("down")) {
-		
+			rigid2D.velocity = new Vector3(0, -2, 0);
 		}
 		if (Input.GetKeyUp ("left") && row > 1 && !(beanOrientation == 1 && row == 2)) {
 			oldPosition = transform.position;
