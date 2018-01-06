@@ -164,6 +164,8 @@ public class PlayerController : MonoBehaviour {
 		NewBean.createNewBeanPair ();
 		row = 3;
 		rigid2D.velocity = new Vector3(0, -2, 0);
+		beanOrientation = 0;
+		rotate ();
 	}
 
 	public void updateGrid(){
@@ -445,25 +447,26 @@ public class PlayerController : MonoBehaviour {
 					//Debug.Log ("This is square..." + "Grid-" + newintorig + "-" + firstZeroPosition);
 					//do all of the swapping here!
 					GameObject newSquareOb = GameObject.Find("Grid-"+newintorig+"-"+counter);
-					Square newsquaresquare = newSquareOb.GetComponent<Square>();
+					//Square newsquaresquare = newSquareOb.GetComponent<Square>();
 
 					GameObject newSquareOb2 = GameObject.Find("Grid-"+newintorig+"-"+firstZeroPosition);
-					Square newsquaresquare2 = newSquareOb.GetComponent<Square>();
+					//Square newsquaresquare2 = newSquareOb.GetComponent<Square>();
 
-					Sprite placeHolderSprite = newsquaresquare.GetComponent<SpriteRenderer> ().sprite;
-					Sprite placeHolderSprite2 = newsquaresquare2.GetComponent<SpriteRenderer> ().sprite;
+					Sprite placeHolderSprite = newSquareOb.GetComponent<SpriteRenderer> ().sprite;
+					Sprite placeHolderSprite2 = newSquareOb2.GetComponent<SpriteRenderer> ().sprite;
 
 					//newsquaresquare.GetComponent<SpriteRenderer>().sprite = placeHolderSprite2;
 					//newsquaresquare2.GetComponent<SpriteRenderer>().sprite = placeHolderSprite;
 
-
-					Object [] sprites;
-					sprites = Resources.LoadAll<Sprite> ("GPJ_2D_Platformer_Sprites");
+					//Debug.Log (placeHolderSprite2);
+					//Object [] sprites;
+					//sprites = Resources.LoadAll<Sprite> ("beans");
 					Debug.Log ("Swapping happening");
-					newsquaresquare.GetComponent<SpriteRenderer>().sprite = placeHolderSprite2;
-					newsquaresquare2.GetComponent<SpriteRenderer>().sprite = placeHolderSprite;
-					Debug.Log ("Grid-"+newintorig+"-"+counter +" should become null");
-					Debug.Log ("Grid-"+newintorig+"-"+firstZeroPosition+" should become a random colour");
+					//newsquaresquare.GetComponent<SpriteRenderer>().sprite = (Sprite)sprites [0];
+					//Debug.Log ("Grid-"+newintorig+"-"+counter +" should become null");
+					newSquareOb2.GetComponent<SpriteRenderer>().sprite = placeHolderSprite;
+					newSquareOb.GetComponent<SpriteRenderer>().sprite = placeHolderSprite2;
+					//Debug.Log ("Grid-"+newintorig+"-"+firstZeroPosition+" should become a random colour");
 					return;
 				}
 				counter ++;
