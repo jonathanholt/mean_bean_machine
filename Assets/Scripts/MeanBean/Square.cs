@@ -34,6 +34,14 @@ public class Square : MonoBehaviour {
 		chain = newChain;
 	}
 
+	public void setDirectMatches(int newMatches){
+		directMatches = newMatches;
+	}
+
+	public void clearMatches(List<GameObject> freshMatches){
+		matches = freshMatches;
+	}
+
 	public void setColour(string newColour){
 		//Debug.Log (newColour);
 		colour = newColour;

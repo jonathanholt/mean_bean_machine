@@ -145,7 +145,7 @@ public class PlayerController : MonoBehaviour {
 		//Debug.Log ("In new function we do a comparison..."+squares[firstNumber]+" vs "+(secondNumber + 1));
 		//Debug.Log ("Lets also compare these..if they are the same..." + firstNumber + " vs " + row);
 		if ((secondNumber + 1) < squares [firstNumber]) {
-			//Debug.Log ("This move cannot be allowed");
+			Debug.Log ("This move cannot be allowed..."+secondNumber+ "     "+squares[firstNumber]);
 			return false;
 		} else {
 			return true;
@@ -297,6 +297,7 @@ public class PlayerController : MonoBehaviour {
 		square2.tag = "Ground";
 		findAdjacentSquares(square1FindString, square1, NewBean.randomBean1);
 		findAdjacentSquares(square2FindString, square2, NewBean.randomBean2);
+
 	}
 
 	/*
@@ -339,47 +340,35 @@ public class PlayerController : MonoBehaviour {
 			newsquaresquare.addMatch (square1);
 			squaresquare.setDirectmatches(squaresquare.getDirectmatches()+1);
 			squaresquare.addMatch (newSquareOb);
-			newsquaresquare.addChainLink (squaresquare.getChainList());
-			squaresquare.addChainLink (newsquaresquare.getChainList());
-			newsquaresquare.setChain (newsquaresquare.chainCount());
-			squaresquare.setChain(squaresquare.chainCount());
+
+			// New Square requires to add BOTH squaresquare AND squaresquares chain link, and vice versa
+			//newsquaresquare.addChainLink (squaresquare.getChainList());
+			//newsquaresquare.setChain (newsquaresquare.chainCount());
+
+			//squaresquare.addChainLink (newsquaresquare.getChainList());
+			//squaresquare.setChain(squaresquare.chainCount());
+
+			// After we have done all of this chain stuff we actually need to loop through all adjacent squares AGAIN to set the correct 
+			// chain value and check if we need to call the getDeleting method..! We can do that later and focus on matches and
+			//deleting matchs for now
 
 
+			//
 		
-				
-			/**
-			 * if (newsquaresquare.getChain () == 0 && squaresquare.getChain () == 0) {
-				newsquaresquare.setChain (newsquaresquare.getChain () + 1 + squaresquare.getChain () + 1);
-				newsquaresquare.addChain (square1);
-				newsquaresquare.addChain (newSquareOb);
-				squaresquare.addChain (newSquareOb);
-				squaresquare.addChain (square1);
-			} else {
-				newsquaresquare.setChain (newsquaresquare.getChain () + squaresquare.getChain () + 1);
-				newsquaresquare.addChainLink (squaresquare.getChainList());
-			
-			}
-			squaresquare.setChain(squaresquare.getChain() + newsquaresquare.getChain());
-			squaresquare.addChainLink (newsquaresquare.getChainList ());
-**/
-
-
-
-
-			if(newsquaresquare.getDirectmatches() >= 4){
+			if(newsquaresquare.getDirectmatches() >= 3){
 				getDeleting(newsquaresquare.getMatchList(), newSquareOb);
 			}
-			if(squaresquare.getDirectmatches() >= 4){
+			if(squaresquare.getDirectmatches() >= 3){
 				getDeleting(squaresquare.getMatchList(), square1);
 			}
-			if(newsquaresquare.getChain() >= 4){
-				getDeleting(newsquaresquare.getChainList(), newSquareOb);
-				getDeleting(squaresquare.getMatchList(), square1);
-			}
-			if(squaresquare.getChain() >= 4){
-				getDeleting(squaresquare.getChainList(), square1);
-				getDeleting(squaresquare.getMatchList(), square1);
-			}
+			//if(newsquaresquare.getChain() >= 4){
+			//	getDeleting(newsquaresquare.getChainList(), newSquareOb);
+			//	getDeleting(squaresquare.getMatchList(), square1);
+			//}
+			//if(squaresquare.getChain() >= 4){
+			//	getDeleting(squaresquare.getChainList(), square1);
+			//	getDeleting(squaresquare.getMatchList(), square1);
+			//}
 		}
 	}
 
@@ -392,35 +381,36 @@ public class PlayerController : MonoBehaviour {
 		matches = culprits;
 		foreach(GameObject newgameobject in culprits){
 			affectedSquares.Add (newgameobject);
+
+			// Cleaning up square
 			newgameobject.GetComponent<SpriteRenderer> ().sprite = null;
 			Destroy(newgameobject.GetComponent<BoxCollider2D> ());
 			Square squaresquare = newgameobject.GetComponent<Square>();
 			squaresquare.setColour ("");
-			List<GameObject> matchesmatches = squaresquare.getMatchList ();
-			foreach(GameObject newgameobjectinner in matchesmatches){
-				newgameobject.GetComponent<SpriteRenderer> ().sprite = null;
-				Destroy(newgameobject.GetComponent<BoxCollider2D> ());
-				affectedSquares.Add (newgameobjectinner);
-			}
-			List<GameObject> matchesmatches2 = squaresquare.getChainList ();
-			foreach(GameObject newgameobjectinner in matchesmatches2){
-				newgameobject.GetComponent<SpriteRenderer> ().sprite = null;
-				affectedSquares.Add (newgameobjectinner);
-			}
+			squaresquare.setDirectMatches (0);
+			List<GameObject> freshMatches = new List<GameObject>();
+			squaresquare.clearMatches (freshMatches);
 		}
+
+		affectedSquares.Add (finalDeletion);
 		finalDeletion.GetComponent<SpriteRenderer> ().sprite = null;
 		Square squaresquaresquare = finalDeletion.GetComponent<Square>();
 		squaresquaresquare.setColour ("");
+		squaresquaresquare.setDirectMatches (0);
+		List<GameObject> squaresquaresquarefreshMatches = new List<GameObject>();
+		squaresquaresquare.clearMatches (squaresquaresquarefreshMatches);
 
-		List<GameObject> noDupes = affectedSquares.Distinct().ToList();
-		foreach (GameObject noDupe in noDupes) {
-			string name = noDupe.transform.name;
+
+		// I don't think this aspect is working
+		foreach (GameObject affectedSquare in affectedSquares) {
+			string name = affectedSquare.transform.name;
 			string[] textSplit = name.Split (new string[]{ "-" }, System.StringSplitOptions.None);
 			int firstNumber = int.Parse (textSplit [1]);
 			int secondNumber = int.Parse (textSplit [2]);
-			squares [secondNumber] -= 1;
+			Debug.Log ("Now altering the firstNumber in..." + name+" was "+squares [firstNumber] +" now "+(squares [firstNumber]-1));
+			squares [firstNumber] -= 1;
 			}
-		gridRearrange ();
+		//gridRearrange ();
 		}
 
 	/*
