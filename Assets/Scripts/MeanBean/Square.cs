@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class Square : MonoBehaviour {
 
@@ -65,6 +66,7 @@ public class Square : MonoBehaviour {
 
 	public void addChainLink(List<GameObject> newChain){
 		chains.AddRange(newChain);
+		chains = chains.Distinct().ToList();
 	}
 
 }

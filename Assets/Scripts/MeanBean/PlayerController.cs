@@ -163,6 +163,7 @@ public class PlayerController : MonoBehaviour {
 		transform.position = startPoint.transform.position;
 		NewBean.createNewBeanPair ();
 		row = 3;
+		rigid2D.velocity = new Vector3(0, -2, 0);
 	}
 
 	public void updateGrid(){
@@ -294,8 +295,8 @@ public class PlayerController : MonoBehaviour {
 		}
 		square1.tag = "Ground";
 		square2.tag = "Ground";
-		//findAdjacentSquares(square1FindString, square1, NewBean.randomBean1);
-		//findAdjacentSquares(square2FindString, square2, NewBean.randomBean2);
+		findAdjacentSquares(square1FindString, square1, NewBean.randomBean1);
+		findAdjacentSquares(square2FindString, square2, NewBean.randomBean2);
 	}
 
 	/*
@@ -336,16 +337,18 @@ public class PlayerController : MonoBehaviour {
 		if(newsquaresquare.getColour() != "" && squaresquare.getColour() != "" && newsquaresquare.getColour() == squaresquare.getColour()){
 			newsquaresquare.setDirectmatches(newsquaresquare.getDirectmatches()+1);
 			newsquaresquare.addMatch (square1);
-			if(newsquaresquare.getDirectmatches() == 4){
-				getDeleting(newsquaresquare.getMatchList(), newSquareOb);
-			}
 			squaresquare.setDirectmatches(squaresquare.getDirectmatches()+1);
 			squaresquare.addMatch (newSquareOb);
-			if(squaresquare.getDirectmatches() == 4){
-				getDeleting(squaresquare.getMatchList(), square1);
-			}
+			newsquaresquare.addChainLink (squaresquare.getChainList());
+			squaresquare.addChainLink (newsquaresquare.getChainList());
+			newsquaresquare.setChain (newsquaresquare.chainCount());
+			squaresquare.setChain(squaresquare.chainCount());
+
+
+		
 				
-			if (newsquaresquare.getChain () == 0 && squaresquare.getChain () == 0) {
+			/**
+			 * if (newsquaresquare.getChain () == 0 && squaresquare.getChain () == 0) {
 				newsquaresquare.setChain (newsquaresquare.getChain () + 1 + squaresquare.getChain () + 1);
 				newsquaresquare.addChain (square1);
 				newsquaresquare.addChain (newSquareOb);
@@ -356,13 +359,24 @@ public class PlayerController : MonoBehaviour {
 				newsquaresquare.addChainLink (squaresquare.getChainList());
 			
 			}
-			if(newsquaresquare.getChain() == 4){
+			squaresquare.setChain(squaresquare.getChain() + newsquaresquare.getChain());
+			squaresquare.addChainLink (newsquaresquare.getChainList ());
+**/
+
+
+
+
+			if(newsquaresquare.getDirectmatches() >= 4){
+				getDeleting(newsquaresquare.getMatchList(), newSquareOb);
+			}
+			if(squaresquare.getDirectmatches() >= 4){
+				getDeleting(squaresquare.getMatchList(), square1);
+			}
+			if(newsquaresquare.getChain() >= 4){
 				getDeleting(newsquaresquare.getChainList(), newSquareOb);
 				getDeleting(squaresquare.getMatchList(), square1);
 			}
-			squaresquare.setChain(squaresquare.getChain() + newsquaresquare.getChain());
-			squaresquare.addChainLink (newsquaresquare.getChainList ());
-			if(squaresquare.getChain() == 4){
+			if(squaresquare.getChain() >= 4){
 				getDeleting(squaresquare.getChainList(), square1);
 				getDeleting(squaresquare.getMatchList(), square1);
 			}
