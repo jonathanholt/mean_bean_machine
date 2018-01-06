@@ -145,7 +145,7 @@ public class PlayerController : MonoBehaviour {
 		//Debug.Log ("In new function we do a comparison..."+squares[firstNumber]+" vs "+(secondNumber + 1));
 		//Debug.Log ("Lets also compare these..if they are the same..." + firstNumber + " vs " + row);
 		if ((secondNumber + 1) < squares [firstNumber]) {
-			Debug.Log ("This move cannot be allowed..."+secondNumber+ "     "+squares[firstNumber]);
+			//Debug.Log ("This move cannot be allowed..."+secondNumber+ "     "+squares[firstNumber]);
 			return false;
 		} else {
 			return true;
@@ -383,7 +383,9 @@ public class PlayerController : MonoBehaviour {
 			affectedSquares.Add (newgameobject);
 
 			// Cleaning up square
-			newgameobject.GetComponent<SpriteRenderer> ().sprite = null;
+			Object [] sprites;
+			sprites = Resources.LoadAll<Sprite> ("GPJ_2D_Platformer_Sprites");
+			newgameobject.GetComponent<SpriteRenderer> ().sprite = (Sprite)sprites [0];
 			Destroy(newgameobject.GetComponent<BoxCollider2D> ());
 			Square squaresquare = newgameobject.GetComponent<Square>();
 			squaresquare.setColour ("");
@@ -393,7 +395,9 @@ public class PlayerController : MonoBehaviour {
 		}
 
 		affectedSquares.Add (finalDeletion);
-		finalDeletion.GetComponent<SpriteRenderer> ().sprite = null;
+		Object [] sprites2;
+		sprites2 = Resources.LoadAll<Sprite> ("GPJ_2D_Platformer_Sprites");
+		finalDeletion.GetComponent<SpriteRenderer> ().sprite = (Sprite)sprites2 [0];
 		Square squaresquaresquare = finalDeletion.GetComponent<Square>();
 		squaresquaresquare.setColour ("");
 		squaresquaresquare.setDirectMatches (0);
@@ -407,10 +411,10 @@ public class PlayerController : MonoBehaviour {
 			string[] textSplit = name.Split (new string[]{ "-" }, System.StringSplitOptions.None);
 			int firstNumber = int.Parse (textSplit [1]);
 			int secondNumber = int.Parse (textSplit [2]);
-			Debug.Log ("Now altering the firstNumber in..." + name+" was "+squares [firstNumber] +" now "+(squares [firstNumber]-1));
+			//Debug.Log ("Now altering the firstNumber in..." + name+" was "+squares [firstNumber] +" now "+(squares [firstNumber]-1));
 			squares [firstNumber] -= 1;
 			}
-		//gridRearrange ();
+		gridRearrange ();
 		}
 
 	/*
@@ -442,19 +446,24 @@ public class PlayerController : MonoBehaviour {
 					//do all of the swapping here!
 					GameObject newSquareOb = GameObject.Find("Grid-"+newintorig+"-"+counter);
 					Square newsquaresquare = newSquareOb.GetComponent<Square>();
+
 					GameObject newSquareOb2 = GameObject.Find("Grid-"+newintorig+"-"+firstZeroPosition);
 					Square newsquaresquare2 = newSquareOb.GetComponent<Square>();
 
 					Sprite placeHolderSprite = newsquaresquare.GetComponent<SpriteRenderer> ().sprite;
 					Sprite placeHolderSprite2 = newsquaresquare2.GetComponent<SpriteRenderer> ().sprite;
 
+					//newsquaresquare.GetComponent<SpriteRenderer>().sprite = placeHolderSprite2;
+					//newsquaresquare2.GetComponent<SpriteRenderer>().sprite = placeHolderSprite;
+
+
 					Object [] sprites;
-					sprites = Resources.LoadAll ("beans");
-					newsquaresquare.GetComponent<SpriteRenderer>().sprite = (Sprite)sprites [NewBean.randomBean1];
-					newsquaresquare2.GetComponent<SpriteRenderer>().sprite = (Sprite)sprites [NewBean.randomBean2];
-					//Debug.Log ("Swapping happening");
-					//Debug.Log ("Grid-"+newintorig+"-"+counter);
-					//Debug.Log ("Grid-"+newintorig+"-"+firstZeroPosition);
+					sprites = Resources.LoadAll<Sprite> ("GPJ_2D_Platformer_Sprites");
+					Debug.Log ("Swapping happening");
+					newsquaresquare.GetComponent<SpriteRenderer>().sprite = placeHolderSprite2;
+					newsquaresquare2.GetComponent<SpriteRenderer>().sprite = placeHolderSprite;
+					Debug.Log ("Grid-"+newintorig+"-"+counter +" should become null");
+					Debug.Log ("Grid-"+newintorig+"-"+firstZeroPosition+" should become a random colour");
 					return;
 				}
 				counter ++;

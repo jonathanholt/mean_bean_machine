@@ -1,15 +1,10 @@
 fileFormatVersion: 2
-guid: 43d826b95399d734b80ae68038b40f94
-timeCreated: 1515267419
+guid: 45f80eeb174740a4ba43f32c3b1c8a8a
+timeCreated: 1515267631
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: red
-    21300002: green
-    21300004: purple
-    21300006: yellow
-    21300008: blue
-    21300010: grey
+    21300000: GPJ_2D_Platformer_Sprites_0
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -46,7 +41,7 @@ TextureImporter:
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spritePixelsToUnits: 25
+  spritePixelsToUnits: 100
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
@@ -76,65 +71,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: red
+      name: GPJ_2D_Platformer_Sprites_0
       rect:
         serializedVersion: 2
-        x: 189
-        y: 129
-        width: 15
-        height: 14
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: green
-      rect:
-        serializedVersion: 2
-        x: 190
-        y: 111
-        width: 15
-        height: 13
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: purple
-      rect:
-        serializedVersion: 2
-        x: 190
-        y: 94
-        width: 13
-        height: 13
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: yellow
-      rect:
-        serializedVersion: 2
-        x: 189
-        y: 76
-        width: 14
-        height: 15
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: blue
-      rect:
-        serializedVersion: 2
-        x: 190
-        y: 60
-        width: 13
-        height: 15
+        x: 0
+        y: 80
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
