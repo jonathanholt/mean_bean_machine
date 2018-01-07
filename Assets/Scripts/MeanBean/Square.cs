@@ -48,6 +48,10 @@ public class Square : MonoBehaviour {
 		chain = newChain;
 	}
 
+	public void setChainLinks(List<GameObject> masterChain){
+		chains = masterChain;
+	}
+
 
 	public void setDirectmatches(int newDirectmatches){
 		directMatches = newDirectmatches;

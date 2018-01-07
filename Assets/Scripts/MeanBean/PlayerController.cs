@@ -310,12 +310,25 @@ public class PlayerController : MonoBehaviour {
 			squaresquare.setDirectmatches(squaresquare.getDirectmatches()+1);
 			squaresquare.addMatch (newSquareOb);
 			// step 1. Add square 2 to square1s chain
+			squaresquare.addChain(newSquareOb);
 			// step 2. Add square1 to square2s chain
+			newsquaresquare.addChain(square1);
 			// step 3. Merge square1 and square2s chain into a master chain
+			List<GameObject> masterChain = squaresquare.getChainList();
+			List<GameObject> masterChain2 = newsquaresquare.getChainList();
+			masterChain.AddRange(masterChain2);
+			masterChain = masterChain.Distinct().ToList();
 			// step 4. Loop through this master chain and assign the master chain to the chain value for each square! Complicated but 
+			foreach(GameObject masterChainLink in masterChain){
+				Square masterChainLinkSquare = masterChainLink.GetComponent<Square>();
+				masterChainLinkSquare.setChainLinks (masterChain);
+			}
 			// should work
 			// step 5. Check if master chain count if equal or greater than 5
 			// step 6. Proceed with 'get deleting' for the masterchain
+			if(masterChain.Count >= 4){
+				getDeleting(masterChain, null);
+			}
 			//step 7. Ensure chain values are all cleared in the deletion function just like they are for matchs
 		
 			if(newsquaresquare.getDirectmatches() >= 3){
@@ -331,12 +344,11 @@ public class PlayerController : MonoBehaviour {
 	/*
 	 * Delete properties of squares who had appropriate number of matches
 	 */ 
-	public void getDeleting(List<GameObject> culprits, GameObject finalDeletion){
+	public void getDeleting(List<GameObject> culprits, GameObject finalDeletion = null){
 		List<GameObject> affectedSquares = new List<GameObject>();
 		matches = culprits;
 		foreach(GameObject newgameobject in culprits){
 			affectedSquares.Add (newgameobject);
-
 			// Cleaning up square
 			Object [] sprites;
 			sprites = Resources.LoadAll<Sprite> ("GPJ_2D_Platformer_Sprites");
@@ -345,20 +357,22 @@ public class PlayerController : MonoBehaviour {
 			Square squaresquare = newgameobject.GetComponent<Square>();
 			squaresquare.setColour ("");
 			squaresquare.setDirectMatches (0);
-			List<GameObject> freshMatches = new List<GameObject>();
-			squaresquare.clearMatches (freshMatches);
+			squaresquare.setChain (0);
+			List<GameObject> fresh = new List<GameObject>();
+			squaresquare.clearMatches (fresh);
+			squaresquare.setChainLinks (fresh);
 		}
-
-		affectedSquares.Add (finalDeletion);
-		Object [] sprites2;
-		sprites2 = Resources.LoadAll<Sprite> ("GPJ_2D_Platformer_Sprites");
-		finalDeletion.GetComponent<SpriteRenderer> ().sprite = (Sprite)sprites2 [0];
-		Square squaresquaresquare = finalDeletion.GetComponent<Square>();
-		squaresquaresquare.setColour ("");
-		squaresquaresquare.setDirectMatches (0);
-		List<GameObject> squaresquaresquarefreshMatches = new List<GameObject>();
-		squaresquaresquare.clearMatches (squaresquaresquarefreshMatches);
-
+		if (finalDeletion) {
+			affectedSquares.Add (finalDeletion);
+			Object[] sprites2;
+			sprites2 = Resources.LoadAll<Sprite> ("GPJ_2D_Platformer_Sprites");
+			finalDeletion.GetComponent<SpriteRenderer> ().sprite = (Sprite)sprites2 [0];
+			Square squaresquaresquare = finalDeletion.GetComponent<Square> ();
+			squaresquaresquare.setColour ("");
+			squaresquaresquare.setDirectMatches (0);
+			List<GameObject> squaresquaresquarefreshMatches = new List<GameObject> ();
+			squaresquaresquare.clearMatches (squaresquaresquarefreshMatches);
+		}
 
 		// I don't think this aspect is working
 		foreach (GameObject affectedSquare in affectedSquares) {
