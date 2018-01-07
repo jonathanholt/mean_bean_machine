@@ -24,12 +24,11 @@ public class Square : MonoBehaviour {
 	}
 
 	public void setColour(string newColour){
-		//Debug.Log (newColour);
 		colour = newColour;
 	}
 
 	public int getDirectmatches(){
-		return directMatches;
+		return matches.Count;
 	}
 
 	public void setDirectMatches(int newMatches){
@@ -60,6 +59,7 @@ public class Square : MonoBehaviour {
 
 	public void addMatch(GameObject match){
 		matches.Add(match);
+		matches = matches.Distinct().ToList();
 	}
 
 	public void addChain(GameObject chain){

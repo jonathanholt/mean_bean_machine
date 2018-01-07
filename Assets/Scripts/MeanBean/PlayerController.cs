@@ -370,8 +370,10 @@ public class PlayerController : MonoBehaviour {
 			Square squaresquaresquare = finalDeletion.GetComponent<Square> ();
 			squaresquaresquare.setColour ("");
 			squaresquaresquare.setDirectMatches (0);
+			squaresquaresquare.setChain (0);
 			List<GameObject> squaresquaresquarefreshMatches = new List<GameObject> ();
 			squaresquaresquare.clearMatches (squaresquaresquarefreshMatches);
+			squaresquaresquare.setChainLinks (squaresquaresquarefreshMatches);
 		}
 
 		// I don't think this aspect is working
@@ -428,18 +430,32 @@ public class PlayerController : MonoBehaviour {
 				counter ++;
 		}
 	}
+		//reFigureMatches ();
+		redoGrid();
 	}
 
-	public void reFigureMatches(){
+	public void redoGrid(){
+		//step 0. iterate through grid. clear matches, chains and all that shit, only set colour!
 		for (int newintorig = 0; newintorig < 6; newintorig++) {
 			for (int newint = 0; newint < 12; newint++) {
 				GameObject newSquareOb = GameObject.Find ("Grid-" + newintorig + "-" + newint);
 				Square newsquaresquare = newSquareOb.GetComponent<Square> ();
+				List<GameObject> fresh = new List<GameObject>();
+				newsquaresquare.setChainLinks (fresh);
+				newsquaresquare.setChain (0);
 				newsquaresquare.setDirectMatches (0);
-				List<GameObject> freshMatches = new List<GameObject>();
-				newsquaresquare.clearMatches (freshMatches);
+				newsquaresquare.clearMatches (fresh);
+				if (newSquareOb.GetComponent<SpriteRenderer> ().sprite.name != "Ground" && newSquareOb.GetComponent<SpriteRenderer> ().sprite.name != "GPJ_2D_Platformer_Sprites_0") {
+					newsquaresquare.setColour (newSquareOb.GetComponent<SpriteRenderer> ().sprite.name);
+				} else {
+					newsquaresquare.setColour ("");
+				}
 			}
+		}
+		for (int newintorig = 0; newintorig < 6; newintorig++) {
 			for (int newint = 0; newint < 12; newint++) {
+				GameObject newSquareOb = GameObject.Find ("Grid-" + newintorig + "-" + newint);
+				Square newsquaresquare = newSquareOb.GetComponent<Square> ();
 				string  currentSquare = "Grid-" + newintorig + "-" + newint;
 				string[] textSplit = currentSquare.Split (new string[]{ "-" }, System.StringSplitOptions.None);
 				int firstNumber = int.Parse (textSplit [1]);
@@ -448,19 +464,53 @@ public class PlayerController : MonoBehaviour {
 					string newString;
 					if (i == 0 && (firstNumber - 1) > -1) {
 						newString = "Grid-"+(firstNumber-1)+"-"+secondNumber;
-						checkingMatches (newString, square1);
+						redoCheckMatches (newString, newSquareOb, newsquaresquare);
 					} else if (i == 1 && (secondNumber - 1) > -1) {
 						newString = "Grid-"+firstNumber+"-"+(secondNumber-1);
-						checkingMatches (newString, square1);
+						redoCheckMatches (newString, newSquareOb, newsquaresquare);
 					} else if (i == 2 && (firstNumber + 1) < 6) {
 						newString = "Grid-"+(firstNumber+1)+"-"+secondNumber;
-						checkingMatches (newString, square1);
+						redoCheckMatches (newString, newSquareOb, newsquaresquare);
 					} else if (i == 3 && (secondNumber + 1) < 12) {
 						newString = "Grid-"+firstNumber+"-"+(secondNumber+1);
-						checkingMatches (newString, square1);
+						redoCheckMatches (newString, newSquareOb, newsquaresquare);
 					}
 				}
+				//step 1. get each game object and square
+				//step 2. set the colour based on the sprite -> this needs to be done FIRST. Two loops
+				//step 3. iterate through adjacent squares. Check for matches
+
+				// step 3.1. if we have a match, increase match count by one and add new square to match list
+				// step 3.1.2 also, add self to chain, neighbour to chain and nighbours chain to chain via the masterchain system
+				// step 3.2. if our square now has 4 matches, we need to run the deletion event. For now, let's do a log with name
+				//step 3.2.1. if our square has 4 chains, we need to run deletion event on the masterchain. let's do a log with name for now
+
 			}
 		}
 	}
+
+	public void redoCheckMatches(string newString, GameObject newSquareOb, Square newsquaresquare){
+		GameObject newSquareOb2 = GameObject.Find(newString);
+		Square squaresquare2 = newSquareOb2.GetComponent<Square>();
+		if (newsquaresquare.getColour () != "" && squaresquare2.getColour () != "" && newsquaresquare.getColour () == squaresquare2.getColour ()) {
+			newsquaresquare.setDirectmatches (newsquaresquare.getDirectmatches () + 1);
+			newsquaresquare.addMatch (newSquareOb);
+			squaresquare2.setDirectmatches (squaresquare2.getDirectmatches () + 1);
+			squaresquare2.addMatch (newSquareOb2);
+			// step 1. Add square 2 to square1s chain
+			squaresquare2.addChain (newSquareOb2);
+			// step 2. Add square1 to square2s chain
+			newsquaresquare.addChain (newSquareOb);
+			// step 3. Merge square1 and square2s chain into a master chain
+			List<GameObject> masterChain = squaresquare2.getChainList ();
+			List<GameObject> masterChain2 = newsquaresquare.getChainList ();
+			masterChain.AddRange (masterChain2);
+			masterChain = masterChain.Distinct ().ToList ();
+			foreach(GameObject masterChainLink in masterChain){
+				Square masterChainLinkSquare = masterChainLink.GetComponent<Square>();
+				masterChainLinkSquare.setChainLinks (masterChain);
+			}
+		}
+	}
+		
 }
