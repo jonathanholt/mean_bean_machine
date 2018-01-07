@@ -122,9 +122,6 @@ public class PlayerController : MonoBehaviour {
 				if (lastPressed == "l") {
 					row++;
 				}
-				//transform.position += Vector3.right * 0.53f;
-				//row++;
-				//transform.position += Vector3.left * 0.53f;
 
 			}
 			//firstNumber tells us the row. We can refer to the rows array and compare the value with the one we have here.
@@ -174,18 +171,12 @@ public class PlayerController : MonoBehaviour {
 		int square1DropNumber = 0;
 		int square2DropNumber = 0;
 		if(beanOrientationPositive == 1){
-			//Debug.Log ("B");
 			if (objectCollidedWith != "Ground") {
 				string[] textSplit = objectCollidedWith.Split (new string[]{ "-" }, System.StringSplitOptions.None);
 				int firstNumber = int.Parse (textSplit [1]);
 				int secondNumber = int.Parse (textSplit [2]);
-			
 				square1FindString = "Grid-" + (row - 1) + "-" + ((squares [row - 1]));
-				//Debug.Log ("This is the one"+square1FindString);
 				square2FindString = "Grid-"+(row-2)+"-"+((squares[row-2]));
-				//Debug.Log ("This is the other" + square2FindString);
-
-
 			}
 
 			squares[row-1] += 1;
@@ -202,18 +193,13 @@ public class PlayerController : MonoBehaviour {
 			if (square2FindString == null) {
 				square2FindString = "Grid-" + (row - 2) + "-" + ((squares [row - 1] - 1) - square2DropNumber);
 			}
-			//Debug.Log ("Needy 1 ... " + square1FindString);
-			//Debug.Log ("Needy 2 ... " + square2FindString);
 		}
 		else if(beanOrientationPositive == 2){
-			//Debug.Log ("C");
 			squares[row-1] += 2;
 			square1FindString = "Grid-"+(row-1)+"-"+(squares[row-1] - 1);
 				square2FindString = "Grid-"+(row-1)+"-"+(squares[row-1] - 2);
 		}
 		else if (beanOrientationPositive == 3){
-			//Debug.Log ("D");
-			//Debug.Log (objectCollidedWith);
 			//if the row from the number above doesn't equal the equation below, we need to do something different
 			//so we need to break down this string
 			square1FindString = null;
@@ -223,11 +209,8 @@ public class PlayerController : MonoBehaviour {
 				int firstNumber = int.Parse (textSplit [1]);
 				int secondNumber = int.Parse (textSplit [2]);
 					if (firstNumber != row - 1) {
-						//Debug.Log ("Are these the same..?" + firstNumber + " " + (row - 1)); 
 						square2FindString = "Grid-"+(row)+"-"+((squares[row]));
-						//Debug.Log ("Looky here..." + square2FindString);
 						square1FindString = "Grid-" + (row - 1)+ "-"+((squares[row-1]));
-						//Debug.Log ("Looky here again..." + square1FindString);
 					}
 			}
 			squares[row-1] += 1;
@@ -239,23 +222,16 @@ public class PlayerController : MonoBehaviour {
 				square2DropNumber = squares[row-1] - squares[row];
 			}
 			if(square1FindString == null){
-			//Debug.Log ("Before..." + square1FindString);
 			square1FindString = "Grid-" + (row - 1);
-			//Debug.Log ("After..." + square1FindString);
 			square1FindString = square1FindString + "-";
-			//Debug.Log ("After 2..." + square1FindString);
 			square1FindString = square1FindString + ((squares[row-1] - 1) - square1DropNumber);
-			//Debug.Log ("After 3..." + square1FindString);
 			}
 			if(square2FindString == null){
 				square2FindString = "Grid-"+(row)+"-"+((squares[row-1] - 1) - square2DropNumber);
 			}
-			//Debug.Log(square1FindString);
-			//Debug.Log (square2FindString);
 
 		}
 		else{
-			//Debug.Log ("E");
 			squares[row-1] += 2;
 			square1FindString = "Grid-"+(row-1)+"-"+(squares[row-1] - 2);
 			square2FindString = "Grid-"+(row-1)+"-"+(squares[row-1] - 1);
@@ -263,7 +239,6 @@ public class PlayerController : MonoBehaviour {
 			
 		square1 = GameObject.Find(square1FindString);
 		square2 = GameObject.Find(square2FindString);
-		//Debug.Log (square1FindString + " " + square2FindString);
 		updateSquareProperties (square1, square2, square1FindString, square2FindString);
 	}
 
@@ -334,20 +309,14 @@ public class PlayerController : MonoBehaviour {
 			newsquaresquare.addMatch (square1);
 			squaresquare.setDirectmatches(squaresquare.getDirectmatches()+1);
 			squaresquare.addMatch (newSquareOb);
-
-			// New Square requires to add BOTH squaresquare AND squaresquares chain link, and vice versa
-			//newsquaresquare.addChainLink (squaresquare.getChainList());
-			//newsquaresquare.setChain (newsquaresquare.chainCount());
-
-			//squaresquare.addChainLink (newsquaresquare.getChainList());
-			//squaresquare.setChain(squaresquare.chainCount());
-
-			// After we have done all of this chain stuff we actually need to loop through all adjacent squares AGAIN to set the correct 
-			// chain value and check if we need to call the getDeleting method..! We can do that later and focus on matches and
-			//deleting matchs for now
-
-
-			//
+			// step 1. Add square 2 to square1s chain
+			// step 2. Add square1 to square2s chain
+			// step 3. Merge square1 and square2s chain into a master chain
+			// step 4. Loop through this master chain and assign the master chain to the chain value for each square! Complicated but 
+			// should work
+			// step 5. Check if master chain count if equal or greater than 5
+			// step 6. Proceed with 'get deleting' for the masterchain
+			//step 7. Ensure chain values are all cleared in the deletion function just like they are for matchs
 		
 			if(newsquaresquare.getDirectmatches() >= 3){
 				getDeleting(newsquaresquare.getMatchList(), newSquareOb);
@@ -355,14 +324,6 @@ public class PlayerController : MonoBehaviour {
 			if(squaresquare.getDirectmatches() >= 3){
 				getDeleting(squaresquare.getMatchList(), square1);
 			}
-			//if(newsquaresquare.getChain() >= 4){
-			//	getDeleting(newsquaresquare.getChainList(), newSquareOb);
-			//	getDeleting(squaresquare.getMatchList(), square1);
-			//}
-			//if(squaresquare.getChain() >= 4){
-			//	getDeleting(squaresquare.getChainList(), square1);
-			//	getDeleting(squaresquare.getMatchList(), square1);
-			//}
 		}
 	}
 
@@ -405,7 +366,6 @@ public class PlayerController : MonoBehaviour {
 			string[] textSplit = name.Split (new string[]{ "-" }, System.StringSplitOptions.None);
 			int firstNumber = int.Parse (textSplit [1]);
 			int secondNumber = int.Parse (textSplit [2]);
-			//Debug.Log ("Now altering the firstNumber in..." + name+" was "+squares [firstNumber] +" now "+(squares [firstNumber]-1));
 			squares [firstNumber] -= 1;
 			}
 		gridRearrange ();
@@ -431,16 +391,12 @@ public class PlayerController : MonoBehaviour {
 			int firstZeroPosition = 0;
 			int counter = 0;
 			foreach(int squareValue in squareValues){
-				//Debug.Log ("Grid-"+newintorig+"-"+counter+" = "+squareValue);
 				if(squareValue == 0 && !hitAZero){
 					Debug.Log ("Hit a zero");
 					hitAZero = true;
 					firstZeroPosition = counter;
 				}
 				if(squareValue == 1 && hitAZero){
-					//Debug.Log("Got one!");
-					//Debug.Log ("First zero position = " + firstZeroPosition);
-					//Debug.Log ("This is square..." + "Grid-" + newintorig + "-" + firstZeroPosition);
 					//do all of the swapping here!
 					GameObject newSquareOb = GameObject.Find("Grid-"+newintorig+"-"+counter);
 					Square newsquaresquare = newSquareOb.GetComponent<Square>();
@@ -450,20 +406,10 @@ public class PlayerController : MonoBehaviour {
 
 					Sprite placeHolderSprite = newSquareOb.GetComponent<SpriteRenderer> ().sprite;
 					Sprite placeHolderSprite2 = newSquareOb2.GetComponent<SpriteRenderer> ().sprite;
-					//newsquaresquare.GetComponent<SpriteRenderer>().sprite = placeHolderSprite2;
-					//newsquaresquare2.GetComponent<SpriteRenderer>().sprite = placeHolderSprite;
-
-					//Debug.Log (placeHolderSprite2);
-					//Object [] sprites;
-					//sprites = Resources.LoadAll<Sprite> ("beans");
-					//Debug.Log ("Swapping happening");
-					//newsquaresquare.GetComponent<SpriteRenderer>().sprite = (Sprite)sprites [0];
-					//Debug.Log ("Grid-"+newintorig+"-"+counter +" should become null");
 					newSquareOb2.GetComponent<SpriteRenderer>().sprite = placeHolderSprite;
 					newSquareOb.GetComponent<SpriteRenderer>().sprite = placeHolderSprite2;
 					newsquaresquare2.setColour (newSquareOb2.GetComponent<SpriteRenderer> ().sprite.name);
 					newsquaresquare.setColour (newSquareOb.GetComponent<SpriteRenderer> ().sprite.name);
-					//Debug.Log ("Grid-"+newintorig+"-"+firstZeroPosition+" should become a random colour");
 				}
 				counter ++;
 		}

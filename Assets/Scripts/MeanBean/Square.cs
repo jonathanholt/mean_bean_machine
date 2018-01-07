@@ -17,21 +17,19 @@ public class Square : MonoBehaviour {
 		colour = "";
 		directMatches = 0;
 	}
-
-	public int getChain(){
-		return chain;
-	}
+		
 
 	public string getColour(){
 		return colour;
 	}
 
-	public int getDirectmatches(){
-		return directMatches;
+	public void setColour(string newColour){
+		//Debug.Log (newColour);
+		colour = newColour;
 	}
 
-	public void setChain(int newChain){
-		chain = newChain;
+	public int getDirectmatches(){
+		return directMatches;
 	}
 
 	public void setDirectMatches(int newMatches){
@@ -42,10 +40,14 @@ public class Square : MonoBehaviour {
 		matches = freshMatches;
 	}
 
-	public void setColour(string newColour){
-		//Debug.Log (newColour);
-		colour = newColour;
+	public int getChain(){
+		return chain;
 	}
+
+	public void setChain(int newChain){
+		chain = newChain;
+	}
+
 
 	public void setDirectmatches(int newDirectmatches){
 		directMatches = newDirectmatches;
