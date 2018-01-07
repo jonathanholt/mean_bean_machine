@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour {
 	public string lastPressed;
 	public Vector3 oldPosition;
 	public Rigidbody2D rigid2D;
+	public int runCount;
 
 
 	/*
@@ -424,11 +425,13 @@ public class PlayerController : MonoBehaviour {
 	 */ 
 	public void gridRearrange(){
 		for(int newintorig = 0; newintorig < 6; newintorig ++){
+			Debug.Log ("In row..." + newintorig);
 			int[] squareValues = new int[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 			for(int newint = 0; newint < 12; newint ++){
 				GameObject newSquareOb = GameObject.Find("Grid-"+newintorig+"-"+newint);
 				Square newsquaresquare = newSquareOb.GetComponent<Square>();
-				if(newsquaresquare.getColour() != "" ){
+				if(newSquareOb.GetComponent<SpriteRenderer> ().sprite.name != "Ground" && newSquareOb.GetComponent<SpriteRenderer> ().sprite.name != "GPJ_2D_Platformer_Sprites_0"){
+					Debug.Log("Got a colour at "+newint);
 					squareValues [newint] = 1;
 				}
 			}
@@ -439,18 +442,20 @@ public class PlayerController : MonoBehaviour {
 			foreach(int squareValue in squareValues){
 				//Debug.Log ("Grid-"+newintorig+"-"+counter+" = "+squareValue);
 				if(squareValue == 0 && !hitAZero){
+					Debug.Log ("Hit a zero");
 					hitAZero = true;
 					firstZeroPosition = counter;
 				}
 				if(squareValue == 1 && hitAZero){
+					Debug.Log("Got one!");
 					//Debug.Log ("First zero position = " + firstZeroPosition);
 					//Debug.Log ("This is square..." + "Grid-" + newintorig + "-" + firstZeroPosition);
 					//do all of the swapping here!
 					GameObject newSquareOb = GameObject.Find("Grid-"+newintorig+"-"+counter);
-					//Square newsquaresquare = newSquareOb.GetComponent<Square>();
+					Square newsquaresquare = newSquareOb.GetComponent<Square>();
 
 					GameObject newSquareOb2 = GameObject.Find("Grid-"+newintorig+"-"+firstZeroPosition);
-					//Square newsquaresquare2 = newSquareOb.GetComponent<Square>();
+					Square newsquaresquare2 = newSquareOb.GetComponent<Square>();
 
 					Sprite placeHolderSprite = newSquareOb.GetComponent<SpriteRenderer> ().sprite;
 					Sprite placeHolderSprite2 = newSquareOb2.GetComponent<SpriteRenderer> ().sprite;
@@ -467,10 +472,43 @@ public class PlayerController : MonoBehaviour {
 					newSquareOb2.GetComponent<SpriteRenderer>().sprite = placeHolderSprite;
 					newSquareOb.GetComponent<SpriteRenderer>().sprite = placeHolderSprite2;
 					//Debug.Log ("Grid-"+newintorig+"-"+firstZeroPosition+" should become a random colour");
-					return;
 				}
 				counter ++;
 		}
 	}
+	}
+
+	public void reFigureMatches(){
+		for (int newintorig = 0; newintorig < 6; newintorig++) {
+			for (int newint = 0; newint < 12; newint++) {
+				GameObject newSquareOb = GameObject.Find ("Grid-" + newintorig + "-" + newint);
+				Square newsquaresquare = newSquareOb.GetComponent<Square> ();
+				newsquaresquare.setDirectMatches (0);
+				List<GameObject> freshMatches = new List<GameObject>();
+				newsquaresquare.clearMatches (freshMatches);
+			}
+			for (int newint = 0; newint < 12; newint++) {
+				string  currentSquare = "Grid-" + newintorig + "-" + newint;
+				string[] textSplit = currentSquare.Split (new string[]{ "-" }, System.StringSplitOptions.None);
+				int firstNumber = int.Parse (textSplit [1]);
+				int secondNumber = int.Parse (textSplit [2]);
+				for (int i = 0; i < 4; i++) {
+					string newString;
+					if (i == 0 && (firstNumber - 1) > -1) {
+						newString = "Grid-"+(firstNumber-1)+"-"+secondNumber;
+						checkingMatches (newString, square1);
+					} else if (i == 1 && (secondNumber - 1) > -1) {
+						newString = "Grid-"+firstNumber+"-"+(secondNumber-1);
+						checkingMatches (newString, square1);
+					} else if (i == 2 && (firstNumber + 1) < 6) {
+						newString = "Grid-"+(firstNumber+1)+"-"+secondNumber;
+						checkingMatches (newString, square1);
+					} else if (i == 3 && (secondNumber + 1) < 12) {
+						newString = "Grid-"+firstNumber+"-"+(secondNumber+1);
+						checkingMatches (newString, square1);
+					}
+				}
+			}
+		}
 	}
 }
