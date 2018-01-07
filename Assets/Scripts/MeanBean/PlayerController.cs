@@ -42,7 +42,6 @@ public class PlayerController : MonoBehaviour {
 	void Update () {
 
 		if (Input.GetKeyDown ("down")) {
-			Debug.Log ("FAST!");
 			rigid2D.velocity = new Vector3 (0, -4, 0);
 		}
 		if (Input.GetKeyUp ("down")) {
@@ -57,14 +56,12 @@ public class PlayerController : MonoBehaviour {
 		if (Input.GetKeyUp ("right") && row < 6 && !(beanOrientation == 3 && row == 5)) {
 			oldPosition = transform.position;
 			lastPressed = "r";
-			//Debug.Log (beanOrientation + " " + row);
 			transform.position += Vector3.right * 0.53f;
 			row++;
 		}
 		if (Input.GetKeyUp ("a")) {
 			//anticlockwise 
 			if ((beanOrientation % 4 == 2 && row == 1) || (row == 6 && beanOrientation % 4 == 0)) {
-				//Debug.Log ("Not OKAY!");
 			}else {
 				beanOrientation += 3;
 				rotate ();
@@ -73,7 +70,6 @@ public class PlayerController : MonoBehaviour {
 		if (Input.GetKeyUp ("s")) {
 			//anticlockwise
 			if ((beanOrientation%4 == 0 && row == 1) || (row == 6 && beanOrientation%4 == 2)) {
-				//Debug.Log ("Not OKAY!");
 			} else {
 				//clockwise
 				beanOrientation += 1;
@@ -84,7 +80,6 @@ public class PlayerController : MonoBehaviour {
 
 	public void rotate(){
 		beanOrientation = beanOrientation % 4;
-		//Debug.Log (beanOrientation);
 		GameObject beanToMove = GameObject.Find("bean2");
 		beanToMove.transform.position = GameObject.Find(positions[Mathf.Abs(beanOrientation)]).transform.position;
 		if (beanOrientation == 3) {
@@ -112,7 +107,6 @@ public class PlayerController : MonoBehaviour {
 	 */ 
 	public void OnCollisionEnter2D(Collision2D other){
 		objectCollidedWith = other.collider.gameObject.name;
-		//Debug.Log (objectCollidedWith);
 		if (objectCollidedWith != "Ground") {
 			string[] textSplit = objectCollidedWith.Split (new string[]{ "-" }, System.StringSplitOptions.None);
 			int firstNumber = int.Parse (textSplit [1]);
@@ -143,10 +137,7 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	public bool isMoveAllowed(int firstNumber, int secondNumber){
-		//Debug.Log ("In new function we do a comparison..."+squares[firstNumber]+" vs "+(secondNumber + 1));
-		//Debug.Log ("Lets also compare these..if they are the same..." + firstNumber + " vs " + row);
 		if ((secondNumber + 1) < squares [firstNumber]) {
-			//Debug.Log ("This move cannot be allowed..."+secondNumber+ "     "+squares[firstNumber]);
 			return false;
 		} else {
 			return true;
@@ -447,7 +438,7 @@ public class PlayerController : MonoBehaviour {
 					firstZeroPosition = counter;
 				}
 				if(squareValue == 1 && hitAZero){
-					Debug.Log("Got one!");
+					//Debug.Log("Got one!");
 					//Debug.Log ("First zero position = " + firstZeroPosition);
 					//Debug.Log ("This is square..." + "Grid-" + newintorig + "-" + firstZeroPosition);
 					//do all of the swapping here!
@@ -459,18 +450,19 @@ public class PlayerController : MonoBehaviour {
 
 					Sprite placeHolderSprite = newSquareOb.GetComponent<SpriteRenderer> ().sprite;
 					Sprite placeHolderSprite2 = newSquareOb2.GetComponent<SpriteRenderer> ().sprite;
-
 					//newsquaresquare.GetComponent<SpriteRenderer>().sprite = placeHolderSprite2;
 					//newsquaresquare2.GetComponent<SpriteRenderer>().sprite = placeHolderSprite;
 
 					//Debug.Log (placeHolderSprite2);
 					//Object [] sprites;
 					//sprites = Resources.LoadAll<Sprite> ("beans");
-					Debug.Log ("Swapping happening");
+					//Debug.Log ("Swapping happening");
 					//newsquaresquare.GetComponent<SpriteRenderer>().sprite = (Sprite)sprites [0];
 					//Debug.Log ("Grid-"+newintorig+"-"+counter +" should become null");
 					newSquareOb2.GetComponent<SpriteRenderer>().sprite = placeHolderSprite;
 					newSquareOb.GetComponent<SpriteRenderer>().sprite = placeHolderSprite2;
+					newsquaresquare2.setColour (newSquareOb2.GetComponent<SpriteRenderer> ().sprite.name);
+					newsquaresquare.setColour (newSquareOb.GetComponent<SpriteRenderer> ().sprite.name);
 					//Debug.Log ("Grid-"+newintorig+"-"+firstZeroPosition+" should become a random colour");
 				}
 				counter ++;
