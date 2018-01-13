@@ -1,13 +1,10 @@
 fileFormatVersion: 2
-guid: 77aea39125dfe2b4892557a522955d4b
-timeCreated: 1511391361
+guid: ec2c0e0f1b7985f4591f3c9028aa3b18
+timeCreated: 1515806710
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: bottom
-    21300002: left
-    21300004: top
-    21300006: right
+    21300000: board1
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -44,7 +41,7 @@ TextureImporter:
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spritePixelsToUnits: 60
+  spritePixelsToUnits: 50
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
@@ -74,52 +71,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: bottom
+      name: board1
       rect:
         serializedVersion: 2
-        x: 0
-        y: 15
-        width: 225
-        height: 34
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: left
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 49
-        width: 34
-        height: 380
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: top
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 430
-        width: 225
-        height: 34
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: right
-      rect:
-        serializedVersion: 2
-        x: 225
-        y: 14
-        width: 15
-        height: 450
+        x: 321
+        y: 706
+        width: 322
+        height: 225
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
