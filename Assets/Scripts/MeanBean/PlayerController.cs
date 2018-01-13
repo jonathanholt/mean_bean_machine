@@ -332,10 +332,10 @@ public class PlayerController : MonoBehaviour {
 			//step 7. Ensure chain values are all cleared in the deletion function just like they are for matchs
 		
 			if(newsquaresquare.getDirectmatches() >= 3){
-				getDeleting(newsquaresquare.getMatchList(), newSquareOb);
+				getDeleting(newsquaresquare.getMatchList(), square1);
 			}
 			if(squaresquare.getDirectmatches() >= 3){
-				getDeleting(squaresquare.getMatchList(), square1);
+				getDeleting(squaresquare.getMatchList(), newSquareOb);
 			}
 		}
 	}
@@ -388,17 +388,16 @@ public class PlayerController : MonoBehaviour {
 		}
 
 	/*
-	 * 	Post-deletion reorganisation of grid.
+	 * 	Post-deletion reorganisation of grid. Includes the 'drop function'
 	 */ 
 	public void gridRearrange(){
+		for(int wrapper = 0; wrapper < 11; wrapper ++){
 		for(int newintorig = 0; newintorig < 6; newintorig ++){
-			Debug.Log ("In row..." + newintorig);
 			int[] squareValues = new int[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 			for(int newint = 0; newint < 12; newint ++){
 				GameObject newSquareOb = GameObject.Find("Grid-"+newintorig+"-"+newint);
 				Square newsquaresquare = newSquareOb.GetComponent<Square>();
 				if(newSquareOb.GetComponent<SpriteRenderer> ().sprite.name != "Ground" && newSquareOb.GetComponent<SpriteRenderer> ().sprite.name != "GPJ_2D_Platformer_Sprites_0"){
-					Debug.Log("Got a colour at "+newint);
 					squareValues [newint] = 1;
 				}
 			}
@@ -408,7 +407,6 @@ public class PlayerController : MonoBehaviour {
 			int counter = 0;
 			foreach(int squareValue in squareValues){
 				if(squareValue == 0 && !hitAZero){
-					Debug.Log ("Hit a zero");
 					hitAZero = true;
 					firstZeroPosition = counter;
 				}
@@ -426,10 +424,13 @@ public class PlayerController : MonoBehaviour {
 					newSquareOb.GetComponent<SpriteRenderer>().sprite = placeHolderSprite2;
 					newsquaresquare2.setColour (newSquareOb2.GetComponent<SpriteRenderer> ().sprite.name);
 					newsquaresquare.setColour (newSquareOb.GetComponent<SpriteRenderer> ().sprite.name);
+					// rerun the function completely
+					Debug.Log("Do all the swapping!"+"Grid-"+newintorig+"-"+counter+"   "+"Grid-"+newintorig+"-"+firstZeroPosition);
 				}
 				counter ++;
 		}
 	}
+		}
 		//reFigureMatches ();
 		redoGrid();
 	}
@@ -509,6 +510,19 @@ public class PlayerController : MonoBehaviour {
 			foreach(GameObject masterChainLink in masterChain){
 				Square masterChainLinkSquare = masterChainLink.GetComponent<Square>();
 				masterChainLinkSquare.setChainLinks (masterChain);
+			}
+
+
+
+			if (masterChain.Count () >= 4) {
+				//getDeleting(masterChain, null);
+			}
+
+			if(newsquaresquare.getDirectmatches() >= 3){
+				//getDeleting(newsquaresquare.getMatchList(), newSquareOb);
+			}
+			if(squaresquare2.getDirectmatches() >= 3){
+				//getDeleting(squaresquare2.getMatchList(), square1);
 			}
 		}
 	}
