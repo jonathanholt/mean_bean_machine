@@ -1,10 +1,15 @@
 fileFormatVersion: 2
-guid: d7807ed1cc9547545b8e31fa01ed2c3b
-timeCreated: 1515864517
+guid: 1779ea171820cc54e8e62194675570d4
+timeCreated: 1515869135
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: enemy_1_1
+    21300000: chars_next
+    21300002: chars_score
+    21300004: chars_stage
+    21300006: chars_stage_1
+    21300008: chars_score_0_p1
+    21300010: chars_score_0_p2
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -71,13 +76,78 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: enemy_1_1
+      name: chars_next
       rect:
         serializedVersion: 2
-        x: 1
-        y: 901
-        width: 80
-        height: 56
+        x: 14
+        y: 87
+        width: 32
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: chars_score
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 40
+        width: 40
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: chars_stage
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 66
+        width: 40
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: chars_stage_1
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 66
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: chars_score_0_p1
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 24
+        width: 8
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: chars_score_0_p2
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 8
+        width: 8
+        height: 14
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
