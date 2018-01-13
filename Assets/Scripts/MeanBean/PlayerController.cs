@@ -40,7 +40,6 @@ public class PlayerController : MonoBehaviour {
 	 *	Update is called once per frame. Used to detect key up events
 	 */ 
 	void Update () {
-
 		if (Input.GetKeyDown ("down")) {
 			rigid2D.velocity = new Vector3 (0, -4, 0);
 		}
@@ -78,6 +77,9 @@ public class PlayerController : MonoBehaviour {
 		}
     }
 
+    /*
+	 *	Rotate bean pair 90 degress, if possible
+	 */ 
 	public void rotate(){
 		beanOrientation = beanOrientation % 4;
 		GameObject beanToMove = GameObject.Find("bean2");
@@ -122,17 +124,16 @@ public class PlayerController : MonoBehaviour {
 				if (lastPressed == "l") {
 					row++;
 				}
-
 			}
-			//firstNumber tells us the row. We can refer to the rows array and compare the value with the one we have here.
-			//If the one we have here is lower then we need to move our player BACK to where they came from
-			//So we will need a variable somewhere to say where the last place we moved was
 		} else {
 			updateGrid ();
 			reinitGame ();
 		}
 	}
 
+    /*
+	 *	Check if moving bean into a certain square is allowed
+	 */ 
 	public bool isMoveAllowed(int firstNumber, int secondNumber){
 		if ((secondNumber + 1) < squares [firstNumber]) {
 			return false;
@@ -142,7 +143,6 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	public void childCollision(){
-		Debug.Log ("Child Collision");
 	}
 
 	/*
@@ -157,6 +157,9 @@ public class PlayerController : MonoBehaviour {
 		rotate ();
 	}
 
+    /*
+	 *	Entry point for all of the grid update classes and methods
+	 */ 
 	public void updateGrid(){
 		getSquaresToUpdate ();
 	}
@@ -435,6 +438,9 @@ public class PlayerController : MonoBehaviour {
 		redoGrid();
 	}
 
+    /*
+	 *	Re-check the entire grid for matches etc
+	 */ 
 	public void redoGrid(){
 		//step 0. iterate through grid. clear matches, chains and all that shit, only set colour!
 		for (int newintorig = 0; newintorig < 6; newintorig++) {
@@ -490,6 +496,9 @@ public class PlayerController : MonoBehaviour {
 		}
 	}
 
+    /*
+	 *	Modification of the checkMatches function called when running through the grid rearrange
+	 */ 
 	public void redoCheckMatches(string newString, GameObject newSquareOb, Square newsquaresquare){
 		GameObject newSquareOb2 = GameObject.Find(newString);
 		Square squaresquare2 = newSquareOb2.GetComponent<Square>();
