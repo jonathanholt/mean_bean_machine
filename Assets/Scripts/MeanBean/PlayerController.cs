@@ -75,6 +75,12 @@ public class PlayerController : MonoBehaviour {
 				rotate ();
 			}
 		}
+		if (Input.GetKeyUp ("z")) {
+			rigid2D.velocity = new Vector3(0, 0, 0);
+		}
+		if (Input.GetKeyUp ("x")) {
+			Time.timeScale = 1;
+		}
     }
 
     /*
@@ -308,10 +314,7 @@ public class PlayerController : MonoBehaviour {
 		Square squaresquare = square1.GetComponent<Square>();
 		Square newsquaresquare = newSquareOb.GetComponent<Square>();
 		if(newsquaresquare.getColour() != "" && squaresquare.getColour() != "" && newsquaresquare.getColour() == squaresquare.getColour()){
-			newsquaresquare.setDirectmatches(newsquaresquare.getDirectmatches()+1);
-			newsquaresquare.addMatch (square1);
-			squaresquare.setDirectmatches(squaresquare.getDirectmatches()+1);
-			squaresquare.addMatch (newSquareOb);
+			
 			// step 1. Add square 2 to square1s chain
 			squaresquare.addChain(newSquareOb);
 			// step 2. Add square1 to square2s chain
@@ -334,6 +337,12 @@ public class PlayerController : MonoBehaviour {
 			}
 			//step 7. Ensure chain values are all cleared in the deletion function just like they are for matchs
 		
+
+			newsquaresquare.setDirectmatches(newsquaresquare.getDirectmatches()+1);
+			newsquaresquare.addMatch (square1);
+			squaresquare.setDirectmatches(squaresquare.getDirectmatches()+1);
+			squaresquare.addMatch (newSquareOb);
+
 			if(newsquaresquare.getDirectmatches() >= 3){
 				getDeleting(newsquaresquare.getMatchList(), square1);
 			}
@@ -429,6 +438,7 @@ public class PlayerController : MonoBehaviour {
 					newsquaresquare.setColour (newSquareOb.GetComponent<SpriteRenderer> ().sprite.name);
 					// rerun the function completely
 					Debug.Log("Do all the swapping!"+"Grid-"+newintorig+"-"+counter+"   "+"Grid-"+newintorig+"-"+firstZeroPosition);
+					break;
 				}
 				counter ++;
 		}
@@ -524,14 +534,14 @@ public class PlayerController : MonoBehaviour {
 
 
 			if (masterChain.Count () >= 4) {
-				//getDeleting(masterChain, null);
+				getDeleting(masterChain, null);
 			}
 
-			if(newsquaresquare.getDirectmatches() >= 3){
-				//getDeleting(newsquaresquare.getMatchList(), newSquareOb);
+			if(newsquaresquare.getDirectmatches() >= 4){
+				getDeleting(newsquaresquare.getMatchList(), newSquareOb);
 			}
-			if(squaresquare2.getDirectmatches() >= 3){
-				//getDeleting(squaresquare2.getMatchList(), square1);
+			if(squaresquare2.getDirectmatches() >= 4){
+				getDeleting(squaresquare2.getMatchList(), square1);
 			}
 		}
 	}
