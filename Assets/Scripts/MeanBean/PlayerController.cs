@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour {
 
 	//Mean Bean Variables
 	private GameObject startPoint;
-	private int row;
+	public int row;
 	private int[] squares = new int[] {0, 0, 0, 0, 0, 0};
 	public GameObject square1;
 	public GameObject square2;
@@ -40,40 +40,26 @@ public class PlayerController : MonoBehaviour {
 	 *	Update is called once per frame. Used to detect key up events
 	 */ 
 	void Update () {
+
 		if (Input.GetKeyDown ("down")) {
 			rigid2D.velocity = new Vector3 (0, -4, 0);
 		}
 		if (Input.GetKeyUp ("down")) {
 			rigid2D.velocity = new Vector3(0, -2, 0);
 		}
-		if (Input.GetKeyUp ("left") && row > 1 && !(beanOrientation == 1 && row == 2)) {
-			oldPosition = transform.position;
-			lastPressed = "l";
-			transform.position += Vector3.left * 0.53f;
-			row--;
+		if (Input.GetKeyUp ("left")) {
+			leftMove ();
 		}
-		if (Input.GetKeyUp ("right") && row < 6 && !(beanOrientation == 3 && row == 5)) {
-			oldPosition = transform.position;
-			lastPressed = "r";
-			transform.position += Vector3.right * 0.53f;
-			row++;
+		if (Input.GetKeyUp ("right")) {
+			rightMove ();
 		}
 		if (Input.GetKeyUp ("a")) {
+			rotateMoveA ();
 			//anticlockwise 
-			if ((beanOrientation % 4 == 2 && row == 1) || (row == 6 && beanOrientation % 4 == 0)) {
-			}else {
-				beanOrientation += 3;
-				rotate ();
-			}
 		}
 		if (Input.GetKeyUp ("s")) {
+			rotateMoveB ();
 			//anticlockwise
-			if ((beanOrientation%4 == 0 && row == 1) || (row == 6 && beanOrientation%4 == 2)) {
-			} else {
-				//clockwise
-				beanOrientation += 1;
-				rotate ();
-			}
 		}
 		if (Input.GetKeyUp ("z")) {
 			rigid2D.velocity = new Vector3(0, 0, 0);
@@ -82,6 +68,41 @@ public class PlayerController : MonoBehaviour {
 			Time.timeScale = 1;
 		}
     }
+
+	public void rotateMoveA(){
+		if ((beanOrientation % 4 == 2 && row == 1) || (row == 6 && beanOrientation % 4 == 0)) {
+		}else {
+			beanOrientation += 3;
+			rotate ();
+		}
+	}
+
+	public void rotateMoveB(){
+		if ((beanOrientation%4 == 0 && row == 1) || (row == 6 && beanOrientation%4 == 2)) {
+		} else {
+			//clockwise
+			beanOrientation += 1;
+			rotate ();
+		}
+	}
+
+	public void leftMove(){
+		if(row > 1 && !(beanOrientation == 1 && row == 2)) {
+			oldPosition = transform.position;
+			lastPressed = "l";
+			transform.position += Vector3.left * 0.53f;
+			row--;
+		}
+	}
+
+	public void rightMove(){
+		if(row < 6 && !(beanOrientation == 3 && row == 5)) {
+			oldPosition = transform.position;
+			lastPressed = "r";
+			transform.position += Vector3.right * 0.53f;
+			row++;
+		}
+	}
 
     /*
 	 *	Rotate bean pair 90 degress, if possible
