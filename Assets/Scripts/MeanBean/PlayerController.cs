@@ -267,9 +267,13 @@ public class PlayerController : MonoBehaviour {
 			square2FindString = "Grid-"+(row-1)+"-"+(squares[row-1] - 1);
 		}
 			
-		square1 = GameObject.Find(square1FindString);
-		square2 = GameObject.Find(square2FindString);
-		updateSquareProperties (square1, square2, square1FindString, square2FindString);
+		if ((square1FindString.Contains ("12") || square1FindString.Contains ("13")) || (square2FindString.Contains ("12")) || square2FindString.Contains ("13")) {
+			gameOver ();	
+		} else {
+			square1 = GameObject.Find (square1FindString);
+			square2 = GameObject.Find (square2FindString);
+			updateSquareProperties (square1, square2, square1FindString, square2FindString);
+		}
 	}
 
 	/*
@@ -565,6 +569,15 @@ public class PlayerController : MonoBehaviour {
 				getDeleting(squaresquare2.getMatchList(), square1);
 			}
 		}
+	}
+
+	public void gameOver(){
+		Debug.Log ("Play game over sound");
+		//play sound
+		//disappear middle section of frame
+		// drop columns, starting with the middle one
+		// have 'Game Over' text move up in screen
+		// show 'Game Over' dead beans
 	}
 		
 }
