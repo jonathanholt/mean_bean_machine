@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour {
 	public Vector3 oldPosition;
 	public Rigidbody2D rigid2D;
 	public int runCount;
+	public bool gameover;
 
 
 	/*
@@ -176,12 +177,14 @@ public class PlayerController : MonoBehaviour {
 	 * 	Start player off at top of screen with new bean pair
 	 */ 
 	public void reinitGame(){
-		transform.position = startPoint.transform.position;
-		NewBean.createNewBeanPair ();
-		row = 3;
-		rigid2D.velocity = new Vector3(0, -2, 0);
-		beanOrientation = 0;
-		rotate ();
+		if (!gameover) {
+			transform.position = startPoint.transform.position;
+			NewBean.createNewBeanPair ();
+			row = 3;
+			rigid2D.velocity = new Vector3 (0, -2, 0);
+			beanOrientation = 0;
+			rotate ();
+		}
 	}
 
     /*
@@ -572,11 +575,21 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	public void gameOver(){
-		Debug.Log ("Play game over sound");
+		gameover = true;
 		//play sound
+		Debug.Log ("Play game over sound");
 		//disappear middle section of frame
+		GameObject playerFrameFloor = GameObject.Find("PlayerFrameFloor");
+		//Add animation before destory
+		Destroy (playerFrameFloor);
 		// drop columns, starting with the middle one
+		GameObject gridrow0 = GameObject.Find("GridColumn0");
+		GameObject falltarget = GameObject.Find("FallTarget");
+		Transform target = falltarget.transform;
+		float speed = 1;
+		gridrow0.transform.position = Vector3.MoveTowards (gridrow0.transform.position, target.position, speed * Time.deltaTime);
 		// have 'Game Over' text move up in screen
+
 		// show 'Game Over' dead beans
 	}
 		

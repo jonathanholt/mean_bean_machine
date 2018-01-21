@@ -1,11 +1,16 @@
 fileFormatVersion: 2
 guid: f3e624b6ca26415428f62214a830bdb8
-timeCreated: 1515864294
+timeCreated: 1516554529
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
     21300000: frame1
     21300002: frame2
+    21300004: frame_floor1
+    21300006: frame_floor2
+    21300008: frame_floor3
+    21300010: frame_floor4
+    21300012: frame_floor5
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -68,6 +73,14 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+  - buildTarget: Android
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -92,6 +105,71 @@ TextureImporter:
         y: 706
         width: 320
         height: 224
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: frame_floor1
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 689
+        width: 96
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: frame_floor2
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 672
+        width: 96
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: frame_floor3
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 655
+        width: 96
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: frame_floor4
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 638
+        width: 96
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: frame_floor5
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 621
+        width: 96
+        height: 16
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
