@@ -385,6 +385,13 @@ public class PlayerController : MonoBehaviour {
 	 * Delete properties of squares who had appropriate number of matches
 	 */ 
 	public void getDeleting(List<GameObject> culprits, GameObject finalDeletion = null){
+
+		GameObject scoreManager = GameObject.Find("PlayerScore");
+		//ScoreManager tester = scoreManager.GetComponent<ScoreManager> ();
+		//tester.AddPoints (40);
+
+
+
 		List<GameObject> affectedSquares = new List<GameObject>();
 		matches = culprits;
 		foreach(GameObject newgameobject in culprits){
