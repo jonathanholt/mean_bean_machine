@@ -21,4 +21,8 @@ public class ScoreManager : MonoBehaviour {
 	public static void Reset(){
 		score = 0;
 	}
+
+	public static void changePoints(int value){
+		
+	}
 }

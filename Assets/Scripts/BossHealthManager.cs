@@ -27,7 +27,7 @@ public class BossHealthManager : MonoBehaviour {
 				clone2.transform.localScale = new Vector3 (transform.localScale.y * 0.5f, transform.localScale.x * 0.5f, transform.localScale.z);
 				clone2.GetComponent<BossHealthManager> ().enemyHealth = 5;
 			}
-			ScoreManager.AddPoints (pointsOnDeath);
+			//ScoreManager.AddPoints (pointsOnDeath);
 			Destroy (gameObject);
 		}
 	}
