@@ -387,6 +387,7 @@ public class PlayerController : MonoBehaviour {
 	public void getDeleting(List<GameObject> culprits, GameObject finalDeletion = null){
 
 		ScoreManager.AddPoints (10);
+		ScoreManager.AlterGUI ();
 		List<GameObject> affectedSquares = new List<GameObject>();
 		matches = culprits;
 		foreach(GameObject newgameobject in culprits){

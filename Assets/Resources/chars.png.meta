@@ -1,24 +1,19 @@
 fileFormatVersion: 2
-guid: 1779ea171820cc54e8e62194675570d4
-timeCreated: 1517062089
+guid: cdba7c40a906e834d9b24b1a27e22168
+timeCreated: 1517171444
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: chars_next
-    21300002: chars_score
-    21300004: chars_stage
-    21300006: chars_stage_1
-    21300008: chars_score_0_p1
-    21300010: chars_score_0_p2
-    21300012: chars_score_1_p1
-    21300014: chars_score_5_p1
-    21300016: chars_score_2_p1
-    21300018: chars_score_4_p1
-    21300020: chars_score_8_p1
-    21300022: chars_score_6_p1
-    21300024: chars_score_3_p1
-    21300026: chars_score_9_p1
-    21300028: chars_score_7_p1
+    21300000: chars_0
+    21300002: chars_1
+    21300004: chars_2
+    21300006: chars_3
+    21300008: chars_4
+    21300010: chars_5
+    21300012: chars_6
+    21300014: chars_7
+    21300016: chars_8
+    21300018: chars_9
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -93,62 +88,10 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: chars_next
+      name: chars_0
       rect:
         serializedVersion: 2
-        x: 14
-        y: 87
-        width: 32
-        height: 14
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: chars_score
-      rect:
-        serializedVersion: 2
-        x: 15
-        y: 40
-        width: 40
-        height: 14
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: chars_stage
-      rect:
-        serializedVersion: 2
-        x: 7
-        y: 66
-        width: 40
-        height: 9
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: chars_stage_1
-      rect:
-        serializedVersion: 2
-        x: 56
-        y: 66
-        width: 6
-        height: 9
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: chars_score_0_p1
-      rect:
-        serializedVersion: 2
-        x: 7
+        x: 39
         y: 24
         width: 8
         height: 14
@@ -158,20 +101,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: chars_score_0_p2
-      rect:
-        serializedVersion: 2
-        x: 23
-        y: 8
-        width: 8
-        height: 14
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: chars_score_1_p1
+      name: chars_1
       rect:
         serializedVersion: 2
         x: 47
@@ -184,7 +114,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: chars_score_5_p1
+      name: chars_2
       rect:
         serializedVersion: 2
         x: 55
@@ -197,7 +127,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: chars_score_2_p1
+      name: chars_3
       rect:
         serializedVersion: 2
         x: 63
@@ -210,7 +140,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: chars_score_4_p1
+      name: chars_4
       rect:
         serializedVersion: 2
         x: 74
@@ -223,7 +153,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: chars_score_8_p1
+      name: chars_5
       rect:
         serializedVersion: 2
         x: 82
@@ -236,7 +166,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: chars_score_6_p1
+      name: chars_6
       rect:
         serializedVersion: 2
         x: 90
@@ -249,7 +179,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: chars_score_3_p1
+      name: chars_7
       rect:
         serializedVersion: 2
         x: 90
@@ -262,7 +192,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: chars_score_9_p1
+      name: chars_8
       rect:
         serializedVersion: 2
         x: 85
@@ -275,7 +205,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: chars_score_7_p1
+      name: chars_9
       rect:
         serializedVersion: 2
         x: 77
