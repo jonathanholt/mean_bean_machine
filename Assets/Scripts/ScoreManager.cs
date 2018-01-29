@@ -56,10 +56,17 @@ public class ScoreManager : MonoBehaviour {
 				counter--;
 			}
 		}
+		timeBreak ();
 		endScoreAlter ();
 	}
 
+	public static IEnumerator timeBreak(){
+		Debug.Log ("timebreak");
+		yield return new WaitForSeconds (5f);
+	}
+
 	public static void endScoreAlter(){
+		Debug.Log ("timebreak");
 		Object [] sprites;
 		sprites = Resources.LoadAll<Sprite> ("chars");
 		string digits = (pointsCache + score).ToString ();
@@ -71,7 +78,7 @@ public class ScoreManager : MonoBehaviour {
 			} else {
 				scoreNumber.GetComponent<SpriteRenderer>().sprite = (Sprite)sprites [0];
 			}
-			scoreNumber.SetActive (false);
+			scoreNumber.SetActive (true);
 			counter++;
 		}
 		pointsCache = 0;
