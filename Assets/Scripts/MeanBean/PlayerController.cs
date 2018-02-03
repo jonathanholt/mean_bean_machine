@@ -388,7 +388,7 @@ public class PlayerController : MonoBehaviour {
 
 		ScoreManager.AddPoints (10);
 		ScoreManager.AlterGUI ();
-		HasBeanController.changeAnimation (1);
+		HasBeanController.chooseAnimation ();
 		List<GameObject> affectedSquares = new List<GameObject>();
 		matches = culprits;
 		foreach(GameObject newgameobject in culprits){
