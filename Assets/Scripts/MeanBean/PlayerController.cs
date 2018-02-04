@@ -41,32 +41,33 @@ public class PlayerController : MonoBehaviour {
 	 *	Update is called once per frame. Used to detect key up events
 	 */ 
 	void Update () {
-
-		if (Input.GetKeyDown ("down")) {
-			rigid2D.velocity = new Vector3 (0, -4, 0);
-		}
-		if (Input.GetKeyUp ("down")) {
-			rigid2D.velocity = new Vector3(0, -2, 0);
-		}
-		if (Input.GetKeyUp ("left")) {
-			leftMove ();
-		}
-		if (Input.GetKeyUp ("right")) {
-			rightMove ();
-		}
-		if (Input.GetKeyUp ("a")) {
-			rotateMoveA ();
-			//anticlockwise 
-		}
-		if (Input.GetKeyUp ("s")) {
-			rotateMoveB ();
-			//anticlockwise
-		}
-		if (Input.GetKeyUp ("z")) {
-			rigid2D.velocity = new Vector3(0, 0, 0);
-		}
-		if (Input.GetKeyUp ("x")) {
-			Time.timeScale = 1;
+		if (!gameover) {
+			if (Input.GetKeyDown ("down")) {
+				rigid2D.velocity = new Vector3 (0, -4, 0);
+			}
+			if (Input.GetKeyUp ("down")) {
+				rigid2D.velocity = new Vector3 (0, -2, 0);
+			}
+			if (Input.GetKeyUp ("left")) {
+				leftMove ();
+			}
+			if (Input.GetKeyUp ("right")) {
+				rightMove ();
+			}
+			if (Input.GetKeyUp ("a")) {
+				rotateMoveA ();
+				//anticlockwise 
+			}
+			if (Input.GetKeyUp ("s")) {
+				rotateMoveB ();
+				//anticlockwise
+			}
+			if (Input.GetKeyUp ("z")) {
+				rigid2D.velocity = new Vector3 (0, 0, 0);
+			}
+			if (Input.GetKeyUp ("x")) {
+				Time.timeScale = 1;
+			}
 		}
     }
 
@@ -271,7 +272,8 @@ public class PlayerController : MonoBehaviour {
 		}
 			
 		if ((square1FindString.Contains ("12") || square1FindString.Contains ("13")) || (square2FindString.Contains ("12")) || square2FindString.Contains ("13")) {
-			gameOver ();	
+			gameOver ();
+			Debug.Log ("Exited");
 		} else {
 			square1 = GameObject.Find (square1FindString);
 			square2 = GameObject.Find (square2FindString);
@@ -583,17 +585,25 @@ public class PlayerController : MonoBehaviour {
 		//play sound
 		Debug.Log ("Play game over sound");
 		//disappear middle section of frame
+
+		GameObject ground = GameObject.Find("Ground");
+		Destroy (ground);
 		GameObject playerFrameFloor = GameObject.Find("PlayerFrameFloor");
 		//Add animation before destory
 		Destroy (playerFrameFloor);
 		// drop columns, starting with the middle one
-		GameObject gridrow0 = GameObject.Find("GridColumn0");
-		GameObject falltarget = GameObject.Find("FallTarget");
-		Transform target = falltarget.transform;
-		float speed = 1;
-		gridrow0.transform.position = Vector3.MoveTowards (gridrow0.transform.position, target.position, speed * Time.deltaTime);
-		// have 'Game Over' text move up in screen
+		GameObject gridrow0 = GameObject.Find("GridRow0");
+		gridrow0.AddComponent<Rigidbody2D>();
+		gridrow0.GetComponent<Rigidbody2D> ().gravityScale = 0.1f;
 
+
+
+
+		//GameObject falltarget = GameObject.Find("FallTarget");
+		//Transform target = falltarget.transform;
+		//float speed = 10;
+		//gridrow0.transform.position = Vector3.MoveTowards (gridrow0.transform.position, target.position, speed * Time.deltaTime);
+		// have 'Game Over' text move up in screen
 		// show 'Game Over' dead beans
 	}
 		
