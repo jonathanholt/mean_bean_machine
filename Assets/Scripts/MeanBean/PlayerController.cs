@@ -592,19 +592,12 @@ public class PlayerController : MonoBehaviour {
 		//Add animation before destory
 		Destroy (playerFrameFloor);
 		// drop columns, starting with the middle one
-		GameObject gridrow0 = GameObject.Find("GridRow0");
-		gridrow0.AddComponent<Rigidbody2D>();
-		gridrow0.GetComponent<Rigidbody2D> ().gravityScale = 0.1f;
-
-
-
-
-		//GameObject falltarget = GameObject.Find("FallTarget");
-		//Transform target = falltarget.transform;
-		//float speed = 10;
-		//gridrow0.transform.position = Vector3.MoveTowards (gridrow0.transform.position, target.position, speed * Time.deltaTime);
-		// have 'Game Over' text move up in screen
-		// show 'Game Over' dead beans
+		for(int i=0; i < 6; i++){
+			string column = "GridColumn" + i;
+			GameObject gridcolumn = GameObject.Find(column);
+			gridcolumn.AddComponent<Rigidbody2D>();
+			gridcolumn.GetComponent<Rigidbody2D> ().gravityScale = 0.1f;	
+		}
 	}
 		
 }
