@@ -4,11 +4,16 @@ using UnityEngine.UI;
 
 public class ScoreManager : MonoBehaviour {
 
+	public static ScoreManager Instance;
 	public static int score;
 	public static int standardScore;
 	public static int scoreMultiplier;
 	public static GameObject[] scoreNumbers;
 	public static int pointsCache;
+
+	void Awake(){
+		Instance = this;
+	}
 
 	void Start(){
 		score = 0;
@@ -48,24 +53,23 @@ public class ScoreManager : MonoBehaviour {
 					scoreNumber.SetActive (false);
 				}
 				if (counter == 7) {
-					scoreNumber.GetComponent<SpriteRenderer>().sprite = (Sprite)sprites [0];
+					scoreNumber.GetComponent<SpriteRenderer>().sprite = (Sprite)sprites [4];
 				}
 				if (counter == 6) {
-					scoreNumber.GetComponent<SpriteRenderer>().sprite = (Sprite)sprites [4];
+					scoreNumber.GetComponent<SpriteRenderer>().sprite = (Sprite)sprites [0];
 				}
 				counter--;
 			}
 		}
-		timeBreak ();
-		endScoreAlter ();
+		ScoreManager.Instance.test ();
 	}
 
-	public static IEnumerator timeBreak(){
-		Debug.Log ("timebreak");
-		yield return new WaitForSeconds (5f);
+	public void test(){
+		StartCoroutine(endScoreAlter(1f));
 	}
-
-	public static void endScoreAlter(){
+		
+	static IEnumerator endScoreAlter(float delayTime){
+		yield return new WaitForSeconds (delayTime);
 		Debug.Log ("timebreak");
 		Object [] sprites;
 		sprites = Resources.LoadAll<Sprite> ("chars");

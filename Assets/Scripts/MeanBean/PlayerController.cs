@@ -388,7 +388,7 @@ public class PlayerController : MonoBehaviour {
 	 */ 
 	public void getDeleting(List<GameObject> culprits, GameObject finalDeletion = null){
 
-		ScoreManager.AddPoints (10);
+		ScoreManager.AddPoints (40);
 		ScoreManager.AlterGUI ();
 		HasBeanController.chooseAnimation ();
 		List<GameObject> affectedSquares = new List<GameObject>();
