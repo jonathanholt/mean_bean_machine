@@ -585,15 +585,19 @@ public class PlayerController : MonoBehaviour {
 		//play sound
 		Debug.Log ("Play game over sound");
 		//disappear middle section of frame
-
 		GameObject ground = GameObject.Find("Ground");
 		Destroy (ground);
 		GameObject playerFrameFloor = GameObject.Find("PlayerFrameFloor");
 		//Add animation before destory
 		Destroy (playerFrameFloor);
-		// drop columns, starting with the middle one
-		for(int i=0; i < 6; i++){
-			string column = "GridColumn" + i;
+		StartCoroutine(MyFunction(0.1f));
+	}
+
+	IEnumerator MyFunction(float delayTime){
+		int[] columns = new int[] {2, 3, 1, 4, 0, 5};
+		for (int i = 0; i < 6; i++) {
+			yield return new WaitForSeconds (delayTime);
+			string column = "GridColumn" + columns[i];
 			GameObject gridcolumn = GameObject.Find(column);
 			gridcolumn.AddComponent<Rigidbody2D>();
 			gridcolumn.GetComponent<Rigidbody2D> ().gravityScale = 0.1f;	
