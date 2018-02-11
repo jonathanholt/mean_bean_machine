@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 76b78a981da7e9e4d97cb9fca1c1b152
-timeCreated: 1517337899
+timeCreated: 1518367285
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -58,6 +58,7 @@ TextureImporter:
     21300102: hasbean_51
     21300104: hasbean_52
     21300106: hasbean_53
+    21300108: invisible
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -828,6 +829,19 @@ TextureImporter:
         y: 38
         width: 20
         height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: invisible
+      rect:
+        serializedVersion: 2
+        x: 317
+        y: 29
+        width: 4
+        height: 5
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}

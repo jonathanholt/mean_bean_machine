@@ -20,12 +20,14 @@ public class PlayerController : MonoBehaviour {
 	public Rigidbody2D rigid2D;
 	public int runCount;
 	public bool gameover;
+	public int squaresOccupied;
 
 
 	/*
 	 * 	Called at the start of the level once. Sets some basic variable values
 	 */ 
 	void Start () {
+		squaresOccupied = 0;
 		startPoint = GameObject.Find("StartPoint");
 		row = 3;
 		beanOrientation = 0;
@@ -137,6 +139,7 @@ public class PlayerController : MonoBehaviour {
 	 * 	Detect Player collision with the bottom of the grid and call functions
 	 */ 
 	public void OnCollisionEnter2D(Collision2D other){
+		squaresOccupied += 2;
 		objectCollidedWith = other.collider.gameObject.name;
 		if (objectCollidedWith != "Ground") {
 			string[] textSplit = objectCollidedWith.Split (new string[]{ "-" }, System.StringSplitOptions.None);
@@ -155,6 +158,10 @@ public class PlayerController : MonoBehaviour {
 				}
 			}
 		} else {
+			if (squaresOccupied >= 29) {
+				EnemyController.changeAnimationWinning ();
+				EnemyLowerController.changeAnimationWinning ();
+			}
 			updateGrid ();
 			reinitGame ();
 		}
@@ -486,6 +493,7 @@ public class PlayerController : MonoBehaviour {
 	 *	Re-check the entire grid for matches etc
 	 */ 
 	public void redoGrid(){
+		squaresOccupied = 0;
 		//step 0. iterate through grid. clear matches, chains and all that shit, only set colour!
 		for (int newintorig = 0; newintorig < 6; newintorig++) {
 			for (int newint = 0; newint < 12; newint++) {
@@ -497,6 +505,7 @@ public class PlayerController : MonoBehaviour {
 				newsquaresquare.setDirectMatches (0);
 				newsquaresquare.clearMatches (fresh);
 				if (newSquareOb.GetComponent<SpriteRenderer> ().sprite.name != "Ground" && newSquareOb.GetComponent<SpriteRenderer> ().sprite.name != "GPJ_2D_Platformer_Sprites_0") {
+					squaresOccupied++;
 					newsquaresquare.setColour (newSquareOb.GetComponent<SpriteRenderer> ().sprite.name);
 				} else {
 					newsquaresquare.setColour ("");
@@ -537,6 +546,13 @@ public class PlayerController : MonoBehaviour {
 				//step 3.2.1. if our square has 4 chains, we need to run deletion event on the masterchain. let's do a log with name for now
 
 			}
+		}
+		if (squaresOccupied >= 29) {
+			EnemyController.changeAnimationWinning ();
+			EnemyLowerController.changeAnimationWinning ();
+		} else {
+			EnemyController.changeAnimationIdle ();
+			EnemyLowerController.changeAnimationWinning ();
 		}
 	}
 
@@ -581,6 +597,12 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	public void gameOver(){
+		EnemyController.changeAnimationWinning ();
+		EnemyLowerController.changeAnimationWinning ();
+		GameObject beanDuo = GameObject.Find("BeanDuo");
+		GameObject beanHolders = GameObject.Find("BeanHolders");
+		Destroy (beanDuo);
+		Destroy (beanHolders);
 		gameover = true;
 		//play sound
 		Debug.Log ("Play game over sound");
