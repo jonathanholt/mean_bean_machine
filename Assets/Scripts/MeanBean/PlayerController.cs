@@ -139,6 +139,7 @@ public class PlayerController : MonoBehaviour {
 	 * 	Detect Player collision with the bottom of the grid and call functions
 	 */ 
 	public void OnCollisionEnter2D(Collision2D other){
+		Debug.Log ("OnCollisionEnter2D");
 		squaresOccupied += 2;
 		objectCollidedWith = other.collider.gameObject.name;
 		if (objectCollidedWith != "Ground") {
@@ -185,6 +186,7 @@ public class PlayerController : MonoBehaviour {
 	 * 	Start player off at top of screen with new bean pair
 	 */ 
 	public void reinitGame(){
+		Debug.Log ("reinitGame");
 		if (!gameover) {
 			transform.position = startPoint.transform.position;
 			NewBean.createNewBeanPair ();
@@ -199,6 +201,7 @@ public class PlayerController : MonoBehaviour {
 	 *	Entry point for all of the grid update classes and methods
 	 */ 
 	public void updateGrid(){
+		Debug.Log ("updateGrid");
 		getSquaresToUpdate ();
 	}
 
@@ -206,6 +209,7 @@ public class PlayerController : MonoBehaviour {
 	 * 	Work out which squares the beans have landed in and build the string of these squares
 	 */ 
 	public void getSquaresToUpdate(){
+		Debug.Log ("getSquaresToUpdate");
 		int beanOrientationPositive = Mathf.Abs(beanOrientation);
 		string square1FindString = null;
 		string square2FindString = null;
@@ -292,6 +296,7 @@ public class PlayerController : MonoBehaviour {
 	 *	Pass in two squares and add a BoxCollider
 	 */ 
 	public void updateSquareProperties(GameObject square1, GameObject square2, string square1FindString, string square2FindString){
+		Debug.Log ("updateSquareProperties");
 		Object [] sprites;
 		sprites = Resources.LoadAll ("beans");
 		square1.GetComponent<SpriteRenderer>().sprite = (Sprite)sprites [NewBean.randomBean1];
@@ -319,6 +324,7 @@ public class PlayerController : MonoBehaviour {
 	 *	Finds adjacent squares and passes along with original square to another function
 	 */ 
 	public void findAdjacentSquares(string currentSquare, GameObject square1, int colour){
+		Debug.Log ("findAdjacentSquares");
 		Square squaresquare = square1.GetComponent<Square>();
 		string[] colours = {"blue","green","purple","red","yellow"};
 		squaresquare.setColour (colours[colour-1]);
@@ -347,11 +353,13 @@ public class PlayerController : MonoBehaviour {
 	 * 	Updates square and adjacent square matches and calls delete function if needed
 	 */ 
 	public void checkingMatches(string newString, GameObject square1){
+		Debug.Log ("checkingMatches 01");
 		GameObject newSquareOb = GameObject.Find(newString);
 		Square squaresquare = square1.GetComponent<Square>();
 		Square newsquaresquare = newSquareOb.GetComponent<Square>();
+		Debug.Log ("checkingMatches 02");
 		if(newsquaresquare.getColour() != "" && squaresquare.getColour() != "" && newsquaresquare.getColour() == squaresquare.getColour()){
-			
+			Debug.Log ("checkingMatches 03");
 			// step 1. Add square 2 to square1s chain
 			squaresquare.addChain(newSquareOb);
 			// step 2. Add square1 to square2s chain
@@ -363,27 +371,32 @@ public class PlayerController : MonoBehaviour {
 			masterChain = masterChain.Distinct().ToList();
 			// step 4. Loop through this master chain and assign the master chain to the chain value for each square! Complicated but 
 			foreach(GameObject masterChainLink in masterChain){
+				Debug.Log ("checkingMatches 04");
 				Square masterChainLinkSquare = masterChainLink.GetComponent<Square>();
 				masterChainLinkSquare.setChainLinks (masterChain);
 			}
+			Debug.Log ("checkingMatches 05");
 			// should work
 			// step 5. Check if master chain count if equal or greater than 5
 			// step 6. Proceed with 'get deleting' for the masterchain
 			if(masterChain.Count >= 4){
+				Debug.Log ("checkingMatches 06");
 				getDeleting(masterChain, null);
 			}
 			//step 7. Ensure chain values are all cleared in the deletion function just like they are for matchs
 		
-
+			Debug.Log ("checkingMatches 07");
 			newsquaresquare.setDirectmatches(newsquaresquare.getDirectmatches()+1);
 			newsquaresquare.addMatch (square1);
 			squaresquare.setDirectmatches(squaresquare.getDirectmatches()+1);
 			squaresquare.addMatch (newSquareOb);
 
 			if(newsquaresquare.getDirectmatches() >= 3){
+				Debug.Log ("checkingMatches 08");
 				getDeleting(newsquaresquare.getMatchList(), square1);
 			}
 			if(squaresquare.getDirectmatches() >= 3){
+				Debug.Log ("checkingMatches 09");
 				getDeleting(squaresquare.getMatchList(), newSquareOb);
 			}
 		}
@@ -394,7 +407,7 @@ public class PlayerController : MonoBehaviour {
 	 * Delete properties of squares who had appropriate number of matches
 	 */ 
 	public void getDeleting(List<GameObject> culprits, GameObject finalDeletion = null){
-
+		Debug.Log ("getDeleting");
 		ScoreManager.AddPoints (40);
 		ScoreManager.AlterGUI ();
 		HasBeanController.chooseAnimation ();
@@ -404,7 +417,7 @@ public class PlayerController : MonoBehaviour {
 			affectedSquares.Add (newgameobject);
 			// Cleaning up square
 			Object [] sprites;
-			sprites = Resources.LoadAll<Sprite> ("GPJ_2D_Platformer_Sprites");
+			sprites = Resources.LoadAll<Sprite> ("hasbean");
 			newgameobject.GetComponent<SpriteRenderer> ().sprite = (Sprite)sprites [0];
 			Destroy(newgameobject.GetComponent<BoxCollider2D> ());
 			Square squaresquare = newgameobject.GetComponent<Square>();
@@ -418,7 +431,7 @@ public class PlayerController : MonoBehaviour {
 		if (finalDeletion) {
 			affectedSquares.Add (finalDeletion);
 			Object[] sprites2;
-			sprites2 = Resources.LoadAll<Sprite> ("GPJ_2D_Platformer_Sprites");
+			sprites2 = Resources.LoadAll<Sprite> ("hasbean");
 			finalDeletion.GetComponent<SpriteRenderer> ().sprite = (Sprite)sprites2 [0];
 			Square squaresquaresquare = finalDeletion.GetComponent<Square> ();
 			squaresquaresquare.setColour ("");
@@ -444,13 +457,14 @@ public class PlayerController : MonoBehaviour {
 	 * 	Post-deletion reorganisation of grid. Includes the 'drop function'
 	 */ 
 	public void gridRearrange(){
+		Debug.Log ("gridRearrange");
 		for(int wrapper = 0; wrapper < 11; wrapper ++){
 		for(int newintorig = 0; newintorig < 6; newintorig ++){
 			int[] squareValues = new int[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 			for(int newint = 0; newint < 12; newint ++){
 				GameObject newSquareOb = GameObject.Find("Grid-"+newintorig+"-"+newint);
 				Square newsquaresquare = newSquareOb.GetComponent<Square>();
-				if(newSquareOb.GetComponent<SpriteRenderer> ().sprite.name != "Ground" && newSquareOb.GetComponent<SpriteRenderer> ().sprite.name != "GPJ_2D_Platformer_Sprites_0"){
+				if(newSquareOb.GetComponent<SpriteRenderer> ().sprite.name != "invisible" && newSquareOb.GetComponent<SpriteRenderer> ().sprite.name != "GPJ_2D_Platformer_Sprites_0"){
 					squareValues [newint] = 1;
 				}
 			}
@@ -493,6 +507,7 @@ public class PlayerController : MonoBehaviour {
 	 *	Re-check the entire grid for matches etc
 	 */ 
 	public void redoGrid(){
+		Debug.Log ("redoGrid");
 		squaresOccupied = 0;
 		//step 0. iterate through grid. clear matches, chains and all that shit, only set colour!
 		for (int newintorig = 0; newintorig < 6; newintorig++) {
@@ -504,7 +519,7 @@ public class PlayerController : MonoBehaviour {
 				newsquaresquare.setChain (0);
 				newsquaresquare.setDirectMatches (0);
 				newsquaresquare.clearMatches (fresh);
-				if (newSquareOb.GetComponent<SpriteRenderer> ().sprite.name != "Ground" && newSquareOb.GetComponent<SpriteRenderer> ().sprite.name != "GPJ_2D_Platformer_Sprites_0") {
+				if (newSquareOb.GetComponent<SpriteRenderer> ().sprite.name != "invisible" && newSquareOb.GetComponent<SpriteRenderer> ().sprite.name != "GPJ_2D_Platformer_Sprites_0") {
 					squaresOccupied++;
 					newsquaresquare.setColour (newSquareOb.GetComponent<SpriteRenderer> ().sprite.name);
 				} else {
