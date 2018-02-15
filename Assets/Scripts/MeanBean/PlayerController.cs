@@ -43,7 +43,14 @@ public class PlayerController : MonoBehaviour {
 	 *	Update is called once per frame. Used to detect key up events
 	 */ 
 	void Update () {
-		if (!gameover) {
+
+		if (Input.GetKeyUp ("z")) {
+			Debug.Log ("zzzz");
+			PauseController.togglePause ();
+		}
+
+
+		if (!gameover && Time.timeScale != 0f) {
 			if (Input.GetKeyDown ("down")) {
 				rigid2D.velocity = new Vector3 (0, -4, 0);
 			}
@@ -63,12 +70,6 @@ public class PlayerController : MonoBehaviour {
 			if (Input.GetKeyUp ("s")) {
 				rotateMoveB ();
 				//anticlockwise
-			}
-			if (Input.GetKeyUp ("z")) {
-				rigid2D.velocity = new Vector3 (0, 0, 0);
-			}
-			if (Input.GetKeyUp ("x")) {
-				Time.timeScale = 1;
 			}
 		}
     }
