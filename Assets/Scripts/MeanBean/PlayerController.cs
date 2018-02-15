@@ -136,7 +136,7 @@ public class PlayerController : MonoBehaviour {
 		}
 	}
 
-	/*
+	/*in
 	 * 	Detect Player collision with the bottom of the grid and call functions
 	 */ 
 	public void OnCollisionEnter2D(Collision2D other){
@@ -418,7 +418,7 @@ public class PlayerController : MonoBehaviour {
 			affectedSquares.Add (newgameobject);
 			// Cleaning up square
 			Object [] sprites;
-			sprites = Resources.LoadAll<Sprite> ("hasbean");
+			sprites = Resources.LoadAll<Sprite> ("GPJ_2D_Platformer_Sprites");
 			newgameobject.GetComponent<SpriteRenderer> ().sprite = (Sprite)sprites [0];
 			Destroy(newgameobject.GetComponent<BoxCollider2D> ());
 			Square squaresquare = newgameobject.GetComponent<Square>();
@@ -432,7 +432,7 @@ public class PlayerController : MonoBehaviour {
 		if (finalDeletion) {
 			affectedSquares.Add (finalDeletion);
 			Object[] sprites2;
-			sprites2 = Resources.LoadAll<Sprite> ("hasbean");
+			sprites2 = Resources.LoadAll<Sprite> ("GPJ_2D_Platformer_Sprites");
 			finalDeletion.GetComponent<SpriteRenderer> ().sprite = (Sprite)sprites2 [0];
 			Square squaresquaresquare = finalDeletion.GetComponent<Square> ();
 			squaresquaresquare.setColour ("");
@@ -465,7 +465,7 @@ public class PlayerController : MonoBehaviour {
 			for(int newint = 0; newint < 12; newint ++){
 				GameObject newSquareOb = GameObject.Find("Grid-"+newintorig+"-"+newint);
 				Square newsquaresquare = newSquareOb.GetComponent<Square>();
-				if(newSquareOb.GetComponent<SpriteRenderer> ().sprite.name != "invisible" && newSquareOb.GetComponent<SpriteRenderer> ().sprite.name != "GPJ_2D_Platformer_Sprites_0"){
+				if(newSquareOb.GetComponent<SpriteRenderer> ().sprite.name != "Ground" && newSquareOb.GetComponent<SpriteRenderer> ().sprite.name != "GPJ_2D_Platformer_Sprites_0"){
 					squareValues [newint] = 1;
 				}
 			}
@@ -520,7 +520,7 @@ public class PlayerController : MonoBehaviour {
 				newsquaresquare.setChain (0);
 				newsquaresquare.setDirectMatches (0);
 				newsquaresquare.clearMatches (fresh);
-				if (newSquareOb.GetComponent<SpriteRenderer> ().sprite.name != "invisible" && newSquareOb.GetComponent<SpriteRenderer> ().sprite.name != "GPJ_2D_Platformer_Sprites_0") {
+				if (newSquareOb.GetComponent<SpriteRenderer> ().sprite.name != "Ground" && newSquareOb.GetComponent<SpriteRenderer> ().sprite.name != "GPJ_2D_Platformer_Sprites_0") {
 					squaresOccupied++;
 					newsquaresquare.setColour (newSquareOb.GetComponent<SpriteRenderer> ().sprite.name);
 				} else {
