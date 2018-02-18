@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 4aa539eec90367947a35de454366bfd0
-timeCreated: 1518737425
+timeCreated: 1518980984
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -30,6 +30,7 @@ TextureImporter:
     21300046: level3
     21300048: level4
     21300050: levellocked
+    21300052: enemyblock
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -441,6 +442,19 @@ TextureImporter:
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: -1
+    - serializedVersion: 2
+      name: enemyblock
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 80
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
     outline: []
   spritePackingTag: 
   userData: 
