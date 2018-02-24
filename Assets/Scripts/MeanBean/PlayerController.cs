@@ -316,8 +316,8 @@ public class PlayerController : MonoBehaviour {
 		}
 		square1.tag = "Ground";
 		square2.tag = "Ground";
-		findAdjacentSquares(square1FindString, square1, NewBean.randomBean1);
-		findAdjacentSquares(square2FindString, square2, NewBean.randomBean2);
+		//findAdjacentSquares(square1FindString, square1, NewBean.randomBean1);
+		//findAdjacentSquares(square2FindString, square2, NewBean.randomBean2);
 
 	}
 
@@ -451,7 +451,7 @@ public class PlayerController : MonoBehaviour {
 			int secondNumber = int.Parse (textSplit [2]);
 			squares [firstNumber] -= 1;
 			}
-		gridRearrange ();
+		//gridRearrange ();
 		}
 
 	/*
