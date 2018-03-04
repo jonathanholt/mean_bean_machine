@@ -9,6 +9,6 @@ public class Robotnik : MonoBehaviour {
 	public List<string> matches = new List<string> ();
 
 	void Start () {
-		colour = "0";
+		colour = "NA";
 	}
 }

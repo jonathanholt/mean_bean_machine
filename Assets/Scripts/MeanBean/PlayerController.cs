@@ -318,8 +318,9 @@ public class PlayerController : MonoBehaviour {
 	public void interactWithGridManager(string squareToDo, string squareToDo2, int randomBeancolour, int randomBeanColour2){
 		GridManager.changeRobotnikColour (squareToDo, randomBeancolour);
 		GridManager.changeRobotnikColour (squareToDo2, randomBeanColour2);
-		GridManager.checkRobotnikMatches (squareToDo);
-		GridManager.checkRobotnikMatches (squareToDo2);
+		GridManager.checkRobotnikMatches (squareToDo, 1);
+		GridManager.checkRobotnikMatches (squareToDo2, 100);
+		GridManager.deleteRobotnikMatches ();
 	}
 
 
