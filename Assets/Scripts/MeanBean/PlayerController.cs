@@ -199,6 +199,7 @@ public class PlayerController : MonoBehaviour {
 	 *	Entry point for all of the grid update classes and methods
 	 */ 
 	public void updateGrid(){
+
 		getSquaresToUpdate ();
 	}
 
@@ -311,8 +312,16 @@ public class PlayerController : MonoBehaviour {
 		square2.tag = "Ground";
 		//findAdjacentSquares(square1FindString, square1, NewBean.randomBean1);
 		//findAdjacentSquares(square2FindString, square2, NewBean.randomBean2);
-
+		interactWithGridManager(square1FindString, square2FindString,  NewBean.randomBean1, NewBean.randomBean2);
 	}
+
+	public void interactWithGridManager(string squareToDo, string squareToDo2, int randomBeancolour, int randomBeanColour2){
+		GridManager.changeRobotnikColour (squareToDo, randomBeancolour);
+		GridManager.changeRobotnikColour (squareToDo2, randomBeanColour2);
+		GridManager.checkRobotnikMatches (squareToDo);
+		GridManager.checkRobotnikMatches (squareToDo2);
+	}
+
 
 	/*
 	 *	Finds adjacent squares and passes along with original square to another function

@@ -5,11 +5,10 @@ using System.Linq;
 
 public class Robotnik : MonoBehaviour {
 	public string colour;
-	public int matches;
 	public string name;
+	public List<string> matches = new List<string> ();
 
 	void Start () {
 		colour = "0";
-		matches = 0;
 	}
 }
