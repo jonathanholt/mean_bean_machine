@@ -248,7 +248,22 @@ public class GridManager : MonoBehaviour {
 		}
 	}
 
-	public void dropFunction(){
+	public static void dropFunction(){
+		for (int j = 0; j < rows; j++) {
+			for (int i = 0; i < columns; i++) {
+				if (grid [j, i].colour != "NA") {
+					if (i != 0) {
+						if (grid [j, i - 1].colour == "NA") {
+							string holderColour1 = grid [j, i].colour;
+							string holderColour2 = grid [j, i - 1].colour;
+							List<string> holderMatches1 = grid [j, i].matches;
+							List<string> holderMatches2 = grid [j, i - 1];
+							Debug.Log("Dropping Grid-"+j+"-"+i+" down to Grid-"+j+"-"+(i-1));
+						}
+					}			
+				}
+			}
+		}
 		//DROP FUNCTION
 		//START WITH BOTTOM, CHECK IF BEAN, IF NOT, MOVE ON, IF BEAN && BELOW SQUARES IS EMPTY, SWITCH VALUES, CHECK THE BELOW AGAIN ETC
 		//WHEN WE HAVE DONE ALL DROPS THEN WE CAN CYCLE THE GRID AND SET ALL OF THE MATCHES TO 0
