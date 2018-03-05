@@ -4,7 +4,7 @@ using UnityEngine;
 using System.Linq;
 
 public class Robotnik : MonoBehaviour {
-	public string colour;
+	public string colour = "NA";
 	public string name;
 	public List<string> matches = new List<string> ();
 

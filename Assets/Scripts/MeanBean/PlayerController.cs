@@ -321,7 +321,9 @@ public class PlayerController : MonoBehaviour {
 		GridManager.checkRobotnikMatches (squareToDo, 1);
 		GridManager.checkRobotnikMatches (squareToDo2, 100);
 		GridManager.deleteRobotnikMatches ();
-		GridManager.dropFunction ();
+		for (int n = 0; n < 10; n++) {
+			GridManager.dropFunction ();
+		}
 	}
 
 

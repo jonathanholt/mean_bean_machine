@@ -258,7 +258,13 @@ public class GridManager : MonoBehaviour {
 							string holderColour2 = grid [j, i - 1].colour;
 							List<string> holderMatches1 = grid [j, i].matches;
 							List<string> holderMatches2 = grid [j, i - 1].matches;
-							Debug.Log("Dropping Grid-"+j+"-"+i+" down to Grid-"+j+"-"+(i-1));
+
+							grid [j, i].colour = holderColour2;
+							grid [j, i - 1].colour = holderColour1;
+							grid [j, i].matches = holderMatches2;
+							grid [j, i - 1].matches = holderMatches1;
+								
+							Debug.Log("Dropping Grid-"+j+"-"+i+" down to Grid-"+j+"-"+(i-1)+" because "+grid [j, i].colour);
 						}
 					}			
 				}
