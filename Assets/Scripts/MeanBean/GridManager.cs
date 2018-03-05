@@ -49,7 +49,6 @@ public class GridManager : MonoBehaviour {
 				Robotnik newRobotnik = new Robotnik ();
 				grid[j, i] = newRobotnik;
 				grid [j, i].name = "Grid-" + j + "-" + i;
-				Debug.Log ("Debug manager..." + grid [j, i].name);
 			}
 		}
 	}
@@ -61,8 +60,9 @@ public class GridManager : MonoBehaviour {
 				if (grid [j, i].name == robotnikString) {
 					//2. change that members colour attribute to the colour parameter
 					grid [j, i].colour = colourString.ToString ();
+					return;
 				} else {
-					Debug.Log ("No match found!");
+					
 				}
 			}
 		}
@@ -87,6 +87,7 @@ public class GridManager : MonoBehaviour {
 							grid [j + 1, i].matches.Add(grid [j + 1, i].name);
 							List<string> combinedMatches = grid [j, i].matches;
 							combinedMatches.AddRange(grid [j + 1, i].matches);
+							combinedMatches = combinedMatches.Distinct ().ToList ();
 							grid [j + 1, i].matches = combinedMatches;
 							grid [j, i].matches = combinedMatches;
 
@@ -112,6 +113,7 @@ public class GridManager : MonoBehaviour {
 							grid [j - 1, i].matches.Add(grid [j - 1, i].name);
 							List<string> combinedMatches = grid [j, i].matches;
 							combinedMatches.AddRange(grid [j - 1, i].matches);
+							combinedMatches = combinedMatches.Distinct ().ToList ();
 							grid [j - 1, i].matches = combinedMatches;
 							grid [j, i].matches = combinedMatches;
 
@@ -137,6 +139,7 @@ public class GridManager : MonoBehaviour {
 							grid [j, i - 1].matches.Add(grid [j, i - 1].name);
 							List<string> combinedMatches = grid [j, i].matches;
 							combinedMatches.AddRange(grid [j, i-1].matches);
+							combinedMatches = combinedMatches.Distinct ().ToList ();
 							grid [j, i - 1].matches = combinedMatches;
 							grid [j, i].matches = combinedMatches;
 
@@ -162,6 +165,7 @@ public class GridManager : MonoBehaviour {
 							grid [j, i+1].matches.Add(grid [j, i +1].name);
 							List<string> combinedMatches = grid [j, i].matches;
 							combinedMatches.AddRange(grid [j, i +1].matches);
+							combinedMatches = combinedMatches.Distinct ().ToList ();
 							grid [j, i + 1].matches = combinedMatches;
 							grid [j, i].matches = combinedMatches;
 
