@@ -199,7 +199,6 @@ public class PlayerController : MonoBehaviour {
 	 *	Entry point for all of the grid update classes and methods
 	 */ 
 	public void updateGrid(){
-
 		getSquaresToUpdate ();
 	}
 
@@ -320,9 +319,12 @@ public class PlayerController : MonoBehaviour {
 		GridManager.changeRobotnikColour (squareToDo2, randomBeanColour2);
 		GridManager.checkRobotnikMatches (squareToDo, 1);
 		GridManager.checkRobotnikMatches (squareToDo2, 100);
-		GridManager.deleteRobotnikMatches ();
-		for (int n = 0; n < 10; n++) {
-			GridManager.dropFunction ();
+		if ((GridManager.deletei1 != 100 && GridManager.deletej1 != 100) || (GridManager.deletei2 != 100 && GridManager.deletej2 != 100)) {
+			GridManager.deleteRobotnikMatches ();
+			for (int n = 0; n < 50; n++) {
+				GridManager.dropFunction ();
+			}
+			GridManager.finalCheckFunction ();
 		}
 	}
 

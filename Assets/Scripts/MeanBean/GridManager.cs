@@ -74,118 +74,125 @@ public class GridManager : MonoBehaviour {
 		//1. get the 3D array coordinates of our square based on parameter string
 		for(int j = 0; j < rows; j++){
 			for(int i = 0; i < columns; i++){
-				if (grid [j, i].name == robotnikString) {
-					correctj = j;
-					correcti = i;
-					//2. set that square's matches to 1
-					grid [j, i].matches.Add(grid [j, i].name);
-					//3. Load each of the neighbouring squares (if not on edge)
-					if(j+1 < rows){
-						//3.1 Check the colour attribute of that square
-						if (grid [j + 1, i].colour == grid [j, i].colour) {
-							//3.1.1. If the colour attribute is the same, then extract the match value of both squares, combine it and reassign to the squares
-							grid [j + 1, i].matches.Add(grid [j + 1, i].name);
-							List<string> combinedMatches = grid [j, i].matches;
-							combinedMatches.AddRange(grid [j + 1, i].matches);
-							combinedMatches = combinedMatches.Distinct ().ToList ();
-							grid [j + 1, i].matches = combinedMatches;
-							grid [j, i].matches = combinedMatches;
 
-							//3.1.2. If the match attribute reaches 4, then set a flag because deleting needs to happen
-							if(combinedMatches.Count >= 4){
-								deleteTime = true;
-								if (isFinal == 0) {
-									deletei1 = i;
-									deletej1 = j;
-								} 
-								else {
-									deletei2 = i;
-									deletej2 = j;
+				if (grid [j, i].colour != "NA") {
+
+
+					if (grid [j, i].name == robotnikString) {
+						correctj = j;
+						correcti = i;
+						//2. set that square's matches to 1
+						grid [j, i].matches.Add (grid [j, i].name);
+						List<string> removeDupes = grid [j, i].matches.Distinct ().ToList ();
+						//3. Load each of the neighbouring squares (if not on edge)
+						if (j + 1 < rows) {
+							//3.1 Check the colour attribute of that square
+							if (grid [j + 1, i].colour == grid [j, i].colour) {
+								//3.1.1. If the colour attribute is the same, then extract the match value of both squares, combine it and reassign to the squares
+								grid [j + 1, i].matches.Add (grid [j + 1, i].name);
+								List<string> combinedMatches = grid [j, i].matches;
+								combinedMatches.AddRange (grid [j + 1, i].matches);
+								combinedMatches = combinedMatches.Distinct ().ToList ();
+								grid [j + 1, i].matches = combinedMatches;
+								grid [j, i].matches = combinedMatches;
+
+								//3.1.2. If the match attribute reaches 4, then set a flag because deleting needs to happen
+								if (combinedMatches.Count >= 4) {
+									deleteTime = true;
+									if (isFinal == 0) {
+										deletei1 = i;
+										deletej1 = j;
+									} else {
+										deletei2 = i;
+										deletej2 = j;
+									}
 								}
-							}
-						}	
-					}
+							}	
+						}
 
-					if(j-1 >= 0){
-						//3.1 Check the colour attribute of that square
-						if (grid [j - 1, i].colour == grid [j, i].colour) {
-							//3.1.1. If the colour attribute is the same, then extract the match value of both squares, combine it and reassign to the squares
-							grid [j - 1, i].matches.Add(grid [j - 1, i].name);
-							List<string> combinedMatches = grid [j, i].matches;
-							combinedMatches.AddRange(grid [j - 1, i].matches);
-							combinedMatches = combinedMatches.Distinct ().ToList ();
-							grid [j - 1, i].matches = combinedMatches;
-							grid [j, i].matches = combinedMatches;
+						if (j - 1 >= 0) {
+							//3.1 Check the colour attribute of that square
+							if (grid [j - 1, i].colour == grid [j, i].colour) {
+								//3.1.1. If the colour attribute is the same, then extract the match value of both squares, combine it and reassign to the squares
+								grid [j - 1, i].matches.Add (grid [j - 1, i].name);
+								List<string> combinedMatches = grid [j, i].matches;
+								combinedMatches.AddRange (grid [j - 1, i].matches);
+								combinedMatches = combinedMatches.Distinct ().ToList ();
+								grid [j - 1, i].matches = combinedMatches;
+								grid [j, i].matches = combinedMatches;
 
-							//3.1.2. If the match attribute reaches 4, then set a flag because deleting needs to happen
-							if(combinedMatches.Count >= 4){
-								deleteTime = true;
-								if (isFinal == 0) {
-									deletei1 = i;
-									deletej1 = j;
-								} 
-								else {
-									deletei2 = i;
-									deletej2 = j;
+								//3.1.2. If the match attribute reaches 4, then set a flag because deleting needs to happen
+								if (combinedMatches.Count >= 4) {
+									deleteTime = true;
+									if (isFinal == 0) {
+										deletei1 = i;
+										deletej1 = j;
+									} else {
+										deletei2 = i;
+										deletej2 = j;
+									}
 								}
-							}
-						}	
-					}
+							}	
+						}
 
-					if(i-1 >= 0){
-						//3.1 Check the colour attribute of that square
-						if (grid [j, i - 1].colour == grid [j, i].colour) {
-							//3.1.1. If the colour attribute is the same, then extract the match value of both squares, combine it and reassign to the squares
-							grid [j, i - 1].matches.Add(grid [j, i - 1].name);
-							List<string> combinedMatches = grid [j, i].matches;
-							combinedMatches.AddRange(grid [j, i-1].matches);
-							combinedMatches = combinedMatches.Distinct ().ToList ();
-							grid [j, i - 1].matches = combinedMatches;
-							grid [j, i].matches = combinedMatches;
+						if (i - 1 >= 0) {
+							//3.1 Check the colour attribute of that square
+							if (grid [j, i - 1].colour == grid [j, i].colour) {
+								//3.1.1. If the colour attribute is the same, then extract the match value of both squares, combine it and reassign to the squares
+								grid [j, i - 1].matches.Add (grid [j, i - 1].name);
+								List<string> combinedMatches = grid [j, i].matches;
+								combinedMatches.AddRange (grid [j, i - 1].matches);
+								combinedMatches = combinedMatches.Distinct ().ToList ();
+								grid [j, i - 1].matches = combinedMatches;
+								grid [j, i].matches = combinedMatches;
 
-							//3.1.2. If the match attribute reaches 4, then set a flag because deleting needs to happen
-							if(combinedMatches.Count >= 4){
-								deleteTime = true;
-								if (isFinal == 0) {
-									deletei1 = i;
-									deletej1 = j;
-								} 
-								else {
-									deletei2 = i;
-									deletej2 = j;
+								//3.1.2. If the match attribute reaches 4, then set a flag because deleting needs to happen
+								if (combinedMatches.Count >= 4) {
+									deleteTime = true;
+									if (isFinal == 0) {
+										deletei1 = i;
+										deletej1 = j;
+									} else {
+										deletei2 = i;
+										deletej2 = j;
+									}
 								}
-							}
-						}	
-					}
+							}	
+						}
 
-					if(i+1 < columns){
-						//3.1 Check the colour attribute of that square
-						if (grid [j, i + 1].colour == grid [j, i].colour) {
-							//3.1.1. If the colour attribute is the same, then extract the match value of both squares, combine it and reassign to the squares
-							grid [j, i+1].matches.Add(grid [j, i +1].name);
-							List<string> combinedMatches = grid [j, i].matches;
-							combinedMatches.AddRange(grid [j, i +1].matches);
-							combinedMatches = combinedMatches.Distinct ().ToList ();
-							grid [j, i + 1].matches = combinedMatches;
-							grid [j, i].matches = combinedMatches;
+						if (i + 1 < columns) {
+							//3.1 Check the colour attribute of that square
+							if (grid [j, i + 1].colour == grid [j, i].colour) {
+								//3.1.1. If the colour attribute is the same, then extract the match value of both squares, combine it and reassign to the squares
+								grid [j, i + 1].matches.Add (grid [j, i + 1].name);
+								List<string> combinedMatches = grid [j, i].matches;
+								combinedMatches.AddRange (grid [j, i + 1].matches);
+								combinedMatches = combinedMatches.Distinct ().ToList ();
+								grid [j, i + 1].matches = combinedMatches;
+								grid [j, i].matches = combinedMatches;
 
-							//3.1.2. If the match attribute reaches 4, then set a flag because deleting needs to happen
-							if(combinedMatches.Count >= 4){
-								deleteTime = true;
-								if (isFinal == 0) {
-									deletei1 = i;
-									deletej1 = j;
-								} 
-								else {
-									deletei2 = i;
-									deletej2 = j;
+								//3.1.2. If the match attribute reaches 4, then set a flag because deleting needs to happen
+								if (combinedMatches.Count >= 4) {
+									deleteTime = true;
+									if (isFinal == 0) {
+										deletei1 = i;
+										deletej1 = j;
+									} else {
+										deletei2 = i;
+										deletej2 = j;
+									}
 								}
-							}
-						}	
-					}
+							}	
+						}
 
+
+					}
 
 				}
+
+
+
+
 			}
 		}	
 		//3.2.1.1. Then we should have a definitive list of which squares to delete. We need to remove duplicates from this list.
@@ -274,6 +281,26 @@ public class GridManager : MonoBehaviour {
 		//START WITH BOTTOM, CHECK IF BEAN, IF NOT, MOVE ON, IF BEAN && BELOW SQUARES IS EMPTY, SWITCH VALUES, CHECK THE BELOW AGAIN ETC
 		//WHEN WE HAVE DONE ALL DROPS THEN WE CAN CYCLE THE GRID AND SET ALL OF THE MATCHES TO 0
 		//WE THEN RUN A CHECK ON EVERY SQUARE WITH THE MATCH FUNCTION TOO 
+	}
+
+	public static void finalCheckFunction(){
+		Debug.Log ("FINAL CHECK");
+		for(int j = 0; j < rows; j++){
+			for(int i = 0; i < columns; i++){
+				grid [j, i].matches = blankMatches;
+				//	deleteRobotnikMatches ();
+			}
+		}
+
+		//for(int n = 0; n < 16; n++){
+		for(int j = 0; j < rows; j++){
+			for(int i = 0; i < columns; i++){
+				checkRobotnikMatches("Grid-" + j + "-" + i, 0);
+				deleteRobotnikMatches ();
+			}
+		}
+		//dropFunction ();
+	//}
 	}
 
 	public Robotnik[,] returnGrid(){
