@@ -15,6 +15,12 @@ public class GridManager : MonoBehaviour {
 	public static int deletej2 = 100;
 	public static List<string> blankMatches = new List<string> ();
 
+	//5 == yellow
+	//4 == red
+	//3 == purple
+	//2 == green
+	//1 == blue
+
 	//3D array, examples
 	//row 1 [0,0,0,0,0],
 	//		[0,0,0,0,0]
@@ -53,16 +59,14 @@ public class GridManager : MonoBehaviour {
 		}
 	}
 
-	public static void changeRobotnikColour(string robotnikString, int colourString){
+	public static void changeRobotnikColour(string robotnikString, string colourString){
 		//1. locate the member of the array whose name is the same as the parameter string
 		for(int j = 0; j < rows; j++){
 			for(int i = 0; i < columns; i++){
 				if (grid [j, i].name == robotnikString) {
 					//2. change that members colour attribute to the colour parameter
-					grid [j, i].colour = colourString.ToString ();
+					grid [j, i].colour = colourString;
 					return;
-				} else {
-					
 				}
 			}
 		}
@@ -75,19 +79,23 @@ public class GridManager : MonoBehaviour {
 		for(int j = 0; j < rows; j++){
 			for(int i = 0; i < columns; i++){
 
-				if (grid [j, i].colour != "NA") {
+				if (grid [j, i].colour != "NULLVOID") {
 
 
 					if (grid [j, i].name == robotnikString) {
 						correctj = j;
 						correcti = i;
 						//2. set that square's matches to 1
+						Debug.Log ("Before any adds the Count for..."+"Grid-" + j + "-" + i+"="+grid [j, i].matches.Count);
 						grid [j, i].matches.Add (grid [j, i].name);
 						List<string> removeDupes = grid [j, i].matches.Distinct ().ToList ();
+						grid [j, i].matches = removeDupes;
+						Debug.Log ("Count for..."+"Grid-" + j + "-" + i+"="+grid [j, i].matches.Count);
 						//3. Load each of the neighbouring squares (if not on edge)
 						if (j + 1 < rows) {
 							//3.1 Check the colour attribute of that square
 							if (grid [j + 1, i].colour == grid [j, i].colour) {
+								Debug.Log ("Grid-" + j + "-" + i+" is the same colour as "+"Grid-" + (j + 1) + "-" + i+" which is j+1..."+grid [j + 1, i].colour +" vs "+ grid [j, i].colour);
 								//3.1.1. If the colour attribute is the same, then extract the match value of both squares, combine it and reassign to the squares
 								grid [j + 1, i].matches.Add (grid [j + 1, i].name);
 								List<string> combinedMatches = grid [j, i].matches;
@@ -95,9 +103,11 @@ public class GridManager : MonoBehaviour {
 								combinedMatches = combinedMatches.Distinct ().ToList ();
 								grid [j + 1, i].matches = combinedMatches;
 								grid [j, i].matches = combinedMatches;
+								Debug.Log ("Count for..."+"Grid-" + j + "-" + i+"NOW ="+grid [j, i].matches.Count);
 
 								//3.1.2. If the match attribute reaches 4, then set a flag because deleting needs to happen
 								if (combinedMatches.Count >= 4) {
+									Debug.Log ("GREAT THAN 4!");
 									deleteTime = true;
 									if (isFinal == 0) {
 										deletei1 = i;
@@ -113,6 +123,7 @@ public class GridManager : MonoBehaviour {
 						if (j - 1 >= 0) {
 							//3.1 Check the colour attribute of that square
 							if (grid [j - 1, i].colour == grid [j, i].colour) {
+								Debug.Log ("Grid-" + j + "-" + i+" is the same colour as "+"Grid-" + (j - 1) + "-" + i+" which is j-1..."+grid [j - 1, i].colour +" vs "+ grid [j, i].colour);
 								//3.1.1. If the colour attribute is the same, then extract the match value of both squares, combine it and reassign to the squares
 								grid [j - 1, i].matches.Add (grid [j - 1, i].name);
 								List<string> combinedMatches = grid [j, i].matches;
@@ -138,6 +149,8 @@ public class GridManager : MonoBehaviour {
 						if (i - 1 >= 0) {
 							//3.1 Check the colour attribute of that square
 							if (grid [j, i - 1].colour == grid [j, i].colour) {
+								Debug.Log ("Grid-" + j + "-" + i + " is the same colour as " + "Grid-" + j + "-" + (i - 1) + " which is i-1 ..." + grid [j, i - 1].colour + " vs " + grid [j, i].colour);
+
 								//3.1.1. If the colour attribute is the same, then extract the match value of both squares, combine it and reassign to the squares
 								grid [j, i - 1].matches.Add (grid [j, i - 1].name);
 								List<string> combinedMatches = grid [j, i].matches;
@@ -161,8 +174,10 @@ public class GridManager : MonoBehaviour {
 						}
 
 						if (i + 1 < columns) {
-							//3.1 Check the colour attribute of that square
+										//3.1 Check the colour attribute of that square
 							if (grid [j, i + 1].colour == grid [j, i].colour) {
+								Debug.Log ("Grid-" + j + "-" + i+" is the same colour as "+"Grid-" + j + "-" + (i+1) +" which is i+1 ..."+grid [j, i+1].colour +" vs "+ grid [j, i].colour);
+
 								//3.1.1. If the colour attribute is the same, then extract the match value of both squares, combine it and reassign to the squares
 								grid [j, i + 1].matches.Add (grid [j, i + 1].name);
 								List<string> combinedMatches = grid [j, i].matches;
@@ -215,14 +230,15 @@ public class GridManager : MonoBehaviour {
 
 						if (toDelete.Contains("Grid-" + j + "-" + i)) {
 							Debug.Log ("Deleted..." + "Grid-" + j + "-" + i);
-							grid[j, i].colour = "NA";
-							grid [j, i].matches = blankMatches;
+							grid[j, i].colour = "NULLVOID";
+							grid [j, i].matches = new List<string>();
 						}
 					}
 				}
 
 				deletej1 = 100;
 				deletei1 = 100;
+				deleteTime = false;
 			}
 		}
 
@@ -241,8 +257,8 @@ public class GridManager : MonoBehaviour {
 
 						if (toDelete.Contains("Grid-" + j + "-" + i)) {
 							Debug.Log ("Deleted..." + "Grid-" + j + "-" + i);
-							grid[j, i].colour = "NA";
-							grid [j, i].matches = blankMatches;
+							grid[j, i].colour = "NULLVOID";
+							grid [j, i].matches = new List<string>();
 						}
 					}
 				}
@@ -252,15 +268,16 @@ public class GridManager : MonoBehaviour {
 
 			deletej2 = 100;
 			deletei2 = 100;
+			deleteTime = false;
 		}
 	}
 
 	public static void dropFunction(){
 		for (int j = 0; j < rows; j++) {
 			for (int i = 0; i < columns; i++) {
-				if (grid [j, i].colour != "NA") {
+				if (grid [j, i].colour != "NULLVOID") {
 					if (i != 0) {
-						if (grid [j, i - 1].colour == "NA") {
+						if (grid [j, i - 1].colour == "NULLVOID") {
 							string holderColour1 = grid [j, i].colour;
 							string holderColour2 = grid [j, i - 1].colour;
 							List<string> holderMatches1 = grid [j, i].matches;
@@ -286,20 +303,36 @@ public class GridManager : MonoBehaviour {
 	public static void finalCheckFunction(){
 		Debug.Log ("FINAL CHECK");
 		for(int j = 0; j < rows; j++){
+			string debuggingstring = "[";
 			for(int i = 0; i < columns; i++){
-				grid [j, i].matches = blankMatches;
+				grid [j, i].matches = new List<string>();
+				debuggingstring += (grid [j, i].colour+",");
+				//Debug.Log("Grid-" + j + "-" + i+" matches ="+grid [j, i].matches.Count);
 				//	deleteRobotnikMatches ();
 			}
+			debuggingstring += "]";
+			Debug.Log(debuggingstring);
 		}
+
+		Debug.Log ("Everything is blank");
 
 		//for(int n = 0; n < 16; n++){
 		for(int j = 0; j < rows; j++){
 			for(int i = 0; i < columns; i++){
-				checkRobotnikMatches("Grid-" + j + "-" + i, 0);
+				Debug.Log ("About to check..."+"Grid-" + j + "-" + i);
+				grid [j, i].matches = new List<string>();
+				Debug.Log ("Matches after just applying blank matches = "+grid [j, i].matches.Count);
+				Debug.Log("Grid-" + j + "-" + i+" matches ="+grid [j, i].matches.Count+" AND COLOUR = "+grid [j, i].colour);
+
+				for (int n = 0; n < grid [j, i].matches.Count; n++) {
+					Debug.Log("YALL WANNA KNOW "+grid [j, i].matches.ElementAt (n));
+				}
+				checkRobotnikMatches("Grid-" + j + "-" + i, 2);
 				deleteRobotnikMatches ();
 			}
 		}
 		//dropFunction ();
+		//aaaaand do this 11 times
 	//}
 	}
 
@@ -307,4 +340,5 @@ public class GridManager : MonoBehaviour {
 		//returns the grid to the player controller to cycle through and do it's UI changes with
 		return grid;
 	}
+								
 }

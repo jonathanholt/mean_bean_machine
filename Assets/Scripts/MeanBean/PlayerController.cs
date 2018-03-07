@@ -311,10 +311,11 @@ public class PlayerController : MonoBehaviour {
 		square2.tag = "Ground";
 		//findAdjacentSquares(square1FindString, square1, NewBean.randomBean1);
 		//findAdjacentSquares(square2FindString, square2, NewBean.randomBean2);
-		interactWithGridManager(square1FindString, square2FindString,  NewBean.randomBean1, NewBean.randomBean2);
+		string[] colours = new string[] {"NULLVOID", "B", "GR", "PUR", "REDD", "YELLO"};
+		interactWithGridManager(square1FindString, square2FindString,  colours[NewBean.randomBean1], colours[NewBean.randomBean2]);
 	}
 
-	public void interactWithGridManager(string squareToDo, string squareToDo2, int randomBeancolour, int randomBeanColour2){
+	public void interactWithGridManager(string squareToDo, string squareToDo2, string randomBeancolour, string randomBeanColour2){
 		GridManager.changeRobotnikColour (squareToDo, randomBeancolour);
 		GridManager.changeRobotnikColour (squareToDo2, randomBeanColour2);
 		GridManager.checkRobotnikMatches (squareToDo, 1);
