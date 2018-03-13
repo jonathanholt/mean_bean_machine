@@ -325,6 +325,26 @@ public class PlayerController : MonoBehaviour {
 			}
 			GridManager.finalCheckFunction ();
 		}
+		Robotnik[,] returnedGrid = GridManager.returnGrid ();
+		//iterate over returnGrid
+		for (int j = 0; j < GridManager.rows; j++) {
+			for (int i = 0; i < GridManager.columns; i++) {
+				string nameOfSquare = returnedGrid [j, i].name;
+				GameObject squareToFind = GameObject.Find(nameOfSquare);
+				if (returnedGrid [j, i].colour == "NULLVOID") {
+					restoreSquareToBlank (squareToFind);
+				} 
+				else {
+				}
+			}
+		}
+
+
+	}
+
+	public void restoreSquareToBlank(GameObject squareToAlter){
+		Destroy(squareToAlter.GetComponent<BoxCollider2D> ());		
+		
 	}
 
 	public void gameOver(){

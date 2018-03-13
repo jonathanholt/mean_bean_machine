@@ -316,7 +316,7 @@ public class GridManager : MonoBehaviour {
 
 		Debug.Log ("Everything is blank");
 
-		//for(int n = 0; n < 16; n++){
+		for(int m = 0; m < 4; m++){
 		for(int j = 0; j < rows; j++){
 			for(int i = 0; i < columns; i++){
 				Debug.Log ("About to check..."+"Grid-" + j + "-" + i);
@@ -331,12 +331,12 @@ public class GridManager : MonoBehaviour {
 				deleteRobotnikMatches ();
 			}
 		}
-		//dropFunction ();
+		dropFunction ();
 		//aaaaand do this 11 times
-	//}
+	}
 	}
 
-	public Robotnik[,] returnGrid(){
+	public static Robotnik[,] returnGrid(){
 		//returns the grid to the player controller to cycle through and do it's UI changes with
 		return grid;
 	}
