@@ -22,6 +22,12 @@ public class PlayerController : MonoBehaviour {
 	public bool gameover;
 	public int squaresOccupied;
 
+	//5 == yellow
+	//4 == red
+	//3 == purple
+	//2 == green
+	//1 == blue
+
 
 	/*
 	 * 	Called at the start of the level once. Sets some basic variable values
@@ -335,6 +341,7 @@ public class PlayerController : MonoBehaviour {
 					restoreSquareToBlank (squareToFind);
 				} 
 				else {
+				
 				}
 			}
 		}
@@ -344,7 +351,9 @@ public class PlayerController : MonoBehaviour {
 
 	public void restoreSquareToBlank(GameObject squareToAlter){
 		Destroy(squareToAlter.GetComponent<BoxCollider2D> ());		
-		
+		Object [] sprites;
+		sprites = Resources.LoadAll ("beans");
+		squareToAlter.GetComponent<SpriteRenderer>().sprite = (Sprite)sprites [0];
 	}
 
 	public void gameOver(){
