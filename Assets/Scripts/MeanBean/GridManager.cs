@@ -15,6 +15,8 @@ public class GridManager : MonoBehaviour {
 	public static int deletej2 = 100;
 	public static List<string> blankMatches = new List<string> ();
 
+	public static bool needToRedoGrid = false;
+
 	//5 == yellow
 	//4 == red
 	//3 == purple
@@ -218,6 +220,7 @@ public class GridManager : MonoBehaviour {
 		if (deletei1 != 100 && deletej1 != 100) {
 			List<string> toDelete = grid [deletej1, deletei1].matches;
 			if (deleteTime) {
+				needToRedoGrid = true;
 				//3.2. If we have a flag set, we need to redo the square checking. So we take our original square and make a note of it.
 				//EVERYTHING I WROTE HERE SHOULD BE INVALIDATED NOW BECAUSE ALL ROBOTNIK'S HAVE A REFERENCE TO THEIR OWN 
 				//toDelete.Add(grid[correctj, correcti].name);
@@ -245,6 +248,7 @@ public class GridManager : MonoBehaviour {
 		if (deletei2 != 100 && deletej2 != 100) {
 			List<string> toDelete = grid [deletej2, deletei2].matches;
 			if (deleteTime) {
+				needToRedoGrid = true;
 				//3.2. If we have a flag set, we need to redo the square checking. So we take our original square and make a note of it.
 				//EVERYTHING I WROTE HERE SHOULD BE INVALIDATED NOW BECAUSE ALL ROBOTNIK'S HAVE A REFERENCE TO THEIR OWN 
 				//toDelete.Add(grid[correctj, correcti].name);
@@ -337,6 +341,7 @@ public class GridManager : MonoBehaviour {
 	}
 
 	public static Robotnik[,] returnGrid(){
+		needToRedoGrid = false;
 		//returns the grid to the player controller to cycle through and do it's UI changes with
 		return grid;
 	}

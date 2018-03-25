@@ -22,6 +22,8 @@ public class PlayerController : MonoBehaviour {
 	public bool gameover;
 	public int squaresOccupied;
 
+
+	public string[] gamecolours = new string[]{"blue","green","purple","red","yellow"};
 	//5 == yellow
 	//4 == red
 	//3 == purple
@@ -155,6 +157,7 @@ public class PlayerController : MonoBehaviour {
 				updateGrid ();
 				reinitGame ();
 			} else {
+				Debug.Log ("else");
 				transform.position = oldPosition;
 				if (lastPressed == "r") {
 					row--;
@@ -168,6 +171,7 @@ public class PlayerController : MonoBehaviour {
 				EnemyController.changeAnimationWinning ();
 				EnemyLowerController.changeAnimationWinning ();
 			}
+			Debug.Log ("nope");
 			updateGrid ();
 			reinitGame ();
 		}
@@ -331,20 +335,24 @@ public class PlayerController : MonoBehaviour {
 			}
 			GridManager.finalCheckFunction ();
 		}
-		Robotnik[,] returnedGrid = GridManager.returnGrid ();
 		//iterate over returnGrid
-		for (int j = 0; j < GridManager.rows; j++) {
-			for (int i = 0; i < GridManager.columns; i++) {
-				string nameOfSquare = returnedGrid [j, i].name;
-				GameObject squareToFind = GameObject.Find(nameOfSquare);
-				if (returnedGrid [j, i].colour == "NULLVOID") {
-					restoreSquareToBlank (squareToFind);
-				} 
-				else {
-				
+
+
+		if (GridManager.needToRedoGrid) {
+			Robotnik[,] returnedGrid = GridManager.returnGrid ();
+			for (int j = 0; j < GridManager.rows; j++) {
+				for (int i = 0; i < GridManager.columns; i++) {
+					string nameOfSquare = returnedGrid [j, i].name;
+					GameObject squareToFind = GameObject.Find (nameOfSquare);
+					if (returnedGrid [j, i].colour == "NULLVOID") {
+						restoreSquareToBlank (squareToFind);
+					} else {
+						addColorToSquare (squareToFind, returnedGrid[j, i].colour);
+					}
 				}
 			}
 		}
+
 
 
 	}
@@ -352,8 +360,57 @@ public class PlayerController : MonoBehaviour {
 	public void restoreSquareToBlank(GameObject squareToAlter){
 		Destroy(squareToAlter.GetComponent<BoxCollider2D> ());		
 		Object [] sprites;
-		sprites = Resources.LoadAll ("beans");
+		sprites = Resources.LoadAll<Sprite> ("GPJ_2D_Platformer_Sprites");
+
 		squareToAlter.GetComponent<SpriteRenderer>().sprite = (Sprite)sprites [0];
+	}
+
+	public void addColorToSquare(GameObject squareToAlter, string colour){
+		/*
+		 * ONLY ADD COLLIDER IF WE DON;T HAVE ONE */
+		if (squareToAlter.GetComponent<BoxCollider2D> () == null) {
+			squareToAlter.AddComponent<BoxCollider2D> ();
+		}
+
+		//5 == yellow
+		//4 == red
+		//3 == purple
+		//2 == green
+		//1 == blue
+		Object [] sprites;
+		sprites = Resources.LoadAll<Sprite> ("beans");
+		switch(colour)
+		{
+		case "B":
+			squareToAlter.GetComponent<SpriteRenderer>().sprite = (Sprite)sprites [0];
+			Debug.Log ("BLUE");
+			break;
+		case "GR":
+			squareToAlter.GetComponent<SpriteRenderer>().sprite = (Sprite)sprites [1];
+			Debug.Log ("GREEN");
+			break;
+		case "PUR":
+			squareToAlter.GetComponent<SpriteRenderer>().sprite = (Sprite)sprites [2];
+			Debug.Log ("PURPLE");
+			break;
+		case "REDD":
+			squareToAlter.GetComponent<SpriteRenderer>().sprite = (Sprite)sprites [3];
+			Debug.Log ("RED");
+			break;
+		case "YELLO":
+			squareToAlter.GetComponent<SpriteRenderer>().sprite = (Sprite)sprites [4];
+			Debug.Log ("YELLOW");
+			break;
+		default:
+			Debug.Log ("ERROR");
+			break;
+		}
+
+	}
+
+
+
+	public void addColourToSquare(GameObject squareToAlter){
 	}
 
 	public void gameOver(){
