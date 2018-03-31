@@ -51,7 +51,12 @@ public class PlayerController : MonoBehaviour {
 	 *	Update is called once per frame. Used to detect key up events
 	 */ 
 	void Update () {
+		if (gameover) {
+			Vector2 aPosition1 = new Vector2(30,30);
+			GameObject gameOverText = GameObject.Find("GameOverFont");
+			gameOverText.transform.position = Vector2.MoveTowards(new Vector2(gameOverText.transform.position.x, gameOverText.transform.position.y), aPosition1, 3 * Time.deltaTime);
 
+		}
 		if (Input.GetKeyUp ("z")) {
 			PauseController.togglePause ();
 		}
