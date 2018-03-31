@@ -339,6 +339,7 @@ public class PlayerController : MonoBehaviour {
 
 
 		if (GridManager.needToRedoGrid) {
+			squares = new int[] {0, 0, 0, 0, 0, 0};
 			Robotnik[,] returnedGrid = GridManager.returnGrid ();
 			for (int j = 0; j < GridManager.rows; j++) {
 				for (int i = 0; i < GridManager.columns; i++) {
@@ -347,11 +348,17 @@ public class PlayerController : MonoBehaviour {
 					if (returnedGrid [j, i].colour == "NULLVOID") {
 						restoreSquareToBlank (squareToFind);
 					} else {
+						squares [j] += 1;
 						addColorToSquare (squareToFind, returnedGrid[j, i].colour);
 					}
 				}
 			}
+			foreach(int testsquare in squares){
+				Debug.Log (testsquare);
+			}
 		}
+
+
 
 
 
@@ -383,26 +390,26 @@ public class PlayerController : MonoBehaviour {
 		{
 		case "B":
 			squareToAlter.GetComponent<SpriteRenderer>().sprite = (Sprite)sprites [0];
-			Debug.Log ("BLUE");
+			//Debug.Log ("BLUE");
 			break;
 		case "GR":
 			squareToAlter.GetComponent<SpriteRenderer>().sprite = (Sprite)sprites [1];
-			Debug.Log ("GREEN");
+			//Debug.Log ("GREEN");
 			break;
 		case "PUR":
 			squareToAlter.GetComponent<SpriteRenderer>().sprite = (Sprite)sprites [2];
-			Debug.Log ("PURPLE");
+			//Debug.Log ("PURPLE");
 			break;
 		case "REDD":
 			squareToAlter.GetComponent<SpriteRenderer>().sprite = (Sprite)sprites [3];
-			Debug.Log ("RED");
+			//Debug.Log ("RED");
 			break;
 		case "YELLO":
 			squareToAlter.GetComponent<SpriteRenderer>().sprite = (Sprite)sprites [4];
-			Debug.Log ("YELLOW");
+			//Debug.Log ("YELLOW");
 			break;
 		default:
-			Debug.Log ("ERROR");
+			//Debug.Log ("ERROR");
 			break;
 		}
 
