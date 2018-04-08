@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 1eff5cf1b1e64fa459da0d48724d8bc8
-timeCreated: 1522512050
+timeCreated: 1523204592
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -34,6 +34,7 @@ TextureImporter:
     21300054: bluetail1
     21300056: bluetail2
     21300058: bluetail3
+    21300060: nuinsancetoppanel
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -492,6 +493,19 @@ TextureImporter:
         y: 2102
         width: 6
         height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: nuinsancetoppanel
+      rect:
+        serializedVersion: 2
+        x: 628
+        y: 2191
+        width: 14
+        height: 12
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}

@@ -52,9 +52,25 @@ public class PlayerController : MonoBehaviour {
 	 */ 
 	void Update () {
 		if (gameover) {
+			
 			Vector2 aPosition1 = new Vector2(30,30);
 			GameObject gameOverText = GameObject.Find("GameOverFont");
-			gameOverText.transform.position = Vector2.MoveTowards(new Vector2(gameOverText.transform.position.x, gameOverText.transform.position.y), aPosition1, 3 * Time.deltaTime);
+			GameObject blueGameOver = GameObject.Find("BlueGameOver");
+			GameObject redGameOver = GameObject.Find("RedGameOver");
+			GameObject purpleGameOver = GameObject.Find("PurpleGameOver");
+			GameObject greenGameOver = GameObject.Find("GreenGameOver");
+			GameObject yellowGameOver = GameObject.Find("YellowGameOver");
+			GameObject gameOverTarget = GameObject.Find("GameOverPixel");
+			gameOverText.transform.position = Vector2.MoveTowards(new Vector2(gameOverText.transform.position.x, gameOverText.transform.position.y), gameOverTarget.transform.position, 3 * Time.deltaTime);
+			blueGameOver.transform.position = Vector2.MoveTowards(new Vector2(blueGameOver.transform.position.x, blueGameOver.transform.position.y), gameOverTarget.transform.position, 3 * Time.deltaTime);
+
+			redGameOver.transform.position = Vector2.MoveTowards(new Vector2(redGameOver.transform.position.x, redGameOver.transform.position.y), gameOverTarget.transform.position, 3 * Time.deltaTime);
+
+			purpleGameOver.transform.position = Vector2.MoveTowards(new Vector2(purpleGameOver.transform.position.x, purpleGameOver.transform.position.y), gameOverTarget.transform.position, 3 * Time.deltaTime);
+
+			greenGameOver.transform.position = Vector2.MoveTowards(new Vector2(greenGameOver.transform.position.x, greenGameOver.transform.position.y), gameOverTarget.transform.position, 3 * Time.deltaTime);
+
+			yellowGameOver.transform.position = Vector2.MoveTowards(new Vector2(yellowGameOver.transform.position.x, yellowGameOver.transform.position.y), gameOverTarget.transform.position, 3 * Time.deltaTime);
 
 		}
 		if (Input.GetKeyUp ("z")) {

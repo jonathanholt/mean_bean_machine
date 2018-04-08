@@ -67,6 +67,10 @@ public class GridManager : MonoBehaviour {
 							//3.1 Check the colour attribute of that square
 							if (grid [j + 1, i].colour == grid [j, i].colour) {
 								//3.1.1. If the colour attribute is the same, then extract the match value of both squares, combine it and reassign to the squares
+								//DIRECTION NOTE, THIS IS LEFT //
+								grid [j, i].directions.Add (grid [j + 1, i].name);
+								grid [j + 1, i].matches.Add (grid [j + 1, i].name);
+
 								grid [j + 1, i].matches.Add (grid [j + 1, i].name);
 								List<string> combinedMatches = grid [j, i].matches;
 								combinedMatches.AddRange (grid [j + 1, i].matches);
@@ -170,6 +174,7 @@ public class GridManager : MonoBehaviour {
 
 	public static void deleteRobotnikMatches(){
 		if (deletei1 != 100 && deletej1 != 100) {
+
 			List<string> toDelete = grid [deletej1, deletei1].matches;
 			if (deleteTime) {
 				needToRedoGrid = true;
