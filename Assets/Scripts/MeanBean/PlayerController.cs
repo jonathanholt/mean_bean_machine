@@ -178,7 +178,7 @@ public class PlayerController : MonoBehaviour {
 				updateGrid ();
 				reinitGame ();
 			} else {
-				Debug.Log ("else");
+				//Debug.Log ("else");
 				transform.position = oldPosition;
 				if (lastPressed == "r") {
 					row--;
@@ -192,7 +192,7 @@ public class PlayerController : MonoBehaviour {
 				EnemyController.changeAnimationWinning ();
 				EnemyLowerController.changeAnimationWinning ();
 			}
-			Debug.Log ("nope");
+			//Debug.Log ("nope");
 			updateGrid ();
 			reinitGame ();
 		}
@@ -217,12 +217,22 @@ public class PlayerController : MonoBehaviour {
 	 */ 
 	public void reinitGame(){
 		if (!gameover) {
-			transform.position = startPoint.transform.position;
-			NewBean.createNewBeanPair ();
-			row = 3;
-			rigid2D.velocity = new Vector3 (0, -2, 0);
-			beanOrientation = 0;
-			rotate ();
+			if (NuisanceController.nuisanceState > 0) {
+				Debug.Log ("Can't continue yet");
+				transform.position = startPoint.transform.position;
+				NuisanceController.createNewNuisancePair ();
+				Debug.Log ("createNewNuisancePairafter");
+				rigid2D.velocity = new Vector3 (0, -2, 0);
+				beanOrientation = 0;
+				rotate ();
+			} else {
+				transform.position = startPoint.transform.position;
+				NewBean.createNewBeanPair ();
+				row = 3;
+				rigid2D.velocity = new Vector3 (0, -2, 0);
+				beanOrientation = 0;
+				rotate ();
+			}
 		}
 	}
 
@@ -349,8 +359,10 @@ public class PlayerController : MonoBehaviour {
 		GridManager.changeRobotnikColour (squareToDo2, randomBeanColour2);
 		GridManager.checkRobotnikMatches (squareToDo, 1);
 		GridManager.checkRobotnikMatches (squareToDo2, 100);
+		bool goneDeleting = false;
 		if ((GridManager.deletei1 != 100 && GridManager.deletej1 != 100) || (GridManager.deletei2 != 100 && GridManager.deletej2 != 100)) {
 			GridManager.deleteRobotnikMatches ();
+			goneDeleting = true;
 			for (int n = 0; n < 50; n++) {
 				GridManager.dropFunction ();
 			}
@@ -375,10 +387,13 @@ public class PlayerController : MonoBehaviour {
 				}
 			}
 			foreach(int testsquare in squares){
-				Debug.Log (testsquare);
+				//Debug.Log (testsquare);
 			}
 		}
-
+		if (goneDeleting) {
+			NuisanceController.nuisanceState++;
+			NuisanceController.initNuisance ();
+		}
 
 
 
