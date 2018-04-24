@@ -14,6 +14,7 @@ public class NuisanceController : MonoBehaviour {
 	public static int randomBean1 = 0;
 	public static int randomBean2 = 0;
 	public static Object [] sprites;
+	public static Object [] beans;
 
  	void Start(){
 		nuisanceState = 0;
@@ -28,7 +29,6 @@ public class NuisanceController : MonoBehaviour {
 
 	public static void initNuisance(){
 		string toGet = "Nuisance" + nuisanceState;
-		Debug.Log (toGet);
 		GameObject nuisanceSquare = GameObject.Find(toGet);
 		Object [] sprites;
 		sprites = Resources.LoadAll<Sprite> ("nuisance");
@@ -36,11 +36,9 @@ public class NuisanceController : MonoBehaviour {
 	}
 
 	public static void createNewNuisancePair(){
-		Debug.Log ("createNewNuisancePair");
 		sprites = Resources.LoadAll<Sprite> ("nuisance");
-		Debug.Log ("createNewNuisancePair2");
-		bean1.GetComponent<SpriteRenderer>().sprite = (Sprite)sprites [0];
-		Debug.Log ("createNewNuisancePair3");
-		bean2.GetComponent<SpriteRenderer>().sprite = (Sprite)sprites [0];
+		beans = Resources.LoadAll<Sprite> ("nuisance");
+		bean1.GetComponent<SpriteRenderer>().sprite = (Sprite)beans [0];
+		bean2.GetComponent<SpriteRenderer>().sprite = (Sprite)sprites [1];
 	}
 }

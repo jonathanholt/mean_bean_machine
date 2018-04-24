@@ -73,12 +73,13 @@ public class PlayerController : MonoBehaviour {
 			yellowGameOver.transform.position = Vector2.MoveTowards(new Vector2(yellowGameOver.transform.position.x, yellowGameOver.transform.position.y), gameOverTarget.transform.position, 3 * Time.deltaTime);
 
 		}
+
 		if (Input.GetKeyUp ("z")) {
 			PauseController.togglePause ();
 		}
 
 
-		if (!gameover && Time.timeScale != 0f) {
+		if ((!gameover && Time.timeScale != 0f) && NuisanceController.nuisanceState != 100) {
 			if (Input.GetKeyDown ("down")) {
 				rigid2D.velocity = new Vector3 (0, -4, 0);
 			}
@@ -86,7 +87,7 @@ public class PlayerController : MonoBehaviour {
 				rigid2D.velocity = new Vector3 (0, -2, 0);
 			}
 			if (Input.GetKeyUp ("left")) {
-				leftMove ();
+					leftMove ();
 			}
 			if (Input.GetKeyUp ("right")) {
 				rightMove ();
@@ -178,7 +179,6 @@ public class PlayerController : MonoBehaviour {
 				updateGrid ();
 				reinitGame ();
 			} else {
-				//Debug.Log ("else");
 				transform.position = oldPosition;
 				if (lastPressed == "r") {
 					row--;
@@ -192,7 +192,6 @@ public class PlayerController : MonoBehaviour {
 				EnemyController.changeAnimationWinning ();
 				EnemyLowerController.changeAnimationWinning ();
 			}
-			//Debug.Log ("nope");
 			updateGrid ();
 			reinitGame ();
 		}
@@ -202,7 +201,7 @@ public class PlayerController : MonoBehaviour {
 	 *	Check if moving bean into a certain square is allowed
 	 */ 
 	public bool isMoveAllowed(int firstNumber, int secondNumber){
-		if ((secondNumber + 1) < squares [firstNumber]) {
+		if (((secondNumber + 1) < squares [firstNumber])) {
 			return false;
 		} else {
 			return true;
@@ -217,15 +216,15 @@ public class PlayerController : MonoBehaviour {
 	 */ 
 	public void reinitGame(){
 		if (!gameover) {
-			if (NuisanceController.nuisanceState > 0) {
-				Debug.Log ("Can't continue yet");
+			if (NuisanceController.nuisanceState > 0 && NuisanceController.nuisanceState != 100) {
 				transform.position = startPoint.transform.position;
 				NuisanceController.createNewNuisancePair ();
-				Debug.Log ("createNewNuisancePairafter");
 				rigid2D.velocity = new Vector3 (0, -2, 0);
 				beanOrientation = 0;
 				rotate ();
+				NuisanceController.nuisanceState = 100;
 			} else {
+				NuisanceController.nuisanceState = 0;
 				transform.position = startPoint.transform.position;
 				NewBean.createNewBeanPair ();
 				row = 3;
@@ -387,7 +386,6 @@ public class PlayerController : MonoBehaviour {
 				}
 			}
 			foreach(int testsquare in squares){
-				//Debug.Log (testsquare);
 			}
 		}
 		if (goneDeleting) {
@@ -426,26 +424,20 @@ public class PlayerController : MonoBehaviour {
 		{
 		case "B":
 			squareToAlter.GetComponent<SpriteRenderer>().sprite = (Sprite)sprites [0];
-			//Debug.Log ("BLUE");
 			break;
 		case "GR":
 			squareToAlter.GetComponent<SpriteRenderer>().sprite = (Sprite)sprites [1];
-			//Debug.Log ("GREEN");
 			break;
 		case "PUR":
 			squareToAlter.GetComponent<SpriteRenderer>().sprite = (Sprite)sprites [2];
-			//Debug.Log ("PURPLE");
 			break;
 		case "REDD":
 			squareToAlter.GetComponent<SpriteRenderer>().sprite = (Sprite)sprites [3];
-			//Debug.Log ("RED");
 			break;
 		case "YELLO":
 			squareToAlter.GetComponent<SpriteRenderer>().sprite = (Sprite)sprites [4];
-			//Debug.Log ("YELLOW");
 			break;
 		default:
-			//Debug.Log ("ERROR");
 			break;
 		}
 
