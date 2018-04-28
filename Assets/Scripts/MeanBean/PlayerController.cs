@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour {
 
 	//Mean Bean Variables
 	private GameObject startPoint;
+	private GameObject alternateStartPoint1;
 	public int row;
 	private int[] squares = new int[] {0, 0, 0, 0, 0, 0};
 	public GameObject square1;
@@ -37,6 +38,7 @@ public class PlayerController : MonoBehaviour {
 	void Start () {
 		squaresOccupied = 0;
 		startPoint = GameObject.Find("StartPoint");
+		alternateStartPoint1 = GameObject.Find("StartPoint1");
 		row = 3;
 		beanOrientation = 0;
 		rigid2D = GetComponent<Rigidbody2D>();
@@ -223,7 +225,12 @@ public class PlayerController : MonoBehaviour {
 	public void reinitGame(){
 		if (!gameover) {
 			if (NuisanceController.nuisanceState > 0 && NuisanceController.nuisanceState != 100) {
-				transform.position = startPoint.transform.position;
+				int random = Random.Range (0, 2);
+				if(random == 1)
+					transform.position = startPoint.transform.position;
+				else
+					transform.position = alternateStartPoint1.transform.position;
+
 				NuisanceController.createNewNuisancePair ();
 				rigid2D.velocity = new Vector3 (0, -2, 0);
 				beanOrientation = 0;
