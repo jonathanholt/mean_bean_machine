@@ -169,30 +169,36 @@ public class PlayerController : MonoBehaviour {
 	 * 	Detect Player collision with the bottom of the grid and call functions
 	 */ 
 	public void OnCollisionEnter2D(Collision2D other){
-		squaresOccupied += 2;
-		objectCollidedWith = other.collider.gameObject.name;
-		if (objectCollidedWith != "Ground") {
-			string[] textSplit = objectCollidedWith.Split (new string[]{ "-" }, System.StringSplitOptions.None);
-			int firstNumber = int.Parse (textSplit [1]);
-			int secondNumber = int.Parse (textSplit [2]);
-			if (isMoveAllowed (firstNumber, secondNumber)) {
+		if (NuisanceController.nuisanceState != 100) {
+			squaresOccupied += 2;
+			objectCollidedWith = other.collider.gameObject.name;
+			if (objectCollidedWith != "Ground") {
+				string[] textSplit = objectCollidedWith.Split (new string[]{ "-" }, System.StringSplitOptions.None);
+				int firstNumber = int.Parse (textSplit [1]);
+				int secondNumber = int.Parse (textSplit [2]);
+				if (isMoveAllowed (firstNumber, secondNumber)) {
+					updateGrid ();
+					reinitGame ();
+				} else {
+					transform.position = oldPosition;
+					if (lastPressed == "r") {
+						row--;
+					}
+					if (lastPressed == "l") {
+						row++;
+					}
+				}
+			} else {
+				if (squaresOccupied >= 29) {
+					EnemyController.changeAnimationWinning ();
+					EnemyLowerController.changeAnimationWinning ();
+				}
 				updateGrid ();
 				reinitGame ();
-			} else {
-				transform.position = oldPosition;
-				if (lastPressed == "r") {
-					row--;
-				}
-				if (lastPressed == "l") {
-					row++;
-				}
 			}
 		} else {
-			if (squaresOccupied >= 29) {
-				EnemyController.changeAnimationWinning ();
-				EnemyLowerController.changeAnimationWinning ();
-			}
-			updateGrid ();
+			squaresOccupied += 1;
+			nuisanceUpdateGrid ();
 			reinitGame ();
 		}
 	}
@@ -240,6 +246,30 @@ public class PlayerController : MonoBehaviour {
 	 */ 
 	public void updateGrid(){
 		getSquaresToUpdate ();
+	}
+
+	public void nuisanceUpdateGrid(){
+		getSquaresToUpdateNuisance ();
+	}
+
+	public void getSquaresToUpdateNuisance(){
+		string square1FindString = null;
+		squares[2] += 1;
+		square1FindString = "Grid-"+(2)+"-"+((squares[2])-1);
+		square1 = GameObject.Find (square1FindString);
+
+
+		Object [] sprites;
+		Debug.Log ("Important "+square1FindString);
+		sprites = Resources.LoadAll<Sprite> ("nuisance");
+		square1.GetComponent<SpriteRenderer>().sprite = (Sprite)sprites [1];
+		if (square1.GetComponent<BoxCollider2D> () == null) {
+			square1.AddComponent<BoxCollider2D> ();
+			float width = GetComponent<SpriteRenderer> ().bounds.size.x;
+			float height = GetComponent<SpriteRenderer> ().bounds.size.y;
+			square1.GetComponent<BoxCollider2D> ().size = new Vector3(height, width, width);
+		}
+		square1.tag = "Ground";
 	}
 
 	/*
