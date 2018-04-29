@@ -8,6 +8,10 @@ public class PlayerController : MonoBehaviour {
 	//Mean Bean Variables
 	private GameObject startPoint;
 	private GameObject alternateStartPoint1;
+	private GameObject alternateStartPoint2;
+	private GameObject alternateStartPoint3;
+	private GameObject alternateStartPoint4;
+	private GameObject alternateStartPoint5;
 	public int row;
 	private int[] squares = new int[] {0, 0, 0, 0, 0, 0};
 	public GameObject square1;
@@ -22,6 +26,7 @@ public class PlayerController : MonoBehaviour {
 	public int runCount;
 	public bool gameover;
 	public int squaresOccupied;
+	public int randomNuisance;
 
 
 	public string[] gamecolours = new string[]{"blue","green","purple","red","yellow"};
@@ -39,6 +44,11 @@ public class PlayerController : MonoBehaviour {
 		squaresOccupied = 0;
 		startPoint = GameObject.Find("StartPoint");
 		alternateStartPoint1 = GameObject.Find("StartPoint1");
+		alternateStartPoint2 = GameObject.Find("StartPoint2");
+		alternateStartPoint3 = GameObject.Find("StartPoint3");
+		alternateStartPoint4 = GameObject.Find("StartPoint4");
+		alternateStartPoint5 = GameObject.Find("StartPoint5");
+
 		row = 3;
 		beanOrientation = 0;
 		rigid2D = GetComponent<Rigidbody2D>();
@@ -225,11 +235,30 @@ public class PlayerController : MonoBehaviour {
 	public void reinitGame(){
 		if (!gameover) {
 			if (NuisanceController.nuisanceState > 0 && NuisanceController.nuisanceState != 100) {
-				int random = Random.Range (0, 2);
-				if(random == 1)
-					transform.position = startPoint.transform.position;
-				else
+				randomNuisance = Random.Range (0, 6);
+
+
+				switch (randomNuisance)
+				{
+				case 1:
 					transform.position = alternateStartPoint1.transform.position;
+					break;
+				case 2:
+					transform.position = alternateStartPoint2.transform.position;
+					break;
+				case 3:
+					transform.position = alternateStartPoint3.transform.position;
+					break;
+				case 4:
+					transform.position = alternateStartPoint4.transform.position;
+					break;
+				case 5:
+					transform.position = alternateStartPoint5.transform.position;
+					break;
+				default:
+					transform.position = startPoint.transform.position;
+					break;
+				}
 
 				NuisanceController.createNewNuisancePair ();
 				rigid2D.velocity = new Vector3 (0, -2, 0);
@@ -261,11 +290,11 @@ public class PlayerController : MonoBehaviour {
 
 	public void getSquaresToUpdateNuisance(){
 		string square1FindString = null;
+
 		squares[2] += 1;
 		square1FindString = "Grid-"+(2)+"-"+((squares[2])-1);
+
 		square1 = GameObject.Find (square1FindString);
-
-
 		Object [] sprites;
 		Debug.Log ("Important "+square1FindString);
 		sprites = Resources.LoadAll<Sprite> ("nuisance");
