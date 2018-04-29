@@ -291,8 +291,33 @@ public class PlayerController : MonoBehaviour {
 	public void getSquaresToUpdateNuisance(){
 		string square1FindString = null;
 
-		squares[2] += 1;
-		square1FindString = "Grid-"+(2)+"-"+((squares[2])-1);
+		switch (randomNuisance)
+		{
+		case 1:
+			squares[2] += 1;
+			square1FindString = "Grid-"+(2)+"-"+((squares[2])-1);
+			break;
+		case 2:
+			squares[3] += 1;
+			square1FindString = "Grid-"+(3)+"-"+((squares[3])-1);
+			break;
+		case 3:
+			squares[4] += 1;
+			square1FindString = "Grid-"+(4)+"-"+((squares[4])-1);
+			break;
+		case 4:
+			squares[1] += 1;
+			square1FindString = "Grid-"+(1)+"-"+((squares[1])-1);
+			break;
+		case 5:
+			squares[0] += 1;
+			square1FindString = "Grid-"+(0)+"-"+((squares[0])-1);
+			break;
+		default:
+			squares[2] += 1;
+			square1FindString = "Grid-"+(2)+"-"+((squares[2])-1);
+			break;
+		}
 
 		square1 = GameObject.Find (square1FindString);
 		Object [] sprites;
