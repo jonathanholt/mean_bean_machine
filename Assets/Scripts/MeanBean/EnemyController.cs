@@ -20,4 +20,14 @@ public class EnemyController : MonoBehaviour {
 		whichAnimation = 0;
 		anim.SetInteger ("Health", 0);
 	}
+
+	public static void changeAnimationLosing(){
+		whichAnimation = -1;
+		anim.SetInteger ("Health", -1);
+	}
+
+	public static void changeAnimationLost(){
+		whichAnimation = -10;
+		anim.SetInteger ("Health", -10);
+	}
 }

@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: d7807ed1cc9547545b8e31fa01ed2c3b
-timeCreated: 1518369833
+timeCreated: 1528918935
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -12,6 +12,9 @@ TextureImporter:
     21300010: enemy_upper_winning
     21300012: enemy_upper_winning_2
     21300014: enemy_upper_winning_3
+    21300016: enemy_mugshots_losing1
+    21300018: enemy_mugshots_losing2
+    21300020: enemy_mugshots_lost
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -169,6 +172,45 @@ TextureImporter:
         serializedVersion: 2
         x: 163
         y: 860
+        width: 80
+        height: 40
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: enemy_mugshots_losing1
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 803
+        width: 80
+        height: 40
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: enemy_mugshots_losing2
+      rect:
+        serializedVersion: 2
+        x: 82
+        y: 803
+        width: 80
+        height: 40
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: enemy_mugshots_lost
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 746
         width: 80
         height: 40
       alignment: 0

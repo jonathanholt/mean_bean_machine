@@ -544,8 +544,12 @@ public class PlayerController : MonoBehaviour {
 		EnemyLowerController.changeAnimationWinning ();
 		GameObject beanDuo = GameObject.Find("BeanDuo");
 		GameObject beanHolders = GameObject.Find("BeanHolders");
+		GameObject enemybeanDuo = GameObject.Find("EnemyBeanDuo");
+		GameObject enemybeanHolders = GameObject.Find("EnemyBeanHolders");
 		Destroy (beanDuo);
 		Destroy (beanHolders);
+		Destroy (enemybeanDuo);
+		Destroy (enemybeanHolders);
 		gameover = true;
 		//play sound
 		//disappear middle section of frame

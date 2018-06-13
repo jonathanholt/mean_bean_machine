@@ -25,7 +25,7 @@ public class EnemyPlayerController : MonoBehaviour {
 	public Rigidbody2D rigid2D;
 	public int runCount;
 	public bool gameover;
-	public int squaresOccupied;
+	public int enemySquaresOccupied;
 	public int randomNuisance;
 
 
@@ -41,7 +41,7 @@ public class EnemyPlayerController : MonoBehaviour {
 	 * 	Called at the start of the level once. Sets some basic variable values
 	 */ 
 	void Start () {
-		squaresOccupied = 0;
+		enemySquaresOccupied = 0;
 		startPoint = GameObject.Find("EnemyStartPoint");
 		alternateStartPoint1 = GameObject.Find("StartPoint1");
 		alternateStartPoint2 = GameObject.Find("StartPoint2");
@@ -54,7 +54,7 @@ public class EnemyPlayerController : MonoBehaviour {
 		rigid2D = GetComponent<Rigidbody2D>();
 		rigid2D.velocity = new Vector3(0, -2, 0);
 		GameObject rightBeanHolder = GameObject.Find("enemyBeanHolderRight");
-		GameObject leftBeanHolder = GameObject.Find("enemybeanHolderLeft");
+		GameObject leftBeanHolder = GameObject.Find("enemyBeanHolderLeft");
 		rightBeanHolder.GetComponent<Collider2D>().enabled = false;
 		leftBeanHolder.GetComponent<Collider2D>().enabled = false;
 	}
@@ -134,7 +134,7 @@ public class EnemyPlayerController : MonoBehaviour {
 		Debug.Log("Collision!");
 		if (NuisanceController.nuisanceState != 100) {
 			Debug.Log("Enemy collision in here");
-			squaresOccupied += 2;
+			enemySquaresOccupied += 2;
 			objectCollidedWith = other.collider.gameObject.name;
 			Debug.Log(objectCollidedWith);
 			if (objectCollidedWith != "Ground") {
@@ -154,15 +154,15 @@ public class EnemyPlayerController : MonoBehaviour {
 					}
 				}
 			} else {
-				if (squaresOccupied >= 29) {
-					EnemyController.changeAnimationWinning ();
-					EnemyLowerController.changeAnimationWinning ();
+				Debug.Log ("Enemy hit ground");
+				if (enemySquaresOccupied >= 29) {
+					EnemyController.changeAnimationLosing ();
 				}
 				updateGrid ();
 				reinitGame ();
 			}
 		} else {
-			squaresOccupied += 1;
+			enemySquaresOccupied += 1;
 			nuisanceUpdateGrid ();
 			reinitGame ();
 		}
@@ -248,27 +248,27 @@ public class EnemyPlayerController : MonoBehaviour {
 		{
 		case 1:
 			squares[2] += 1;
-			square1FindString = "Grid-"+(2)+"-"+((squares[2])-1);
+			square1FindString = "EnemyGrid-"+(2)+"-"+((squares[2])-1);
 			break;
 		case 2:
 			squares[3] += 1;
-			square1FindString = "Grid-"+(3)+"-"+((squares[3])-1);
+			square1FindString = "EnemyGrid-"+(3)+"-"+((squares[3])-1);
 			break;
 		case 3:
 			squares[4] += 1;
-			square1FindString = "Grid-"+(4)+"-"+((squares[4])-1);
+			square1FindString = "EnemyGrid-"+(4)+"-"+((squares[4])-1);
 			break;
 		case 4:
 			squares[1] += 1;
-			square1FindString = "Grid-"+(1)+"-"+((squares[1])-1);
+			square1FindString = "EnemyGrid-"+(1)+"-"+((squares[1])-1);
 			break;
 		case 5:
 			squares[0] += 1;
-			square1FindString = "Grid-"+(0)+"-"+((squares[0])-1);
+			square1FindString = "EnemyGrid-"+(0)+"-"+((squares[0])-1);
 			break;
 		default:
 			squares[2] += 1;
-			square1FindString = "Grid-"+(2)+"-"+((squares[2])-1);
+			square1FindString = "EnemyGrid-"+(2)+"-"+((squares[2])-1);
 			break;
 		}
 
@@ -296,12 +296,13 @@ public class EnemyPlayerController : MonoBehaviour {
 		int square1DropNumber = 0;
 		int square2DropNumber = 0;
 		if(beanOrientationPositive == 1){
+			Debug.Log ("1");
 			if (objectCollidedWith != "Ground") {
 				string[] textSplit = objectCollidedWith.Split (new string[]{ "-" }, System.StringSplitOptions.None);
 				int firstNumber = int.Parse (textSplit [1]);
 				int secondNumber = int.Parse (textSplit [2]);
-				square1FindString = "Grid-" + (row - 1) + "-" + ((squares [row - 1]));
-				square2FindString = "Grid-"+(row-2)+"-"+((squares[row-2]));
+				square1FindString = "EnemyGrid-" + (row - 1) + "-" + ((squares [row - 1]));
+				square2FindString = "EnemyGrid-"+(row-2)+"-"+((squares[row-2]));
 			}
 
 			squares[row-1] += 1;
@@ -313,18 +314,20 @@ public class EnemyPlayerController : MonoBehaviour {
 				square1DropNumber = squares [row - 2] - squares [row - 1];
 			}
 			if (square1FindString == null) {
-				square1FindString = "Grid-" + (row - 1) + "-" + ((squares [row - 1] - 1) - square1DropNumber);
+				square1FindString = "EnemyGrid-" + (row - 1) + "-" + ((squares [row - 1] - 1) - square1DropNumber);
 			}
 			if (square2FindString == null) {
-				square2FindString = "Grid-" + (row - 2) + "-" + ((squares [row - 1] - 1) - square2DropNumber);
+				square2FindString = "EnemyGrid-" + (row - 2) + "-" + ((squares [row - 1] - 1) - square2DropNumber);
 			}
 		}
 		else if(beanOrientationPositive == 2){
+			Debug.Log ("2");
 			squares[row-1] += 2;
-			square1FindString = "Grid-"+(row-1)+"-"+(squares[row-1] - 1);
-				square2FindString = "Grid-"+(row-1)+"-"+(squares[row-1] - 2);
+			square1FindString = "EnemyGrid-"+(row-1)+"-"+(squares[row-1] - 1);
+				square2FindString = "EnemyGrid-"+(row-1)+"-"+(squares[row-1] - 2);
 		}
 		else if (beanOrientationPositive == 3){
+			Debug.Log ("3");
 			//if the row from the number above doesn't equal the equation below, we need to do something different
 			//so we need to break down this string
 			square1FindString = null;
@@ -334,8 +337,8 @@ public class EnemyPlayerController : MonoBehaviour {
 				int firstNumber = int.Parse (textSplit [1]);
 				int secondNumber = int.Parse (textSplit [2]);
 					if (firstNumber != row - 1) {
-						square2FindString = "Grid-"+(row)+"-"+((squares[row]));
-						square1FindString = "Grid-" + (row - 1)+ "-"+((squares[row-1]));
+						square2FindString = "EnemyGrid-"+(row)+"-"+((squares[row]));
+						square1FindString = "EnemyGrid-" + (row - 1)+ "-"+((squares[row-1]));
 					}
 			}
 			squares[row-1] += 1;
@@ -347,19 +350,20 @@ public class EnemyPlayerController : MonoBehaviour {
 				square2DropNumber = squares[row-1] - squares[row];
 			}
 			if(square1FindString == null){
-			square1FindString = "Grid-" + (row - 1);
+			square1FindString = "EnemyGrid-" + (row - 1);
 			square1FindString = square1FindString + "-";
 			square1FindString = square1FindString + ((squares[row-1] - 1) - square1DropNumber);
 			}
 			if(square2FindString == null){
-				square2FindString = "Grid-"+(row)+"-"+((squares[row-1] - 1) - square2DropNumber);
+				square2FindString = "EnemyGrid-"+(row)+"-"+((squares[row-1] - 1) - square2DropNumber);
 			}
 
 		}
 		else{
+			Debug.Log ("4");
 			squares[row-1] += 2;
-			square1FindString = "Grid-"+(row-1)+"-"+(squares[row-1] - 2);
-			square2FindString = "Grid-"+(row-1)+"-"+(squares[row-1] - 1);
+			square1FindString = "EnemyGrid-"+(row-1)+"-"+(squares[row-1] - 2);
+			square2FindString = "EnemyGrid-"+(row-1)+"-"+(squares[row-1] - 1);
 		}
 			
 		if ((square1FindString.Contains ("12") || square1FindString.Contains ("13")) || (square2FindString.Contains ("12")) || square2FindString.Contains ("13")) {
@@ -493,12 +497,15 @@ public class EnemyPlayerController : MonoBehaviour {
 	}
 
 	public void gameOver(){
-		EnemyController.changeAnimationWinning ();
-		EnemyLowerController.changeAnimationWinning ();
+		EnemyController.changeAnimationLost ();
 		GameObject beanDuo = GameObject.Find("BeanDuo");
 		GameObject beanHolders = GameObject.Find("BeanHolders");
+		GameObject enemybeanDuo = GameObject.Find("EnemyBeanDuo");
+		GameObject enemybeanHolders = GameObject.Find("EnemyBeanHolders");
 		Destroy (beanDuo);
 		Destroy (beanHolders);
+		Destroy (enemybeanDuo);
+		Destroy (enemybeanHolders);
 		gameover = true;
 		//play sound
 		//disappear middle section of frame
@@ -514,7 +521,7 @@ public class EnemyPlayerController : MonoBehaviour {
 		int[] columns = new int[] {2, 3, 1, 4, 0, 5};
 		for (int i = 0; i < 6; i++) {
 			yield return new WaitForSeconds (delayTime);
-			string column = "GridColumn" + columns[i];
+			string column = "EnemyGridColumn" + columns[i];
 			GameObject gridcolumn = GameObject.Find(column);
 			gridcolumn.AddComponent<Rigidbody2D>();
 			gridcolumn.GetComponent<Rigidbody2D> ().gravityScale = 0.1f;	
