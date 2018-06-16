@@ -508,8 +508,8 @@ public class EnemyPlayerController : MonoBehaviour {
 
 	public void gameOver(){
 		EnemyController.changeAnimationLost ();
-		GameObject beanDuo = GameObject.Find("EnemyBeanDuo");
-		GameObject beanHolders = GameObject.Find("EnemyBeanHolders");
+		GameObject beanDuo = GameObject.Find("BeanDuo");
+		GameObject beanHolders = GameObject.Find("BeanHolders");
 		GameObject enemybeanDuo = GameObject.Find("EnemyBeanDuo");
 		GameObject enemybeanHolders = GameObject.Find("EnemyBeanHolders");
 		Destroy (beanDuo);
