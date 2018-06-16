@@ -17,7 +17,7 @@ public class EnemyPlayerController : MonoBehaviour {
 	public GameObject square1;
 	public GameObject square2;
 	public int beanOrientation;
-	public string[] positions = new string[] {"beanHolderUp", "beanHolderLeft", "beanHolderDown", "beanHolderRight"};
+	public string[] positions = new string[] {"enemyBeanHolderUp", "enemyBeanHolderLeft", "enemyBeanHolderDown", "enemyBeanHolderRight"};
 	public List<GameObject> matches;
 	public string objectCollidedWith;
 	public string lastPressed;
@@ -231,6 +231,11 @@ public class EnemyPlayerController : MonoBehaviour {
 				//row = 3;
 				rigid2D.velocity = new Vector3 (0, -2, 0);
 				beanOrientation = 0;
+				for (int i = 0; i < 4; i++) {
+					if (beanOrientation != EnemyNewBean.currentInstruction.rotation) {
+						rotateMoveB();
+					}
+				}
 				//rotate ();
 			}
 		}
@@ -509,7 +514,7 @@ public class EnemyPlayerController : MonoBehaviour {
 	public void gameOver(){
 		EnemyController.changeAnimationLost ();
 		GameObject beanDuo = GameObject.Find("BeanDuo");
-		GameObject beanHolders = GameObject.Find("BeanHolders");
+		GameObject beanHolders = GameObject.Find("EBeanHolders");
 		GameObject enemybeanDuo = GameObject.Find("EnemyBeanDuo");
 		GameObject enemybeanHolders = GameObject.Find("EnemyBeanHolders");
 		Destroy (beanDuo);

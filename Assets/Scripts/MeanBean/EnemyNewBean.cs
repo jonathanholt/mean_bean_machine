@@ -13,6 +13,9 @@ public class EnemyNewBean : MonoBehaviour {
 	public static int randomBean1 = 0;
 	public static int randomBean2 = 0;
 	public static Object [] sprites;
+	public static EnemyAIController ai; 
+	public static int currentInstructionsCount = 0;
+	public static Instruction currentInstruction;
 
 	void Start () {
 		bean1 = GameObject.Find("enemybean1");
@@ -22,15 +25,22 @@ public class EnemyNewBean : MonoBehaviour {
 		sprites = Resources.LoadAll ("beans");
 		nextRandomBean1 = Random.Range (1, 6);
 		nextRandomBean2 = Random.Range (1, 6);
+		ai = new EnemyAIController();
 		createNewBeanPair ();
 	}
 
 	public static void createNewBeanPair(){
-		randomBean1 = nextRandomBean1;
-		randomBean2 = nextRandomBean2;
+		if (currentInstructionsCount == 0) {
+			List<Instruction> instructions = ai.getRandom ();
+			currentInstructionsCount = instructions.Count;
+			currentInstruction = instructions[currentInstructionsCount - 1];
+		}
+		randomBean1 = currentInstruction.colour1;
+		randomBean2 = currentInstruction.colour2;
 		bean1.GetComponent<SpriteRenderer>().sprite = (Sprite)sprites [randomBean2];
 		bean2.GetComponent<SpriteRenderer>().sprite = (Sprite)sprites [randomBean1];
 		createNextBeanPair ();
+		currentInstructionsCount--;
 	}
 
 	public static void createNextBeanPair(){
