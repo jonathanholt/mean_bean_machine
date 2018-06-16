@@ -260,7 +260,7 @@ public class PlayerController : MonoBehaviour {
 					break;
 				}
 
-				NuisanceController.createNewNuisancePair ();
+				//NuisanceController.createNewNuisancePair ();
 				rigid2D.velocity = new Vector3 (0, -2, 0);
 				beanOrientation = 0;
 				rotate ();
@@ -285,7 +285,7 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	public void nuisanceUpdateGrid(){
-		getSquaresToUpdateNuisance ();
+		//getSquaresToUpdateNuisance ();
 	}
 
 	public void getSquaresToUpdateNuisance(){
@@ -481,7 +481,7 @@ public class PlayerController : MonoBehaviour {
 		}
 		if (goneDeleting) {
 			NuisanceController.nuisanceState++;
-			NuisanceController.initNuisance ();
+			//NuisanceController.initNuisance ();
 		}
 
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyNewBean : MonoBehaviour {
-
+	
 	public static GameObject bean1;
 	public static GameObject bean2;
 	public static GameObject nextBean1;
@@ -28,8 +28,8 @@ public class EnemyNewBean : MonoBehaviour {
 	public static void createNewBeanPair(){
 		randomBean1 = nextRandomBean1;
 		randomBean2 = nextRandomBean2;
-		bean1.GetComponent<SpriteRenderer>().sprite = (Sprite)sprites [randomBean1];
-		bean2.GetComponent<SpriteRenderer>().sprite = (Sprite)sprites [randomBean2];
+		bean1.GetComponent<SpriteRenderer>().sprite = (Sprite)sprites [randomBean2];
+		bean2.GetComponent<SpriteRenderer>().sprite = (Sprite)sprites [randomBean1];
 		createNextBeanPair ();
 	}
 
@@ -47,4 +47,5 @@ public class EnemyNewBean : MonoBehaviour {
 	private int getRandomBean2(){
 		return randomBean2;
 	}
+
 }

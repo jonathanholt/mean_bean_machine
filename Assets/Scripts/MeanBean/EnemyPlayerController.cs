@@ -105,23 +105,23 @@ public class EnemyPlayerController : MonoBehaviour {
 	 */ 
 	public void rotate(){
 		beanOrientation = beanOrientation % 4;
-		GameObject beanToMove = GameObject.Find("bean2");
+		GameObject beanToMove = GameObject.Find("enemybean2");
 		beanToMove.transform.position = GameObject.Find(positions[Mathf.Abs(beanOrientation)]).transform.position;
 		if (beanOrientation == 3) {
-			GameObject rightBeanHolder = GameObject.Find("beanHolderRight");
-			GameObject leftBeanHolder = GameObject.Find("beanHolderLeft");
+			GameObject rightBeanHolder = GameObject.Find("enemyBeanHolderRight");
+			GameObject leftBeanHolder = GameObject.Find("enemyBeanHolderLeft");
 			rightBeanHolder.GetComponent<Collider2D>().enabled = true;
 			leftBeanHolder.GetComponent<Collider2D> ().enabled = false;
 		}
 		else if(beanOrientation == 1){
-			GameObject rightBeanHolder = GameObject.Find("beanHolderRight");
-			GameObject leftBeanHolder = GameObject.Find("beanHolderLeft");
+			GameObject rightBeanHolder = GameObject.Find("enemyBeanHolderRight");
+			GameObject leftBeanHolder = GameObject.Find("enemyBeanHolderLeft");
 			leftBeanHolder.GetComponent<Collider2D>().enabled = true;
 			rightBeanHolder.GetComponent<Collider2D>().enabled = false;
 		}
 		else{
-			GameObject rightBeanHolder = GameObject.Find("beanHolderRight");
-			GameObject leftBeanHolder = GameObject.Find("beanHolderLeft");
+			GameObject rightBeanHolder = GameObject.Find("enemyBeanHolderRight");
+			GameObject leftBeanHolder = GameObject.Find("enemyBeanHolderLeft");
 			rightBeanHolder.GetComponent<Collider2D>().enabled = false;
 			leftBeanHolder.GetComponent<Collider2D>().enabled = false;
 		}
@@ -138,6 +138,7 @@ public class EnemyPlayerController : MonoBehaviour {
 			objectCollidedWith = other.collider.gameObject.name;
 			Debug.Log(objectCollidedWith);
 			if (objectCollidedWith != "Ground") {
+				Debug.Log ("Enemy hit ground");
 				string[] textSplit = objectCollidedWith.Split (new string[]{ "-" }, System.StringSplitOptions.None);
 				int firstNumber = int.Parse (textSplit [1]);
 				int secondNumber = int.Parse (textSplit [2]);
@@ -154,7 +155,7 @@ public class EnemyPlayerController : MonoBehaviour {
 					}
 				}
 			} else {
-				Debug.Log ("Enemy hit ground");
+				Debug.Log ("Enemy didn't hit ground");
 				if (enemySquaresOccupied >= 29) {
 					EnemyController.changeAnimationLosing ();
 				}
@@ -162,6 +163,7 @@ public class EnemyPlayerController : MonoBehaviour {
 				reinitGame ();
 			}
 		} else {
+			Debug.Log ("NUISANCE NUISANCE NUISANCE");
 			enemySquaresOccupied += 1;
 			nuisanceUpdateGrid ();
 			reinitGame ();
@@ -187,7 +189,10 @@ public class EnemyPlayerController : MonoBehaviour {
 	 */ 
 	public void reinitGame(){
 		if (!gameover) {
+			Debug.Log ("Not gameover");
 			if (NuisanceController.nuisanceState > 0 && NuisanceController.nuisanceState != 100) {
+				Debug.Log ("Nuisance stuff");
+				/**
 				randomNuisance = Random.Range (0, 6);
 
 
@@ -212,20 +217,21 @@ public class EnemyPlayerController : MonoBehaviour {
 					transform.position = startPoint.transform.position;
 					break;
 				}
+				*/
 
-				NuisanceController.createNewNuisancePair ();
+				//NuisanceController.createNewNuisancePair ();
 				rigid2D.velocity = new Vector3 (0, -2, 0);
 				beanOrientation = 0;
 				rotate ();
-				NuisanceController.nuisanceState = 100;
+				//NuisanceController.nuisanceState = 100;
 			} else {
-				NuisanceController.nuisanceState = 0;
+				//NuisanceController.nuisanceState = 0;
 				transform.position = startPoint.transform.position;
-				NewBean.createNewBeanPair ();
-				row = 3;
+				EnemyNewBean.createNewBeanPair ();
+				//row = 3;
 				rigid2D.velocity = new Vector3 (0, -2, 0);
 				beanOrientation = 0;
-				rotate ();
+				//rotate ();
 			}
 		}
 	}
@@ -238,7 +244,7 @@ public class EnemyPlayerController : MonoBehaviour {
 	}
 
 	public void nuisanceUpdateGrid(){
-		getSquaresToUpdateNuisance ();
+		//getSquaresToUpdateNuisance ();
 	}
 
 	public void getSquaresToUpdateNuisance(){
@@ -369,9 +375,11 @@ public class EnemyPlayerController : MonoBehaviour {
 		if ((square1FindString.Contains ("12") || square1FindString.Contains ("13")) || (square2FindString.Contains ("12")) || square2FindString.Contains ("13")) {
 			gameOver ();
 		} else {
+			Debug.Log (square1FindString);
+			Debug.Log (square2FindString);
 			square1 = GameObject.Find (square1FindString);
 			square2 = GameObject.Find (square2FindString);
-			updateSquareProperties (square1, square2, square1FindString, square2FindString);
+			updateSquareProperties (square2, square1, square1FindString, square2FindString);
 		}
 	}
 
@@ -381,15 +389,17 @@ public class EnemyPlayerController : MonoBehaviour {
 	public void updateSquareProperties(GameObject square1, GameObject square2, string square1FindString, string square2FindString){
 		Object [] sprites;
 		sprites = Resources.LoadAll ("beans");
-		square1.GetComponent<SpriteRenderer>().sprite = (Sprite)sprites [NewBean.randomBean1];
-		square2.GetComponent<SpriteRenderer>().sprite = (Sprite)sprites [NewBean.randomBean2];
+		square1.GetComponent<SpriteRenderer>().sprite = (Sprite)sprites [EnemyNewBean.randomBean2];
+		square2.GetComponent<SpriteRenderer>().sprite = (Sprite)sprites [EnemyNewBean.randomBean1];
 		if (square1.GetComponent<BoxCollider2D> () == null) {
-			square1.AddComponent<BoxCollider2D> ();
-			float width = GetComponent<SpriteRenderer> ().bounds.size.x;
-			float height = GetComponent<SpriteRenderer> ().bounds.size.y;
-			square1.GetComponent<BoxCollider2D> ().size = new Vector3(height, width, width);
+			//Debug.Log ("NULL MET");
+				square1.AddComponent<BoxCollider2D> ();
+				float width = GetComponent<SpriteRenderer> ().bounds.size.x;
+				float height = GetComponent<SpriteRenderer> ().bounds.size.y;
+				square1.GetComponent<BoxCollider2D> ().size = new Vector3(height, width, width);
 		}
 		if (square2.GetComponent<BoxCollider2D> () == null) {
+			Debug.Log ("ESTABLISHING BOX COLLIDER 2");
 			square2.AddComponent<BoxCollider2D> ();
 			float width = GetComponent<SpriteRenderer> ().bounds.size.x;
 			float height = GetComponent<SpriteRenderer> ().bounds.size.y;
@@ -398,12 +408,12 @@ public class EnemyPlayerController : MonoBehaviour {
 		square1.tag = "Ground";
 		square2.tag = "Ground";
 		string[] colours = new string[] {"NULLVOID", "B", "GR", "PUR", "REDD", "YELLO"};
-		interactWithGridManager(square1FindString, square2FindString,  colours[NewBean.randomBean1], colours[NewBean.randomBean2]);
+		interactWithGridManager(square1FindString, square2FindString,  colours[EnemyNewBean.randomBean1], colours[EnemyNewBean.randomBean2]);
 	}
 
 	public void interactWithGridManager(string squareToDo, string squareToDo2, string randomBeancolour, string randomBeanColour2){
-		GridManager.changeRobotnikColour (squareToDo, randomBeancolour);
-		GridManager.changeRobotnikColour (squareToDo2, randomBeanColour2);
+		GridManager.changeRobotnikColour (squareToDo, randomBeanColour2);
+		GridManager.changeRobotnikColour (squareToDo2, randomBeancolour);
 		GridManager.checkRobotnikMatches (squareToDo, 1);
 		GridManager.checkRobotnikMatches (squareToDo2, 100);
 		bool goneDeleting = false;
@@ -438,7 +448,7 @@ public class EnemyPlayerController : MonoBehaviour {
 		}
 		if (goneDeleting) {
 			NuisanceController.nuisanceState++;
-			NuisanceController.initNuisance ();
+			//NuisanceController.initNuisance ();
 		}
 
 
@@ -498,8 +508,8 @@ public class EnemyPlayerController : MonoBehaviour {
 
 	public void gameOver(){
 		EnemyController.changeAnimationLost ();
-		GameObject beanDuo = GameObject.Find("BeanDuo");
-		GameObject beanHolders = GameObject.Find("BeanHolders");
+		GameObject beanDuo = GameObject.Find("EnemyBeanDuo");
+		GameObject beanHolders = GameObject.Find("EnemyBeanHolders");
 		GameObject enemybeanDuo = GameObject.Find("EnemyBeanDuo");
 		GameObject enemybeanHolders = GameObject.Find("EnemyBeanHolders");
 		Destroy (beanDuo);
