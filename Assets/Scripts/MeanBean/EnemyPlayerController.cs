@@ -137,7 +137,7 @@ public class EnemyPlayerController : MonoBehaviour {
 			enemySquaresOccupied += 2;
 			objectCollidedWith = other.collider.gameObject.name;
 			Debug.Log(objectCollidedWith);
-			if (objectCollidedWith != "Ground") {
+			if (objectCollidedWith != "EnemyGround") {
 				Debug.Log ("Enemy hit ground");
 				string[] textSplit = objectCollidedWith.Split (new string[]{ "-" }, System.StringSplitOptions.None);
 				int firstNumber = int.Parse (textSplit [1]);
@@ -289,7 +289,7 @@ public class EnemyPlayerController : MonoBehaviour {
 			float height = GetComponent<SpriteRenderer> ().bounds.size.y;
 			square1.GetComponent<BoxCollider2D> ().size = new Vector3(height, width, width);
 		}
-		square1.tag = "Ground";
+		square1.tag = "EnemyGround";
 	}
 
 	/*
@@ -303,7 +303,7 @@ public class EnemyPlayerController : MonoBehaviour {
 		int square2DropNumber = 0;
 		if(beanOrientationPositive == 1){
 			Debug.Log ("1");
-			if (objectCollidedWith != "Ground") {
+			if (objectCollidedWith != "EnemyGround") {
 				string[] textSplit = objectCollidedWith.Split (new string[]{ "-" }, System.StringSplitOptions.None);
 				int firstNumber = int.Parse (textSplit [1]);
 				int secondNumber = int.Parse (textSplit [2]);
@@ -338,7 +338,7 @@ public class EnemyPlayerController : MonoBehaviour {
 			//so we need to break down this string
 			square1FindString = null;
 			square2FindString = null;
-			if (objectCollidedWith != "Ground") {
+			if (objectCollidedWith != "EnemyGround") {
 				string[] textSplit = objectCollidedWith.Split (new string[]{ "-" }, System.StringSplitOptions.None);
 				int firstNumber = int.Parse (textSplit [1]);
 				int secondNumber = int.Parse (textSplit [2]);
@@ -405,8 +405,8 @@ public class EnemyPlayerController : MonoBehaviour {
 			float height = GetComponent<SpriteRenderer> ().bounds.size.y;
 			square2.GetComponent<BoxCollider2D> ().size = new Vector3(height, width, width);
 		}
-		square1.tag = "Ground";
-		square2.tag = "Ground";
+		square1.tag = "EnemyGround";
+		square2.tag = "EnemyGround";
 		string[] colours = new string[] {"NULLVOID", "B", "GR", "PUR", "REDD", "YELLO"};
 		interactWithGridManager(square1FindString, square2FindString,  colours[EnemyNewBean.randomBean1], colours[EnemyNewBean.randomBean2]);
 	}
@@ -516,14 +516,16 @@ public class EnemyPlayerController : MonoBehaviour {
 		Destroy (beanHolders);
 		Destroy (enemybeanDuo);
 		Destroy (enemybeanHolders);
+		Destroy (beanDuo);
+		Destroy (beanHolders);
 		gameover = true;
 		//play sound
 		//disappear middle section of frame
-		GameObject ground = GameObject.Find("Ground");
+		GameObject ground = GameObject.Find("EnemyGround");
 		Destroy (ground);
-		GameObject playerFrameFloor = GameObject.Find("PlayerFrameFloor");
+		GameObject enemyFrameFloor = GameObject.Find("EnemyFrameFloor");
 		//Add animation before destory
-		Destroy (playerFrameFloor);
+		Destroy (enemyFrameFloor);
 		StartCoroutine(MyFunction(0.1f));
 	}
 
