@@ -17,7 +17,7 @@ public class EnemyPlayerController : MonoBehaviour {
 	public GameObject square1;
 	public GameObject square2;
 	public int beanOrientation;
-	public string[] positions = new string[] {"enemyBeanHolderUp", "enemyBeanHolderLeft", "enemyBeanHolderDown", "enemyBeanHolderRight"};
+	public string[] enemyPositions = new string[] {"enemyBeanHolderUp", "enemyBeanHolderLeft", "enemyBeanHolderDown", "enemyBeanHolderRight"};
 	public List<GameObject> matches;
 	public string objectCollidedWith;
 	public string lastPressed;
@@ -106,7 +106,9 @@ public class EnemyPlayerController : MonoBehaviour {
 	public void rotate(){
 		beanOrientation = beanOrientation % 4;
 		GameObject beanToMove = GameObject.Find("enemybean2");
-		beanToMove.transform.position = GameObject.Find(positions[Mathf.Abs(beanOrientation)]).transform.position;
+		beanToMove.transform.position = GameObject.Find(enemyPositions[Mathf.Abs(beanOrientation)]).transform.position;
+		Debug.Log ("LISTEN HERE...");
+		Debug.Log (enemyPositions[Mathf.Abs(beanOrientation)]);
 		if (beanOrientation == 3) {
 			GameObject rightBeanHolder = GameObject.Find("enemyBeanHolderRight");
 			GameObject leftBeanHolder = GameObject.Find("enemyBeanHolderLeft");
