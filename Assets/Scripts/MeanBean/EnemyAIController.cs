@@ -9,7 +9,7 @@ public class EnemyAIController : MonoBehaviour {
 	// Chooses a random column & orientation for the enemy bean pair
 	public List<Instruction> getRandom(){
 		List<Instruction> instructions = new List<Instruction> () {
-			new Instruction { colour1 = 1, colour2 = 1, rotation = 1, column = 1 }
+			new Instruction { colour1 = EnemyNewBean.nextRandomBean1, colour2 = EnemyNewBean.nextRandomBean2, rotation = Random.Range (1, 4), column = Random.Range (0, 5) }
 		};
 		return instructions;
 	}

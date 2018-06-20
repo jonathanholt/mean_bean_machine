@@ -230,12 +230,24 @@ public class EnemyPlayerController : MonoBehaviour {
 				//NuisanceController.nuisanceState = 0;
 				transform.position = startPoint.transform.position;
 				EnemyNewBean.createNewBeanPair ();
-				//row = 3;
+				row = 3;
 				rigid2D.velocity = new Vector3 (0, -2, 0);
 				beanOrientation = 0;
+				int movement = 1;
+				if (EnemyNewBean.currentInstruction.column < 3) {
+					movement = 0;
+				} 
 				for (int i = 0; i < 4; i++) {
 					if (beanOrientation != EnemyNewBean.currentInstruction.rotation) {
 						rotateMoveB();
+					}
+					if (row > 2 && movement == 0) {
+						leftMove ();
+						Debug.Log ("Row "+row);
+					}
+					else if(row < 6 && movement == 1){
+						rightMove ();
+						Debug.Log ("Row "+row);
 					}
 				}
 				//rotate ();
@@ -309,38 +321,40 @@ public class EnemyPlayerController : MonoBehaviour {
 		int square1DropNumber = 0;
 		int square2DropNumber = 0;
 		if(beanOrientationPositive == 1){
-			Debug.Log ("1");
 			if (objectCollidedWith != "EnemyGround") {
 				string[] textSplit = objectCollidedWith.Split (new string[]{ "-" }, System.StringSplitOptions.None);
 				int firstNumber = int.Parse (textSplit [1]);
 				int secondNumber = int.Parse (textSplit [2]);
-				square1FindString = "EnemyGrid-" + (row - 1) + "-" + ((squares [row - 1]));
-				square2FindString = "EnemyGrid-"+(row-2)+"-"+((squares[row-2]));
+				square1FindString = "EnemyGrid-" + (row) + "-" + ((squares [row]));
+				square2FindString = "EnemyGrid-"+(row-1)+"-"+((squares[row-1]));
 			}
-
+			Debug.Log ("Error may have been thrown");
+			Debug.Log (row);
+			squares[row] += 1;
 			squares[row-1] += 1;
-			squares[row-2] += 1;
-			if (squares [row - 1] > squares [row - 2]) {
-				square2DropNumber = squares [row - 1] - squares [row - 2];
+			if (squares [row] > squares [row - 1]) {
+				square2DropNumber = squares [row] - squares [row - 1];
 			}
-			if (squares [row - 1] < squares [row - 2]) {
-				square1DropNumber = squares [row - 2] - squares [row - 1];
+			if (squares [row] < squares [row - 1]) {
+				square1DropNumber = squares [row - 1] - squares [row];
 			}
 			if (square1FindString == null) {
-				square1FindString = "EnemyGrid-" + (row - 1) + "-" + ((squares [row - 1] - 1) - square1DropNumber);
+				square1FindString = "EnemyGrid-" + (row) + "-" + ((squares [row - 1] - 1) - square1DropNumber);
 			}
 			if (square2FindString == null) {
-				square2FindString = "EnemyGrid-" + (row - 2) + "-" + ((squares [row - 1] - 1) - square2DropNumber);
+				square2FindString = "EnemyGrid-" + (row - 1) + "-" + ((squares [row - 1] - 1) - square2DropNumber);
 			}
 		}
 		else if(beanOrientationPositive == 2){
 			Debug.Log ("2");
+			Debug.Log ("Is this out of index??"+(row-1));
 			squares[row-1] += 2;
 			square1FindString = "EnemyGrid-"+(row-1)+"-"+(squares[row-1] - 1);
 				square2FindString = "EnemyGrid-"+(row-1)+"-"+(squares[row-1] - 2);
 		}
 		else if (beanOrientationPositive == 3){
 			Debug.Log ("3");
+			Debug.Log ("Is this out of index??"+(row-1));
 			//if the row from the number above doesn't equal the equation below, we need to do something different
 			//so we need to break down this string
 			square1FindString = null;
@@ -373,7 +387,8 @@ public class EnemyPlayerController : MonoBehaviour {
 
 		}
 		else{
-			Debug.Log ("4");
+			Debug.Log ("Testing 4");
+			Debug.Log ("Is this out of index??"+(row-1));
 			squares[row-1] += 2;
 			square1FindString = "EnemyGrid-"+(row-1)+"-"+(squares[row-1] - 2);
 			square2FindString = "EnemyGrid-"+(row-1)+"-"+(squares[row-1] - 1);
