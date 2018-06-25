@@ -411,9 +411,14 @@ public class EnemyPlayerController : MonoBehaviour {
 	public void updateSquareProperties(GameObject square1, GameObject square2, string square1FindString, string square2FindString){
 		Object [] sprites;
 		sprites = Resources.LoadAll ("beans");
-		square1.GetComponent<SpriteRenderer>().sprite = (Sprite)sprites [EnemyNewBean.randomBean2];
-		square2.GetComponent<SpriteRenderer>().sprite = (Sprite)sprites [EnemyNewBean.randomBean1];
-		if (square1.GetComponent<BoxCollider2D> () == null) {
+		if (EnemyNewBean.round == 1) {
+			square1.GetComponent<SpriteRenderer> ().sprite = (Sprite)sprites [EnemyNewBean.randomBean2];
+			square2.GetComponent<SpriteRenderer> ().sprite = (Sprite)sprites [EnemyNewBean.randomBean1];
+		} else {
+			square1.GetComponent<SpriteRenderer> ().sprite = (Sprite)sprites [EnemyNewBean.randomBean1];
+			square2.GetComponent<SpriteRenderer> ().sprite = (Sprite)sprites [EnemyNewBean.randomBean2];
+		}
+			if (square1.GetComponent<BoxCollider2D> () == null) {
 			//Debug.Log ("NULL MET");
 				square1.AddComponent<BoxCollider2D> ();
 				float width = GetComponent<SpriteRenderer> ().bounds.size.x;
@@ -430,7 +435,7 @@ public class EnemyPlayerController : MonoBehaviour {
 		square1.tag = "EnemyGround";
 		square2.tag = "EnemyGround";
 		string[] colours = new string[] {"NULLVOID", "B", "GR", "PUR", "REDD", "YELLO"};
-		interactWithGridManager(square1FindString, square2FindString,  colours[EnemyNewBean.randomBean1], colours[EnemyNewBean.randomBean2]);
+		interactWithGridManager(square1FindString, square2FindString,  colours[EnemyNewBean.randomBean2], colours[EnemyNewBean.randomBean1]);
 	}
 
 	public void interactWithGridManager(string squareToDo, string squareToDo2, string randomBeancolour, string randomBeanColour2){

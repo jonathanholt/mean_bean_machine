@@ -16,8 +16,10 @@ public class EnemyNewBean : MonoBehaviour {
 	public static EnemyAIController ai; 
 	public static int currentInstructionsCount = 0;
 	public static Instruction currentInstruction;
+	public static int round;
 
 	void Start () {
+		round = 0;
 		bean1 = GameObject.Find("enemybean1");
 		bean2 = GameObject.Find("enemybean2");
 		nextBean1 = GameObject.Find("enemyNextBean1");
@@ -30,6 +32,7 @@ public class EnemyNewBean : MonoBehaviour {
 	}
 
 	public static void createNewBeanPair(){
+		round++;
 		if (currentInstructionsCount == 0) {
 			List<Instruction> instructions = ai.getRandom ();
 			currentInstructionsCount = instructions.Count;
