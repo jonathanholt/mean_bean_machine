@@ -321,34 +321,56 @@ public class EnemyPlayerController : MonoBehaviour {
 		int square1DropNumber = 0;
 		int square2DropNumber = 0;
 		if(beanOrientationPositive == 1){
+			int rowplus = 0;
+			if (row == 6) {
+				Debug.Log ("Row change..."+row);
+				rowplus = 1;
+			}
 			if (objectCollidedWith != "EnemyGround") {
+				if (row == 2) {
+					rowplus = 1;
+				}
 				string[] textSplit = objectCollidedWith.Split (new string[]{ "-" }, System.StringSplitOptions.None);
 				int firstNumber = int.Parse (textSplit [1]);
 				int secondNumber = int.Parse (textSplit [2]);
-				square1FindString = "EnemyGrid-" + (row) + "-" + ((squares [row]));
-				square2FindString = "EnemyGrid-"+(row-1)+"-"+((squares[row-1]));
+				Debug.Log ("Error may have been thrown?");
+				square1FindString = "EnemyGrid-" + (row - rowplus) + "-" + ((squares [row - rowplus]));
+				square2FindString = "EnemyGrid-" + (row - 1 - rowplus) + "-" + ((squares [row - 1 - rowplus]));
 			}
 			Debug.Log ("Error may have been thrown");
-			Debug.Log (row);
-			squares[row] += 1;
-			squares[row-1] += 1;
-			if (squares [row] > squares [row - 1]) {
-				square2DropNumber = squares [row] - squares [row - 1];
+			Debug.Log ("Row = "+ row);
+
+
+				squares [row - rowplus] += 1;
+				squares [row - 1 - rowplus] += 1;
+
+
+			if (squares [row - rowplus] > squares [row - 1 - rowplus]) {
+				square2DropNumber = squares [row - rowplus] - squares [row - 1 - rowplus];
 			}
-			if (squares [row] < squares [row - 1]) {
-				square1DropNumber = squares [row - 1] - squares [row];
+			if (squares [row - rowplus] < squares [row - 1 - rowplus]) {
+				square1DropNumber = squares [row - 1 - rowplus] - squares [row - rowplus];
 			}
 			if (square1FindString == null) {
-				square1FindString = "EnemyGrid-" + (row) + "-" + ((squares [row - 1] - 1) - square1DropNumber);
+				Debug.Log ("setting find string 1");
+				if ((row - rowplus) < 0) {
+					Debug.Log ("Resetting rowplus ");
+					rowplus = 0;
+				}
+				Debug.Log ("Useful debugging string");
+				square1FindString = "EnemyGrid-" + (row - rowplus) + "-" + ((squares [row - 1 - rowplus] - 1) - square1DropNumber);
+				Debug.Log ("LOOK! "+square1FindString);
 			}
 			if (square2FindString == null) {
-				square2FindString = "EnemyGrid-" + (row - 1) + "-" + ((squares [row - 1] - 1) - square2DropNumber);
+				square2FindString = "EnemyGrid-" + (row - 1 - rowplus) + "-" + ((squares [row - 1 - rowplus] - 1) - square2DropNumber);
+				Debug.Log ("LOOK AGAIN! "+square2FindString);
 			}
 		}
 		else if(beanOrientationPositive == 2){
 			Debug.Log ("2");
 			Debug.Log ("Is this out of index??"+(row-1));
 			squares[row-1] += 2;
+			Debug.Log ("setting find string 2");
 			square1FindString = "EnemyGrid-"+(row-1)+"-"+(squares[row-1] - 1);
 				square2FindString = "EnemyGrid-"+(row-1)+"-"+(squares[row-1] - 2);
 		}
@@ -365,6 +387,7 @@ public class EnemyPlayerController : MonoBehaviour {
 				int secondNumber = int.Parse (textSplit [2]);
 					if (firstNumber != row - 1) {
 						square2FindString = "EnemyGrid-"+(row)+"-"+((squares[row]));
+					Debug.Log ("setting find string 3");
 						square1FindString = "EnemyGrid-" + (row - 1)+ "-"+((squares[row-1]));
 					}
 			}
@@ -377,6 +400,7 @@ public class EnemyPlayerController : MonoBehaviour {
 				square2DropNumber = squares[row-1] - squares[row];
 			}
 			if(square1FindString == null){
+				Debug.Log ("setting find string 4");
 			square1FindString = "EnemyGrid-" + (row - 1);
 			square1FindString = square1FindString + "-";
 			square1FindString = square1FindString + ((squares[row-1] - 1) - square1DropNumber);
@@ -390,6 +414,7 @@ public class EnemyPlayerController : MonoBehaviour {
 			Debug.Log ("Testing 4");
 			Debug.Log ("Is this out of index??"+(row-1));
 			squares[row-1] += 2;
+			Debug.Log ("setting find string 5");
 			square1FindString = "EnemyGrid-"+(row-1)+"-"+(squares[row-1] - 2);
 			square2FindString = "EnemyGrid-"+(row-1)+"-"+(squares[row-1] - 1);
 		}
