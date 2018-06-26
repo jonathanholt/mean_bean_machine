@@ -357,6 +357,9 @@ public class EnemyPlayerController : MonoBehaviour {
 					Debug.Log ("Resetting rowplus ");
 					rowplus = 0;
 				}
+				if (row == 2) {
+					rowplus = 1;
+				}
 				Debug.Log ("Useful debugging string");
 				square1FindString = "EnemyGrid-" + (row - rowplus) + "-" + ((squares [row - 1 - rowplus] - 1) - square1DropNumber);
 				Debug.Log ("LOOK! "+square1FindString);
@@ -418,16 +421,11 @@ public class EnemyPlayerController : MonoBehaviour {
 			square1FindString = "EnemyGrid-"+(row-1)+"-"+(squares[row-1] - 2);
 			square2FindString = "EnemyGrid-"+(row-1)+"-"+(squares[row-1] - 1);
 		}
-			
-		if ((square1FindString.Contains ("12") || square1FindString.Contains ("13")) || (square2FindString.Contains ("12")) || square2FindString.Contains ("13")) {
-			gameOver ();
-		} else {
 			Debug.Log (square1FindString);
 			Debug.Log (square2FindString);
 			square1 = GameObject.Find (square1FindString);
 			square2 = GameObject.Find (square2FindString);
 			updateSquareProperties (square2, square1, square1FindString, square2FindString);
-		}
 	}
 
 	/*
@@ -502,10 +500,9 @@ public class EnemyPlayerController : MonoBehaviour {
 			NuisanceController.nuisanceState++;
 			//NuisanceController.initNuisance ();
 		}
-
-
-
-
+		if ((squareToDo.Contains ("12") || squareToDo.Contains ("13")) || (squareToDo2.Contains ("12")) || squareToDo2.Contains ("13")) {
+			gameOver ();
+		}
 	}
 
 	public void restoreSquareToBlank(GameObject squareToAlter){
@@ -561,15 +558,13 @@ public class EnemyPlayerController : MonoBehaviour {
 	public void gameOver(){
 		EnemyController.changeAnimationLost ();
 		GameObject beanDuo = GameObject.Find("BeanDuo");
-		GameObject beanHolders = GameObject.Find("EBeanHolders");
+		GameObject player = GameObject.Find("Player");
 		GameObject enemybeanDuo = GameObject.Find("EnemyBeanDuo");
 		GameObject enemybeanHolders = GameObject.Find("EnemyBeanHolders");
 		Destroy (beanDuo);
-		Destroy (beanHolders);
+		Destroy (player);
 		Destroy (enemybeanDuo);
 		Destroy (enemybeanHolders);
-		Destroy (beanDuo);
-		Destroy (beanHolders);
 		gameover = true;
 		//play sound
 		//disappear middle section of frame
