@@ -11,13 +11,10 @@ public class LevelSelectManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		menuOption = 0;
-		Debug.Log ("Menu  " + menuOption);
 		menuSprite = GameObject.Find("menu1");
 		menuSprite.GetComponent<Renderer>().enabled = false;
-
 		menuSprite = GameObject.Find("menu2");
 		menuSprite.GetComponent<Renderer>().enabled = false;
-
 		menuSprite = GameObject.Find("menu3");
 		menuSprite.GetComponent<Renderer>().enabled = false;
 		menuPosition = GameObject.Find("menu0pos");
@@ -90,7 +87,6 @@ public class LevelSelectManager : MonoBehaviour {
 
 	void beanMover(){
 		menuBeanSprite = GameObject.Find("menubean");
-		Debug.Log (menuBeanSprite.transform.position+" vs "+menuPosition.transform.position);
 		menuBeanSprite.transform.position = menuPosition.transform.position;
 	}
 

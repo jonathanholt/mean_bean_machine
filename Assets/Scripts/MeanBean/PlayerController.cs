@@ -321,7 +321,6 @@ public class PlayerController : MonoBehaviour {
 
 		square1 = GameObject.Find (square1FindString);
 		Object [] sprites;
-		Debug.Log ("Important "+square1FindString);
 		sprites = Resources.LoadAll<Sprite> ("nuisance");
 		square1.GetComponent<SpriteRenderer>().sprite = (Sprite)sprites [1];
 		if (square1.GetComponent<BoxCollider2D> () == null) {

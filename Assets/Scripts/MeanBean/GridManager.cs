@@ -51,23 +51,17 @@ public class GridManager : MonoBehaviour {
 	public static void checkRobotnikMatches(string robotnikString, int isFinal){
 		int correcti = 1000;
 		int correctj = 1000;
-		//1. get the 3D array coordinates of our square based on parameter string
 		for(int j = 0; j < rows; j++){
 			for(int i = 0; i < columns; i++){
 				if (grid [j, i].colour != "NULLVOID") {
 					if (grid [j, i].name == robotnikString) {
 						correctj = j;
 						correcti = i;
-						//2. set that square's matches to 1
 						grid [j, i].matches.Add (grid [j, i].name);
 						List<string> removeDupes = grid [j, i].matches.Distinct ().ToList ();
 						grid [j, i].matches = removeDupes;
-						//3. Load each of the neighbouring squares (if not on edge)
 						if (j + 1 < rows) {
-							//3.1 Check the colour attribute of that square
 							if (grid [j + 1, i].colour == grid [j, i].colour) {
-								//3.1.1. If the colour attribute is the same, then extract the match value of both squares, combine it and reassign to the squares
-								//DIRECTION NOTE, THIS IS LEFT //
 								grid [j, i].directions.Add (grid [j + 1, i].name);
 								grid [j + 1, i].matches.Add (grid [j + 1, i].name);
 
@@ -92,16 +86,13 @@ public class GridManager : MonoBehaviour {
 						}
 
 						if (j - 1 >= 0) {
-							//3.1 Check the colour attribute of that square
 							if (grid [j - 1, i].colour == grid [j, i].colour) {
-								//3.1.1. If the colour attribute is the same, then extract the match value of both squares, combine it and reassign to the squares
 								grid [j - 1, i].matches.Add (grid [j - 1, i].name);
 								List<string> combinedMatches = grid [j, i].matches;
 								combinedMatches.AddRange (grid [j - 1, i].matches);
 								combinedMatches = combinedMatches.Distinct ().ToList ();
 								grid [j - 1, i].matches = combinedMatches;
 								grid [j, i].matches = combinedMatches;
-								//3.1.2. If the match attribute reaches 4, then set a flag because deleting needs to happen
 								if (combinedMatches.Count >= 4) {
 									deleteTime = true;
 									if (isFinal == 0) {
@@ -116,17 +107,13 @@ public class GridManager : MonoBehaviour {
 						}
 
 						if (i - 1 >= 0) {
-							//3.1 Check the colour attribute of that square
 							if (grid [j, i - 1].colour == grid [j, i].colour) {
-								//3.1.1. If the colour attribute is the same, then extract the match value of both squares, combine it and reassign to the squares
 								grid [j, i - 1].matches.Add (grid [j, i - 1].name);
 								List<string> combinedMatches = grid [j, i].matches;
 								combinedMatches.AddRange (grid [j, i - 1].matches);
 								combinedMatches = combinedMatches.Distinct ().ToList ();
 								grid [j, i - 1].matches = combinedMatches;
 								grid [j, i].matches = combinedMatches;
-
-								//3.1.2. If the match attribute reaches 4, then set a flag because deleting needs to happen
 								if (combinedMatches.Count >= 4) {
 									deleteTime = true;
 									if (isFinal == 0) {
@@ -141,17 +128,13 @@ public class GridManager : MonoBehaviour {
 						}
 
 						if (i + 1 < columns) {
-										//3.1 Check the colour attribute of that square
 							if (grid [j, i + 1].colour == grid [j, i].colour) {
-								//3.1.1. If the colour attribute is the same, then extract the match value of both squares, combine it and reassign to the squares
 								grid [j, i + 1].matches.Add (grid [j, i + 1].name);
 								List<string> combinedMatches = grid [j, i].matches;
 								combinedMatches.AddRange (grid [j, i + 1].matches);
 								combinedMatches = combinedMatches.Distinct ().ToList ();
 								grid [j, i + 1].matches = combinedMatches;
 								grid [j, i].matches = combinedMatches;
-
-								//3.1.2. If the match attribute reaches 4, then set a flag because deleting needs to happen
 								if (combinedMatches.Count >= 4) {
 									deleteTime = true;
 									if (isFinal == 0) {
@@ -168,8 +151,6 @@ public class GridManager : MonoBehaviour {
 				}
 			}
 		}	
-		//3.2.1.1. Then we should have a definitive list of which squares to delete. We need to remove duplicates from this list.
-		//3.2.1.2. We can cycle through the above list and reset all of the attributes for said list in HERE
 	}
 
 	public static void deleteRobotnikMatches(){
@@ -178,13 +159,6 @@ public class GridManager : MonoBehaviour {
 			List<string> toDelete = grid [deletej1, deletei1].matches;
 			if (deleteTime) {
 				needToRedoGrid = true;
-				//3.2. If we have a flag set, we need to redo the square checking. So we take our original square and make a note of it.
-				//EVERYTHING I WROTE HERE SHOULD BE INVALIDATED NOW BECAUSE ALL ROBOTNIK'S HAVE A REFERENCE TO THEIR OWN 
-				//toDelete.Add(grid[correctj, correcti].name);
-				//3.2.1. Check the left square, lower square and right square, if the squres are the same colour, make a note. AND if it is, cycle through IT'S adjecent squares too
-				//3.2.1. Check the left square, lower square and right square, if the squres are the same colour, make a note. AND if it is, cycle through IT'S adjecent squares too
-				//3.2.1.1. We then need to cycle through the left, bottom and right squares adjecent squares TOO, and make a note of any with the same colour
-				//3.2.1.1. This then needs to happen ONE FINAL TIME with outer squarres.
 				for(int j = 0; j < rows; j++){
 					for(int i = 0; i < columns; i++){
 						if (toDelete.Contains("Grid-" + j + "-" + i)) {
@@ -204,13 +178,6 @@ public class GridManager : MonoBehaviour {
 			List<string> toDelete = grid [deletej2, deletei2].matches;
 			if (deleteTime) {
 				needToRedoGrid = true;
-				//3.2. If we have a flag set, we need to redo the square checking. So we take our original square and make a note of it.
-				//EVERYTHING I WROTE HERE SHOULD BE INVALIDATED NOW BECAUSE ALL ROBOTNIK'S HAVE A REFERENCE TO THEIR OWN 
-				//toDelete.Add(grid[correctj, correcti].name);
-				//3.2.1. Check the left square, lower square and right square, if the squres are the same colour, make a note. AND if it is, cycle through IT'S adjecent squares too
-				//3.2.1. Check the left square, lower square and right square, if the squres are the same colour, make a note. AND if it is, cycle through IT'S adjecent squares too
-				//3.2.1.1. We then need to cycle through the left, bottom and right squares adjecent squares TOO, and make a note of any with the same colour
-				//3.2.1.1. This then needs to happen ONE FINAL TIME with outer squarres.
 				for(int j = 0; j < rows; j++){
 					for(int i = 0; i < columns; i++){
 
@@ -220,10 +187,7 @@ public class GridManager : MonoBehaviour {
 						}
 					}
 				}
-
-
 			}
-
 			deletej2 = 100;
 			deletei2 = 100;
 			deleteTime = false;
@@ -245,31 +209,21 @@ public class GridManager : MonoBehaviour {
 							grid [j, i - 1].colour = holderColour1;
 							grid [j, i].matches = holderMatches2;
 							grid [j, i - 1].matches = holderMatches1;
-								
-							//Debug.Log("Dropping Grid-"+j+"-"+i+" down to Grid-"+j+"-"+(i-1)+" because "+grid [j, i].colour);
 						}
 					}			
 				}
 			}
 		}
-		//DROP FUNCTION
-		//START WITH BOTTOM, CHECK IF BEAN, IF NOT, MOVE ON, IF BEAN && BELOW SQUARES IS EMPTY, SWITCH VALUES, CHECK THE BELOW AGAIN ETC
-		//WHEN WE HAVE DONE ALL DROPS THEN WE CAN CYCLE THE GRID AND SET ALL OF THE MATCHES TO 0
-		//WE THEN RUN A CHECK ON EVERY SQUARE WITH THE MATCH FUNCTION TOO 
 	}
 
 	public static void finalCheckFunction(){
-		//Debug.Log ("FINAL CHECK");
 		for(int j = 0; j < rows; j++){
 			string debuggingstring = "[";
 			for(int i = 0; i < columns; i++){
 				grid [j, i].matches = new List<string>();
 				debuggingstring += (grid [j, i].colour+",");
-				//Debug.Log("Grid-" + j + "-" + i+" matches ="+grid [j, i].matches.Count);
-				//	deleteRobotnikMatches ();
 			}
 			debuggingstring += "]";
-			//Debug.Log(debuggingstring);
 		}
 			
 
@@ -282,13 +236,11 @@ public class GridManager : MonoBehaviour {
 			}
 		}
 		dropFunction ();
-		//This needs to be done 11 times
 	}
-	}
+}
 
 	public static Robotnik[,] returnGrid(){
 		needToRedoGrid = false;
-		//returns the grid to the player controller to cycle through and do it's UI changes with
 		return grid;
 	}
 								

@@ -29,7 +29,6 @@ public class HasBeanController : MonoBehaviour {
 	}
 
 	public static void changeAnimation(int animation){
-		Debug.Log ("Animation..."+animation);
 		whichAnimation = animation;
 		anim.SetInteger ("Animation", animation);
 	}

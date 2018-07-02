@@ -6,7 +6,6 @@ public class BeanHolderController : MonoBehaviour {
 
 	public GameObject parentPlayer;
 
-	// Use this for initialization
 	void Start () {
 		parentPlayer = GameObject.Find("Player");
 	}

@@ -20,7 +20,6 @@ public class PauseController : MonoBehaviour {
 	}
 
 	public static void togglePause(){
-		Debug.Log ("TogglePause");
 		if (isPaused) {
 			isPaused = false;
 		} else {

@@ -11,7 +11,6 @@ public class Square : MonoBehaviour {
 	public List<GameObject> matches;
 	public List<GameObject> chains;
 
-	// Use this for initialization
 	void Start () {
 		chain = 0;
 		colour = "";
@@ -54,7 +53,6 @@ public class Square : MonoBehaviour {
 
 	public void setDirectmatches(int newDirectmatches){
 		directMatches = newDirectmatches;
-		//Debug.Log("new direct matches= "+directMatches);
 	}
 
 	public void addMatch(GameObject match){
