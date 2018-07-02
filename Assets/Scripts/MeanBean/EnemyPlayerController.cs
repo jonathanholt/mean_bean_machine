@@ -27,6 +27,7 @@ public class EnemyPlayerController : MonoBehaviour {
 	public bool gameover;
 	public int enemySquaresOccupied;
 	public int randomNuisance;
+	public int initialUniqueErrorCheck;
 
 
 	public string[] gamecolours = new string[]{"blue","green","purple","red","yellow"};
@@ -41,6 +42,7 @@ public class EnemyPlayerController : MonoBehaviour {
 	 * 	Called at the start of the level once. Sets some basic variable values
 	 */ 
 	void Start () {
+		initialUniqueErrorCheck = 0;
 		enemySquaresOccupied = 0;
 		startPoint = GameObject.Find("EnemyStartPoint");
 		alternateStartPoint1 = GameObject.Find("StartPoint1");
@@ -361,12 +363,31 @@ public class EnemyPlayerController : MonoBehaviour {
 					rowplus = 1;
 				}
 				Debug.Log ("Useful debugging string");
-				square1FindString = "EnemyGrid-" + (row - rowplus) + "-" + ((squares [row - 1 - rowplus] - 1) - square1DropNumber);
+				var secondNumber = (squares [row - 1 - rowplus] - 1) - square1DropNumber;
+				if (secondNumber < 0) {
+					secondNumber = squares [row - 1];
+					if (initialUniqueErrorCheck == 0) {
+						secondNumber--;
+					}
+				}
+				square1FindString = "EnemyGrid-" + (row - rowplus) + "-" + secondNumber;
 				Debug.Log ("LOOK! "+square1FindString);
 			}
 			if (square2FindString == null) {
-				square2FindString = "EnemyGrid-" + (row - 1 - rowplus) + "-" + ((squares [row - 1 - rowplus] - 1) - square2DropNumber);
+				var secondNumber = (squares [row - 1 - rowplus] - 1) - square2DropNumber;
+				if (secondNumber < 0) {
+					secondNumber = squares [row-2];
+					if (initialUniqueErrorCheck == 0) {
+						squares [row - 2] += 1;
+						initialUniqueErrorCheck++;
+					}
+				}
+				square2FindString = "EnemyGrid-" + (row - 1 - rowplus) + "-" + secondNumber;
 				Debug.Log ("LOOK AGAIN! "+square2FindString);
+				Debug.Log ("Row = " + row);
+				foreach (int square in squares) {
+					Debug.Log ("square..."+square);
+				}
 			}
 		}
 		else if(beanOrientationPositive == 2){
