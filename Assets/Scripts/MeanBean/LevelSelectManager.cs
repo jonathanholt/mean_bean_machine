@@ -10,6 +10,7 @@ public class LevelSelectManager : MonoBehaviour {
 	public GameObject menuPosition;
 	public GameObject mainMenuDestination;
 	public GameObject subMenuDestination;
+	public GameObject MainMenuObserver;
 	public int menuLevel;
 
 	// Use this for initialization
@@ -25,58 +26,61 @@ public class LevelSelectManager : MonoBehaviour {
 		menuPosition = GameObject.Find("menu0pos");
 		mainMenuDestination = GameObject.Find("MenusDestination");
 		subMenuDestination = GameObject.Find("SubMenusDestination");
+		MainMenuObserver = GameObject.Find("MainMenuObserver");
 		beanMover ();
 
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if(Input.GetKeyUp("up")){
-			if (menuLevel > 0) {
-				subMenuUpdater (1);
-				beanMover ();
-			} else {
-				if (menuOption - 1 < 0 != true) {
-					Debug.Log ("Menu up before press  " + menuOption);
-					menuOption -= 1;
-					Debug.Log ("Menu up  " + menuOption);
-					menuUpdater (menuOption);
+		if (MainMenuObserver.GetComponent<MainMenuObserver>().getMenuProgress() > 2) {
+			if (Input.GetKeyUp ("up")) {
+				if (menuLevel > 0) {
+					subMenuUpdater (1);
 					beanMover ();
+				} else {
+					if (menuOption - 1 < 0 != true) {
+						Debug.Log ("Menu up before press  " + menuOption);
+						menuOption -= 1;
+						Debug.Log ("Menu up  " + menuOption);
+						menuUpdater (menuOption);
+						beanMover ();
+					}
+				}
+
+			}
+
+			if (Input.GetKeyUp ("down")) {
+				if (menuLevel > 0) {
+					subMenuUpdater (2);
+					beanMover ();
+				} else {
+					if (menuOption + 1 > 3 != true) {
+						menuOption += 1;
+						Debug.Log ("Menu down  " + menuOption);
+						menuUpdater (menuOption);
+						beanMover ();
+					}
 				}
 			}
 
-		}
+			if (Input.GetKeyUp ("a")) {
+				if (menuLevel == 0)
+					menuLevel++;
+			}
 
-		if (Input.GetKeyUp ("down")) {
-			if (menuLevel > 0) {
-				subMenuUpdater (2);
-				beanMover ();
-			} else {
-				if (menuOption + 1 > 3 != true) {
-					menuOption += 1;
-					Debug.Log ("Menu down  " + menuOption);
-					menuUpdater (menuOption);
-					beanMover ();
+			if (menuLevel == 1) {
+				menuBeanSprite = GameObject.Find ("Menus");
+				subMenuBeanSprite = GameObject.Find ("SubMenu");
+				if (subMenuBeanSprite.transform.position != subMenuDestination.transform.position) {
+					subMenuBeanSprite.transform.position = Vector3.Lerp (subMenuBeanSprite.transform.position, subMenuDestination.transform.position, 0.02f);
 				}
-			}
-		}
 
-		if(Input.GetKeyUp("a")){
-			if (menuLevel == 0)
-				menuLevel++;
-		}
-
-		if (menuLevel == 1) {
-			menuBeanSprite = GameObject.Find("Menus");
-			subMenuBeanSprite = GameObject.Find("SubMenu");
-			if (subMenuBeanSprite.transform.position != subMenuDestination.transform.position) {
-				subMenuBeanSprite.transform.position = Vector3.Lerp (subMenuBeanSprite.transform.position, subMenuDestination.transform.position, 0.02f);
-			}
-
-			if (menuBeanSprite.transform.position != mainMenuDestination.transform.position) {
-				menuBeanSprite.transform.position = Vector3.Lerp (menuBeanSprite.transform.position, mainMenuDestination.transform.position, 0.02f);
-			} else {
-				menuLevel = 2;
+				if (menuBeanSprite.transform.position != mainMenuDestination.transform.position) {
+					menuBeanSprite.transform.position = Vector3.Lerp (menuBeanSprite.transform.position, mainMenuDestination.transform.position, 0.02f);
+				} else {
+					menuLevel = 2;
+				}
 			}
 		}
 	}
