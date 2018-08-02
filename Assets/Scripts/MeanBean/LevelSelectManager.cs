@@ -33,7 +33,6 @@ public class LevelSelectManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (MainMenuObserver.GetComponent<MainMenuObserver>().getMenuProgress() > 2) {
 			if (Input.GetKeyUp ("up")) {
 				if (menuLevel > 0) {
 					subMenuUpdater (1);
@@ -82,7 +81,6 @@ public class LevelSelectManager : MonoBehaviour {
 					menuLevel = 2;
 				}
 			}
-		}
 	}
 
 	void subMenuUpdater(int subMenuCurrent){

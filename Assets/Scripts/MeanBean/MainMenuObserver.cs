@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Video;
 
 public class MainMenuObserver : MonoBehaviour {
 
@@ -46,13 +47,11 @@ public class MainMenuObserver : MonoBehaviour {
 		}
 	}
 
-	public int getMenuProgress(){
-		return this.menuProgress;
-	}
-
 	public void videoFinish(){
 		scrollingBackground = GameObject.Find("VideoPlayer");
-		scrollingBackground.videoFinish ();
+		VideoPlayer videoPlayer = scrollingBackground.GetComponent<VideoPlayer>();
+		videoPlayer.enabled = false;
+
 		scrollingBackground = GameObject.Find("menus_6");
 		scrollingBackground.GetComponent<Renderer>().enabled = true;
 		scrollingBackground = GameObject.Find("menus_10");
