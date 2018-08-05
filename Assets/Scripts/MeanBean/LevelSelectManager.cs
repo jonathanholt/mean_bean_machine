@@ -43,7 +43,7 @@ public class LevelSelectManager : MonoBehaviour {
 				if (menuLevel > 0) {
 					Debug.Log ("calling submenu updater");
 					subMenuUpdater (1);
-					beanMover ();
+					subBeanMover ();
 				} else {
 					if (menuOption - 1 < 0 != true) {
 						Debug.Log ("Menu up before press  " + menuOption);
@@ -60,7 +60,7 @@ public class LevelSelectManager : MonoBehaviour {
 				Debug.Log ("MenuLevel"+menuLevel);
 				if (menuLevel > 0) {
 					subMenuUpdater (2);
-					beanMover ();
+					subBeanMover ();
 				} else {
 					if (menuOption + 1 > 3 != true) {
 						menuOption += 1;
@@ -157,6 +157,11 @@ public class LevelSelectManager : MonoBehaviour {
 
 	void beanMover(){
 		menuBeanSprite = GameObject.Find("menubean");
+		menuBeanSprite.transform.position = menuPosition.transform.position;
+	}
+
+	void subBeanMover(){
+		menuBeanSprite = GameObject.Find("submenubean");
 		menuBeanSprite.transform.position = menuPosition.transform.position;
 	}
 
