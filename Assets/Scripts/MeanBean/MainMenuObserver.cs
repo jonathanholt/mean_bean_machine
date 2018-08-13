@@ -78,5 +78,6 @@ public class MainMenuObserver : MonoBehaviour {
 		scrollingBackground.GetComponent<Renderer>().enabled = true;
 		scrollingBackground = GameObject.Find("menus_7 (3)");
 		scrollingBackground.GetComponent<Renderer>().enabled = true;
+		GameObject.Find ("menu").GetComponent<AudioSource> ().Play ();
 	}
 }

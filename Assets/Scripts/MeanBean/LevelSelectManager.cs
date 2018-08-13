@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class LevelSelectManager : MonoBehaviour {
 	
@@ -13,11 +14,15 @@ public class LevelSelectManager : MonoBehaviour {
 	public GameObject MainMenuObserver;
 	public int menuLevel;
 	public int videoPlaying = 0;
+	public AudioSource source;
+	public AudioClip clip;
+	public int pushedButtonTimes;
 
 	// Use this for initialization
 	void Start () {
 		menuOption = 0;
 		menuLevel = 0;
+		pushedButtonTimes = 0;
 		menuSprite = GameObject.Find("menu1");
 		menuSprite.GetComponent<Renderer>().enabled = false;
 		menuSprite = GameObject.Find("menu2");
@@ -29,7 +34,6 @@ public class LevelSelectManager : MonoBehaviour {
 		subMenuDestination = GameObject.Find("SubMenusDestination");
 		MainMenuObserver = GameObject.Find("MainMenuObserver");
 		beanMover ();
-		Debug.Log ("initial debug " + menuLevel);
 
 	}
 	
@@ -41,14 +45,11 @@ public class LevelSelectManager : MonoBehaviour {
 		if (videoPlaying >= 2) {
 			if (Input.GetKeyUp ("up")) {
 				if (menuLevel > 0) {
-					Debug.Log ("calling submenu updater");
 					subMenuUpdater (1);
 					subBeanMover ();
 				} else {
 					if (menuOption - 1 < 0 != true) {
-						Debug.Log ("Menu up before press  " + menuOption);
 						menuOption -= 1;
-						Debug.Log ("Menu up  " + menuOption);
 						menuUpdater (menuOption);
 						beanMover ();
 					}
@@ -57,14 +58,12 @@ public class LevelSelectManager : MonoBehaviour {
 			}
 
 			if (Input.GetKeyUp ("down")) {
-				Debug.Log ("MenuLevel"+menuLevel);
 				if (menuLevel > 0) {
 					subMenuUpdater (2);
 					subBeanMover ();
 				} else {
 					if (menuOption + 1 > 3 != true) {
 						menuOption += 1;
-						Debug.Log ("Menu down  " + menuOption);
 						menuUpdater (menuOption);
 						beanMover ();
 					}
@@ -72,9 +71,14 @@ public class LevelSelectManager : MonoBehaviour {
 			}
 
 			if (Input.GetKeyUp ("a") && videoPlaying >= 3) {
-				Debug.Log ("Upping menu level");
-				if (menuLevel == 0)
+				if (menuLevel == 0) {
 					menuLevel++;
+				}
+				pushedButtonTimes++;
+				if (pushedButtonTimes >= 2 && GameObject.Find ("sub1").GetComponent<Renderer>().enabled) {
+					int nextLevelNum = SceneManager.GetActiveScene ().buildIndex + 1;
+					SceneManager.LoadScene (nextLevelNum);
+				}
 			}
 
 			if (menuLevel == 1) {
