@@ -17,9 +17,15 @@ public class LevelSelectManager : MonoBehaviour {
 	public AudioSource source;
 	public AudioClip clip;
 	public int pushedButtonTimes;
+	AudioSource selectSfx;
+	public AudioClip soundToPlay;
+	public int flashing = 0;
+	public int subflashing = 0;
+	public int flashingDirection = 1;
 
 	// Use this for initialization
 	void Start () {
+		selectSfx = GameObject.Find("Player").GetComponent<AudioSource> ();
 		menuOption = 0;
 		menuLevel = 0;
 		pushedButtonTimes = 0;
@@ -41,6 +47,9 @@ public class LevelSelectManager : MonoBehaviour {
 	void Update () {
 		if (videoPlaying < 3 && Input.GetKeyUp ("a")) {
 			videoPlaying++;
+			if (videoPlaying > 1) {
+				selectSfx.PlayOneShot (soundToPlay, 1);
+			}
 		}
 		if (videoPlaying >= 2) {
 			if (Input.GetKeyUp ("up")) {
@@ -76,24 +85,73 @@ public class LevelSelectManager : MonoBehaviour {
 				}
 				pushedButtonTimes++;
 				if (pushedButtonTimes >= 2 && GameObject.Find ("sub1").GetComponent<Renderer>().enabled) {
-					int nextLevelNum = SceneManager.GetActiveScene ().buildIndex + 1;
-					SceneManager.LoadScene (nextLevelNum);
+					selectSfx.PlayOneShot (soundToPlay, 1);
+					int nextLevelNum = 2;
+					StartCoroutine(Begin(2f));
 				}
 			}
 
 			if (menuLevel == 1) {
-				menuBeanSprite = GameObject.Find ("Menus");
-				subMenuBeanSprite = GameObject.Find ("SubMenu");
-				if (subMenuBeanSprite.transform.position != subMenuDestination.transform.position) {
-					subMenuBeanSprite.transform.position = Vector3.Lerp (subMenuBeanSprite.transform.position, subMenuDestination.transform.position, 0.02f);
-				}
-				if (menuBeanSprite.transform.position != mainMenuDestination.transform.position) {
-					menuBeanSprite.transform.position = Vector3.Lerp (menuBeanSprite.transform.position, mainMenuDestination.transform.position, 0.02f);
-				} else {
-					menuLevel = 2;
-				}
+				StartCoroutine(Next (1f));
 			}
 		}
+		if (flashing == 1 && GameObject.Find("menubean") != null) {
+			flashBean (GameObject.Find ("menubean"));
+		}
+		Debug.Log ("Are we getting here? "+subflashing);
+		if (subflashing == 1) {
+			flashBean (GameObject.Find ("submenubean"));
+		}
+
+	}
+
+	public void flashBean(GameObject beanToFlash){
+		if (flashingDirection == 0) {
+			Color tmp = beanToFlash.GetComponent<SpriteRenderer> ().color;
+			tmp.a = tmp.a - 0.2f;
+			beanToFlash.GetComponent<SpriteRenderer> ().color = tmp;
+
+			if (beanToFlash.GetComponent<SpriteRenderer> ().color.a < 0.2f) {
+				flashingDirection = 1;
+			}
+		} else {
+			Color tmp = beanToFlash.GetComponent<SpriteRenderer> ().color;
+			tmp.a = tmp.a + 0.2f;
+			beanToFlash.GetComponent<SpriteRenderer> ().color = tmp;
+
+			if (beanToFlash.GetComponent<SpriteRenderer> ().color.a > 0.99f) {
+				flashingDirection = 0;
+			}
+		}
+	}
+
+	IEnumerator Next(float delayTime){
+		flashing = 1;
+		yield return new WaitForSeconds (delayTime);
+		updateMenus ();
+	}
+
+	public void updateMenus(){
+		menuBeanSprite = GameObject.Find ("Menus");
+		subMenuBeanSprite = GameObject.Find ("SubMenu");
+		if (subMenuBeanSprite.transform.position != subMenuDestination.transform.position) {
+			subMenuBeanSprite.transform.position = Vector3.Lerp (subMenuBeanSprite.transform.position, subMenuDestination.transform.position, 0.04f);
+		}
+		if (menuBeanSprite.transform.position != mainMenuDestination.transform.position) {
+			menuBeanSprite.transform.position = Vector3.Lerp (menuBeanSprite.transform.position, mainMenuDestination.transform.position, 0.04f);
+		} else {
+			menuLevel = 2;
+		}
+	}
+
+
+	IEnumerator Begin(float delayTime){
+		Destroy (GameObject.Find("menubean"));
+		subflashing = 1;
+		Debug.Log ("Flashing!");
+		yield return new WaitForSeconds (delayTime);
+		int nextLevelNum = 2;
+		SceneManager.LoadScene (nextLevelNum);
 	}
 
 	void subMenuUpdater(int subMenuCurrent){
