@@ -29,6 +29,9 @@ public class PlayerController : MonoBehaviour {
 	public int randomNuisance;
 
 
+	public bool inMotion;
+
+
 	public string[] gamecolours = new string[]{"blue","green","purple","red","yellow"};
 	//5 == yellow
 	//4 == red
@@ -41,6 +44,7 @@ public class PlayerController : MonoBehaviour {
 	 * 	Called at the start of the level once. Sets some basic variable values
 	 */ 
 	void Start () {
+		inMotion = true;
 		squaresOccupied = 0;
 		startPoint = GameObject.Find("StartPoint");
 		alternateStartPoint1 = GameObject.Find("StartPoint1");
@@ -48,42 +52,50 @@ public class PlayerController : MonoBehaviour {
 		alternateStartPoint3 = GameObject.Find("StartPoint3");
 		alternateStartPoint4 = GameObject.Find("StartPoint4");
 		alternateStartPoint5 = GameObject.Find("StartPoint5");
-
 		row = 3;
 		beanOrientation = 0;
 		rigid2D = GetComponent<Rigidbody2D>();
 		rigid2D.velocity = new Vector3(0, -2, 0);
 		GameObject rightBeanHolder = GameObject.Find("beanHolderRight");
 		GameObject leftBeanHolder = GameObject.Find("beanHolderLeft");
-		rightBeanHolder.GetComponent<Collider2D>().enabled = false;
-		leftBeanHolder.GetComponent<Collider2D>().enabled = false;
+		//rightBeanHolder.GetComponent<Collider2D>().enabled = false;
+		//leftBeanHolder.GetComponent<Collider2D>().enabled = false;
 	}
+
+	public void setMotion(bool motion){
+		inMotion = motion;
+	}
+
+	public bool getMotion(){
+		return inMotion;
+	}
+
 	
 	/*
 	 *	Update is called once per frame. Used to detect key up events
 	 */ 
 	void Update () {
 		if (gameover) {
-			
 			Vector2 aPosition1 = new Vector2(30,30);
 			GameObject gameOverText = GameObject.Find("GameOverFont");
-			GameObject blueGameOver = GameObject.Find("BlueGameOver");
-			GameObject redGameOver = GameObject.Find("RedGameOver");
-			GameObject purpleGameOver = GameObject.Find("PurpleGameOver");
-			GameObject greenGameOver = GameObject.Find("GreenGameOver");
-			GameObject yellowGameOver = GameObject.Find("YellowGameOver");
 			GameObject gameOverTarget = GameObject.Find("GameOverPixel");
 			gameOverText.transform.position = Vector2.MoveTowards(new Vector2(gameOverText.transform.position.x, gameOverText.transform.position.y), gameOverTarget.transform.position, 3 * Time.deltaTime);
-			blueGameOver.transform.position = Vector2.MoveTowards(new Vector2(blueGameOver.transform.position.x, blueGameOver.transform.position.y), gameOverTarget.transform.position, 3 * Time.deltaTime);
 
-			redGameOver.transform.position = Vector2.MoveTowards(new Vector2(redGameOver.transform.position.x, redGameOver.transform.position.y), gameOverTarget.transform.position, 3 * Time.deltaTime);
+			Animator gameOverAnimator;
+			gameOverAnimator = GameObject.Find("BlueGameOver").GetComponent<Animator> ();
+			gameOverAnimator.SetBool ("gameOver", true);
 
-			purpleGameOver.transform.position = Vector2.MoveTowards(new Vector2(purpleGameOver.transform.position.x, purpleGameOver.transform.position.y), gameOverTarget.transform.position, 3 * Time.deltaTime);
+			gameOverAnimator = GameObject.Find("RedGameOver").GetComponent<Animator> ();
+			gameOverAnimator.SetBool ("gameOver", true);
 
-			greenGameOver.transform.position = Vector2.MoveTowards(new Vector2(greenGameOver.transform.position.x, greenGameOver.transform.position.y), gameOverTarget.transform.position, 3 * Time.deltaTime);
+			gameOverAnimator = GameObject.Find("YellowGameOver").GetComponent<Animator> ();
+			gameOverAnimator.SetBool ("gameOver", true);
 
-			yellowGameOver.transform.position = Vector2.MoveTowards(new Vector2(yellowGameOver.transform.position.x, yellowGameOver.transform.position.y), gameOverTarget.transform.position, 3 * Time.deltaTime);
+			gameOverAnimator = GameObject.Find("GreenGameOver").GetComponent<Animator> ();
+			gameOverAnimator.SetBool ("gameOver", true);
 
+			gameOverAnimator = GameObject.Find("PurpleGameOver").GetComponent<Animator> ();
+			gameOverAnimator.SetBool ("gameOver", true);
 		}
 
 		if (Input.GetKeyUp ("z")) {
@@ -181,6 +193,7 @@ public class PlayerController : MonoBehaviour {
 	 * 	Detect Player collision with the bottom of the grid and call functions
 	 */ 
 	public void OnCollisionEnter2D(Collision2D other){
+	/*
 		if (NuisanceController.nuisanceState != 100) {
 			squaresOccupied += 2;
 			objectCollidedWith = other.collider.gameObject.name;
@@ -213,6 +226,7 @@ public class PlayerController : MonoBehaviour {
 			nuisanceUpdateGrid ();
 			reinitGame ();
 		}
+	*/
 	}
 
     /*
@@ -260,7 +274,7 @@ public class PlayerController : MonoBehaviour {
 					break;
 				}
 
-				//NuisanceController.createNewNuisancePair ();
+				NuisanceController.createNewNuisancePair ();
 				rigid2D.velocity = new Vector3 (0, -2, 0);
 				beanOrientation = 0;
 				rotate ();
@@ -285,7 +299,7 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	public void nuisanceUpdateGrid(){
-		//getSquaresToUpdateNuisance ();
+		getSquaresToUpdateNuisance ();
 	}
 
 	public void getSquaresToUpdateNuisance(){

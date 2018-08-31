@@ -33,7 +33,7 @@ public class NuisanceController : MonoBehaviour {
 	}
 
 	public static void createNewNuisancePair(){
-		bean1.GetComponent<SpriteRenderer>().sprite = (Sprite)sprites [0];
+		bean1.GetComponent<SpriteRenderer>().sprite = (Sprite)sprites [1];
 		bean2.GetComponent<SpriteRenderer>().sprite = (Sprite)sprites [1];
 	}
 }

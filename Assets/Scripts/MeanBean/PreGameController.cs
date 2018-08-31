@@ -6,11 +6,25 @@ public class PreGameController : MonoBehaviour {
 
 	public Camera mainCamera;
 	public GameObject cameraLocation;
+	public GameObject gameArea;
+	public GameObject UI;
+	Animator cameraAnimator;
+
+	void Start(){
+		gameArea.SetActive(false);
+		UI.SetActive (false);
+		cameraAnimator = mainCamera.GetComponent<Animator> ();
+	}
 	
 	// Update is called once per frame
 	void Update () {
 		if (Input.GetKeyUp ("a")) {
-			mainCamera.transform.position = new Vector3 (cameraLocation.transform.position.x, cameraLocation.transform.position.y, mainCamera.transform.position.z);
+			moveCamera ();
 		}
+	}
+
+	public void moveCamera(){
+		cameraAnimator.SetBool ("cameraMove", true);
+		UI.SetActive(true);
 	}
 }
