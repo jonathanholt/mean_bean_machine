@@ -4,46 +4,30 @@ using UnityEngine;
 
 public class Bean : MonoBehaviour {
 
-	private static Object [] sprites;
-	public int colour;
 	public int size;
-	private GameObject startPoint;
 	public GameObject beanArray;
 	public GameObject Player;
 	public bool anyBeansFalling = true;
 	public float waitingTime;
 
 	void Start () {
-		sprites = Resources.LoadAll ("beans");
+		Player = GameObject.Find("Player");
+		beanArray = GameObject.Find("allbeans");
 		size = 0;
 		waitingTime = 0.5f;
-		this.GetComponent<SpriteRenderer>().sprite = (Sprite)sprites [colour];
 		this.transform.parent = beanArray.transform;
 	}
 
 	void Update(){
 		if(this.GetComponent<Rigidbody2D>().velocity.y != 0){
-			Player.GetComponent<PlayerController> ().setMotion (true);
+			Player.GetComponent<MotionController> ().setMotion (true);
 		}
 	}
 
-	public void moveToPosition(){
-		startPoint = GameObject.Find("StartPoint");
-		transform.position = startPoint.transform.position;
-	}
-
 	public void OnCollisionEnter2D(Collision2D other){
-		Player.GetComponent<PlayerController> ().setMotion (false);
 		string objectCollidedWith = other.collider.gameObject.name;
-
 		if (objectCollidedWith.Contains (this.name.Substring(0, this.name.Length - 1))) {
 			this.transform.parent = other.collider.gameObject.transform;
-			string finalCharacter = this.name.Substring(other.collider.gameObject.name.Length - 1);
-			int finalCharacterNumber = int.Parse (finalCharacter);
-			finalCharacterNumber ++;
-			string iteratedName = this.name.Substring (0, other.collider.gameObject.name.Length - 1) + finalCharacterNumber;
-			this.name = iteratedName;
-
 		}
 
 		float height = this.GetComponent<SpriteRenderer> ().bounds.size.x;
@@ -51,28 +35,58 @@ public class Bean : MonoBehaviour {
 		this.GetComponent<BoxCollider2D> ().size = new Vector3(width, height, width);
 		width = this.GetComponent<SpriteRenderer> ().bounds.size.y - 0.03f;
 		this.GetComponent<BoxCollider2D> ().size = new Vector3(width, height, width);
-		Player.GetComponent<PlayerController> ().setMotion (false);
+		Player.GetComponent<MotionController> ().setMotion (false);
 
 		StartCoroutine(BeanStopped (waitingTime));
+		StartCoroutine(GameHaltedChecked (waitingTime));
+		StartCoroutine(RoundOverCheck (waitingTime));
 	}
 	
 	public void DeleteAnyBeans(){
 		foreach (Transform child in beanArray.transform) {
-				if (int.Parse (child.gameObject.name.Substring (child.gameObject.name.Length - 1)) >= 4) {
+			int allChildCount = this.checkAllChildren (child);
+				if (allChildCount >= 4) {
 					Destroy (child.gameObject);
+					Player.GetComponent<AvalancheController> ().incrementAvalancheCount ();
 				}
 			}
 	}
 
+	public int checkAllChildren(Transform cluster){
+		int counter = 1;
+		int clusterCount = cluster.transform.childCount;
+		counter += clusterCount;
+		if (clusterCount > 0) {
+			foreach (Transform child in cluster.transform) {
+				int childClusterCount = child.transform.childCount;
+				counter += childClusterCount;
+				if (childClusterCount > 0) {
+					foreach (Transform grandchild in child.transform) {
+						int grandchildClusterCount = grandchild.transform.childCount;
+						counter += grandchildClusterCount;
+					}
+				}
+			}
+		}
+		return counter;
+	}
+	
+	IEnumerator RoundOverCheck(float delayTime){
+		yield return new WaitForSeconds (delayTime);
+		anyBeansFalling = Player.GetComponent<MotionController> ().getMotion ();
+		if(!anyBeansFalling){
+				Player.GetComponent<AvalancheController> ().processAvalanche ();
+		}
+	}
+
 	IEnumerator BeanStopped(float delayTime){
 		yield return new WaitForSeconds (delayTime);
-		Player.GetComponent<PlayerController> ().setMotion (false);
-		StartCoroutine(GameHaltedChecked (waitingTime));
+		Player.GetComponent<MotionController> ().setMotion (false);
 	}
 	
 	IEnumerator GameHaltedChecked(float delayTime){
 		yield return new WaitForSeconds (delayTime);
-		anyBeansFalling = Player.GetComponent<PlayerController> ().getMotion ();
+		anyBeansFalling = Player.GetComponent<MotionController> ().getMotion ();
 		if(!anyBeansFalling)
 			DeleteAnyBeans();
 	}

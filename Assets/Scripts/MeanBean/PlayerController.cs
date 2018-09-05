@@ -28,10 +28,6 @@ public class PlayerController : MonoBehaviour {
 	public int squaresOccupied;
 	public int randomNuisance;
 
-
-	public bool inMotion;
-
-
 	public string[] gamecolours = new string[]{"blue","green","purple","red","yellow"};
 	//5 == yellow
 	//4 == red
@@ -44,7 +40,6 @@ public class PlayerController : MonoBehaviour {
 	 * 	Called at the start of the level once. Sets some basic variable values
 	 */ 
 	void Start () {
-		inMotion = true;
 		squaresOccupied = 0;
 		startPoint = GameObject.Find("StartPoint");
 		alternateStartPoint1 = GameObject.Find("StartPoint1");
@@ -60,14 +55,6 @@ public class PlayerController : MonoBehaviour {
 		GameObject leftBeanHolder = GameObject.Find("beanHolderLeft");
 		//rightBeanHolder.GetComponent<Collider2D>().enabled = false;
 		//leftBeanHolder.GetComponent<Collider2D>().enabled = false;
-	}
-
-	public void setMotion(bool motion){
-		inMotion = motion;
-	}
-
-	public bool getMotion(){
-		return inMotion;
 	}
 
 	

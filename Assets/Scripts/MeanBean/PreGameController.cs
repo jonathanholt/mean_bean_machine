@@ -8,6 +8,7 @@ public class PreGameController : MonoBehaviour {
 	public GameObject cameraLocation;
 	public GameObject gameArea;
 	public GameObject UI;
+	public GameObject BeanController;
 	Animator cameraAnimator;
 
 	void Start(){
@@ -26,5 +27,7 @@ public class PreGameController : MonoBehaviour {
 	public void moveCamera(){
 		cameraAnimator.SetBool ("cameraMove", true);
 		UI.SetActive(true);
+		BeanController = GameObject.Find("allbeans");
+		BeanController.GetComponent<BeanFactory> ().createFirstBean ();
 	}
 }
