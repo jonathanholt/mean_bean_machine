@@ -76,6 +76,8 @@ public class Bean : MonoBehaviour {
 		anyBeansFalling = Player.GetComponent<MotionController> ().getMotion ();
 		if(!anyBeansFalling){
 				Player.GetComponent<AvalancheController> ().processAvalanche ();
+				GameObject BeanController = GameObject.Find("allbeans");
+				BeanController.GetComponent<BeanFactory> ().createNext ();
 		}
 	}
 
