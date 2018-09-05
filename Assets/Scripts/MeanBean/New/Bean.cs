@@ -10,16 +10,19 @@ public class Bean : MonoBehaviour {
 	private GameObject startPoint;
 	public GameObject beanArray;
 	public GameObject Player;
+	public bool anyBeansFalling = true;
+	public float waitingTime;
 
 	void Start () {
 		sprites = Resources.LoadAll ("beans");
 		size = 0;
+		waitingTime = 0.5f;
 		this.GetComponent<SpriteRenderer>().sprite = (Sprite)sprites [colour];
 		this.transform.parent = beanArray.transform;
 	}
 
 	void Update(){
-		if(this.GetComponent<Rigidbody2D>().velocity.y > 0){
+		if(this.GetComponent<Rigidbody2D>().velocity.y != 0){
 			Player.GetComponent<PlayerController> ().setMotion (true);
 		}
 	}
@@ -46,23 +49,31 @@ public class Bean : MonoBehaviour {
 		float height = this.GetComponent<SpriteRenderer> ().bounds.size.x;
 		float width = this.GetComponent<SpriteRenderer> ().bounds.size.y + 0.03f;
 		this.GetComponent<BoxCollider2D> ().size = new Vector3(width, height, width);
-
-		bool anyBeansFalling = false;
-		foreach (Transform child in beanArray.transform) {
-			if (child.gameObject.GetComponent<Rigidbody2D> ().velocity.x != 0) {
-				anyBeansFalling = true;
-			}
-		}
-
 		width = this.GetComponent<SpriteRenderer> ().bounds.size.y - 0.03f;
 		this.GetComponent<BoxCollider2D> ().size = new Vector3(width, height, width);
+		Player.GetComponent<PlayerController> ().setMotion (false);
 
-		if (!anyBeansFalling) {
-			foreach (Transform child in beanArray.transform) {
+		StartCoroutine(BeanStopped (waitingTime));
+	}
+	
+	public void DeleteAnyBeans(){
+		foreach (Transform child in beanArray.transform) {
 				if (int.Parse (child.gameObject.name.Substring (child.gameObject.name.Length - 1)) >= 4) {
 					Destroy (child.gameObject);
 				}
 			}
-		}
+	}
+
+	IEnumerator BeanStopped(float delayTime){
+		yield return new WaitForSeconds (delayTime);
+		Player.GetComponent<PlayerController> ().setMotion (false);
+		StartCoroutine(GameHaltedChecked (waitingTime));
+	}
+	
+	IEnumerator GameHaltedChecked(float delayTime){
+		yield return new WaitForSeconds (delayTime);
+		anyBeansFalling = Player.GetComponent<PlayerController> ().getMotion ();
+		if(!anyBeansFalling)
+			DeleteAnyBeans();
 	}
 }
