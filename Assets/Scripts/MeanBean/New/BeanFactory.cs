@@ -10,22 +10,23 @@ public class BeanFactory : MonoBehaviour {
 	string[] prefabs = {"purple1", "red1", "blue1", "green1", "yellow1"};
 	
 	public void createBeanPair () {
+		GameObject.Find("Player").GetComponent<MotionController>().resetCurrentPosition(2);
 		string randomPrefab1 = choosePrefab();
-		Debug.Log(randomPrefab1);
-		GameObject test = Instantiate(Resources.Load(randomPrefab1)) as GameObject;
-		test.name = randomPrefab1;
-		test.transform.position = startPoint.transform.position;
+		GameObject bean1 = Instantiate(Resources.Load(randomPrefab1)) as GameObject;
+		bean1.name = randomPrefab1;
+		bean1.GetComponent<Bean> ().setInPlay (1);
+		bean1.transform.position = startPoint.transform.position;
 	
 		string randomPrefab2 = choosePrefab();
-		Debug.Log(randomPrefab2);
-		GameObject test2 = Instantiate(Resources.Load(randomPrefab2)) as GameObject;
-		test2.name = randomPrefab2;
-		test2.transform.position = startPointUpper.transform.position;
+		GameObject bean2 = Instantiate(Resources.Load(randomPrefab2)) as GameObject;
+		bean2.name = randomPrefab2;
+		bean2.GetComponent<Bean> ().setInPlay (2);
+		bean2.transform.position = startPointUpper.transform.position;
 	}
 	
 	public string choosePrefab(){
 		int randomNumber = Random.Range(0, 5);
-		return prefabs[randomNumber];
+		return prefabs[1];
 	}
 	
 	public void createNext(){

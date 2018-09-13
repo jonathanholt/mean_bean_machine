@@ -9,6 +9,7 @@ public class Bean : MonoBehaviour {
 	public GameObject Player;
 	public bool anyBeansFalling = true;
 	public float waitingTime;
+	public int inPlay;
 
 	void Start () {
 		Player = GameObject.Find("Player");
@@ -18,6 +19,14 @@ public class Bean : MonoBehaviour {
 		this.transform.parent = beanArray.transform;
 	}
 
+	public void setInPlay(int beanNumber){
+		inPlay = beanNumber;
+	}
+	
+	public int getInPlay(){
+		return inPlay;
+	}
+
 	void Update(){
 		if(this.GetComponent<Rigidbody2D>().velocity.y != 0){
 			Player.GetComponent<MotionController> ().setMotion (true);
@@ -25,15 +34,15 @@ public class Bean : MonoBehaviour {
 	}
 
 	public void OnCollisionEnter2D(Collision2D other){
+		inPlay = 0;
 		string objectCollidedWith = other.collider.gameObject.name;
 		if (objectCollidedWith.Contains (this.name.Substring(0, this.name.Length - 1))) {
 			this.transform.parent = other.collider.gameObject.transform;
 		}
-
-		float height = this.GetComponent<SpriteRenderer> ().bounds.size.x;
-		float width = this.GetComponent<SpriteRenderer> ().bounds.size.y + 0.03f;
+		float height = this.GetComponent<SpriteRenderer> ().bounds.size.y;
+		float width = this.GetComponent<SpriteRenderer> ().bounds.size.x + 0.5f;
 		this.GetComponent<BoxCollider2D> ().size = new Vector3(width, height, width);
-		width = this.GetComponent<SpriteRenderer> ().bounds.size.y - 0.03f;
+		width = this.GetComponent<SpriteRenderer> ().bounds.size.x - 0.5f;
 		this.GetComponent<BoxCollider2D> ().size = new Vector3(width, height, width);
 		Player.GetComponent<MotionController> ().setMotion (false);
 
