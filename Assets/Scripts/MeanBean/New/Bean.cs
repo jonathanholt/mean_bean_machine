@@ -40,10 +40,7 @@ public class Bean : MonoBehaviour {
 			this.transform.parent = other.collider.gameObject.transform;
 		}
 		float height = this.GetComponent<SpriteRenderer> ().bounds.size.y;
-		float width = this.GetComponent<SpriteRenderer> ().bounds.size.x + 0.5f;
-		this.GetComponent<BoxCollider2D> ().size = new Vector3(width, height, width);
-		width = this.GetComponent<SpriteRenderer> ().bounds.size.x - 0.5f;
-		this.GetComponent<BoxCollider2D> ().size = new Vector3(width, height, width);
+		this.GetComponent<BoxCollider2D> ().size = new Vector3(0.62f, height, height);
 		Player.GetComponent<MotionController> ().setMotion (false);
 
 		StartCoroutine(BeanStopped (waitingTime));
