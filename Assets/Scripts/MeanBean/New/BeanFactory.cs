@@ -26,7 +26,7 @@ public class BeanFactory : MonoBehaviour {
 	
 	public string choosePrefab(){
 		int randomNumber = Random.Range(0, 5);
-		return prefabs[1];
+		return prefabs[2];
 	}
 	
 	public void createNext(){

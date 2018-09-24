@@ -30,13 +30,21 @@ public class MotionController : MonoBehaviour {
 			GameObject beanArray = GameObject.Find ("allbeans");
 			foreach (Transform child in beanArray.transform) {
 				if (child.GetComponent<Bean> ().getInPlay () != 0) {
-					Debug.Log ("down!");
 					child.GetComponent<Rigidbody2D> ().gravityScale = 0.3f;
-					Debug.Log (child.GetComponent<Rigidbody2D> ().gravityScale);
+					child.GetComponent<Animator> ().SetBool ("falling", true);
 				}
 			}
+		}
 
-		} 
+		if (Input.GetKeyUp ("down")) {
+			GameObject beanArray = GameObject.Find ("allbeans");
+			foreach (Transform child in beanArray.transform) {
+				if (child.GetComponent<Bean> ().getInPlay () != 0) {
+					child.GetComponent<Animator> ().SetBool ("falling", false);
+				}
+			}
+		}
+
 
 		if (Input.GetKeyDown ("left")) {
 				if(currentPosition - 1 != -1){
@@ -56,9 +64,6 @@ public class MotionController : MonoBehaviour {
 			GameObject beanArray = GameObject.Find ("allbeans");
 			foreach (Transform child in beanArray.transform) {
 				if (child.GetComponent<Bean> ().getInPlay () != 0) {
-
-					Debug.Log ("rotation int "+ child.GetComponent<Bean> ().getRotationInt () % 4);
-
 					switch (child.GetComponent<Bean>().getRotationInt() % 4)
 					{
 					case 0:
