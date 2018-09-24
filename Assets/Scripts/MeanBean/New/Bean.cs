@@ -45,6 +45,7 @@ public class Bean : MonoBehaviour {
 
 	public void OnCollisionEnter2D(Collision2D other){
 		inPlay = 0;
+		this.GetComponent<Animator> ().SetBool ("collision", true);
 		string objectCollidedWith = other.collider.gameObject.name;
 		if (objectCollidedWith.Contains (this.name.Substring(0, this.name.Length - 1))) {
 			this.transform.parent = other.collider.gameObject.transform;
@@ -56,6 +57,7 @@ public class Bean : MonoBehaviour {
 		StartCoroutine(BeanStopped (waitingTime));
 		StartCoroutine(GameHaltedChecked (waitingTime));
 		StartCoroutine(RoundOverCheck (waitingTime));
+		StartCoroutine (StopAnimation(4.0f));
 	}
 	
 	public void DeleteAnyBeans(){
@@ -100,6 +102,11 @@ public class Bean : MonoBehaviour {
 	IEnumerator BeanStopped(float delayTime){
 		yield return new WaitForSeconds (delayTime);
 		Player.GetComponent<MotionController> ().setMotion (false);
+	}
+
+	IEnumerator StopAnimation(float delayTime){
+		yield return new WaitForSeconds (delayTime);
+		this.GetComponent<Animator> ().SetBool ("collision", false);
 	}
 	
 	IEnumerator GameHaltedChecked(float delayTime){
