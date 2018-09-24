@@ -10,6 +10,8 @@ public class Bean : MonoBehaviour {
 	public bool anyBeansFalling = true;
 	public float waitingTime;
 	public int inPlay;
+	public int position;
+	public int rotationInt = 0;
 
 	void Start () {
 		Player = GameObject.Find("Player");
@@ -25,6 +27,14 @@ public class Bean : MonoBehaviour {
 	
 	public int getInPlay(){
 		return inPlay;
+	}
+
+	public void incrementRotationInt(){
+		rotationInt += 1;
+	}
+
+	public int getRotationInt(){
+		return rotationInt;
 	}
 
 	void Update(){

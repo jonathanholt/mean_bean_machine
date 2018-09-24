@@ -52,6 +52,40 @@ public class MotionController : MonoBehaviour {
 					moveBothBeans(moveToPosition, "right");
 				}
 			}
+		if (Input.GetKeyDown ("a")) {
+			GameObject beanArray = GameObject.Find ("allbeans");
+			foreach (Transform child in beanArray.transform) {
+				if (child.GetComponent<Bean> ().getInPlay () != 0) {
+
+					Debug.Log ("rotation int "+ child.GetComponent<Bean> ().getRotationInt () % 4);
+
+					switch (child.GetComponent<Bean>().getRotationInt() % 4)
+					{
+					case 0:
+						child.transform.position -= Vector3.left * movementShiftValue;
+						child.transform.position += Vector3.up * movementShiftValue;
+						break;
+					case 1:
+						child.transform.position -= Vector3.right * movementShiftValue;
+						child.transform.position += Vector3.up * movementShiftValue;
+						break;
+					case 2:
+						child.transform.position -= Vector3.right * movementShiftValue;
+						child.transform.position += Vector3.down * movementShiftValue;
+						break;
+					case 3:
+						child.transform.position -= Vector3.left * movementShiftValue;
+						child.transform.position += Vector3.down * movementShiftValue;
+						break;
+					default:
+						//transform.position = startPoint.transform.position;
+						break;
+					}
+					child.GetComponent<Bean> ().incrementRotationInt ();
+					break;
+				}
+			}
+		}
 	}
 	
 	public void moveBothBeans(GameObject destination, string direction){
