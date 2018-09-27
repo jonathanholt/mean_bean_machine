@@ -10,6 +10,18 @@ TextureImporter:
     21300010: beans_0
     21300012: beans_1
     21300014: beans_2
+    21300016: beans_3
+    21300018: beans_4
+    21300020: beans_5
+    21300022: beans_6
+    21300024: beans_7
+    21300026: beans_8
+    21300028: beans_9
+    21300030: beans_10
+    21300032: beans_11
+    21300034: beans_12
+    21300036: beans_13
+    21300038: beans_14
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -247,6 +259,246 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 72014d82934f4ac4286177f01ef45c7d
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: beans_3
+      rect:
+        serializedVersion: 2
+        x: 203
+        y: 76
+        width: 14
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 49a4eb59027b4344a9e8ec668a87b266
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: beans_4
+      rect:
+        serializedVersion: 2
+        x: 217
+        y: 76
+        width: 14
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 18ea231c8e6eddd4fae70b25056afb6b
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: beans_5
+      rect:
+        serializedVersion: 2
+        x: 233
+        y: 76
+        width: 14
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3f8cc663eacbd24438dcc1eb9d25a722
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: beans_6
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 94
+        width: 13
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ccf256dbf6247114996881e1c1817588
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: beans_7
+      rect:
+        serializedVersion: 2
+        x: 219
+        y: 94
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9396d8dba25c54b43916e0a4040e814e
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: beans_8
+      rect:
+        serializedVersion: 2
+        x: 234
+        y: 94
+        width: 14
+        height: 13
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0fece350f725bef40a9e3069dd5db320
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: beans_9
+      rect:
+        serializedVersion: 2
+        x: 205
+        y: 111
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dffb12e4645c2b84ca54dbbdd9962ce8
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: beans_10
+      rect:
+        serializedVersion: 2
+        x: 205
+        y: 111
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2014844f74605ce43be4d9cdbf109125
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: beans_11
+      rect:
+        serializedVersion: 2
+        x: 222
+        y: 111
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 10c92721fd1200b4ca7979c44fe64c31
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: beans_12
+      rect:
+        serializedVersion: 2
+        x: 207
+        y: 129
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5ab934d1e55f6da499269917c2a08010
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: beans_13
+      rect:
+        serializedVersion: 2
+        x: 223
+        y: 129
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0e1ebc751aea5744f816c68a2c5c3b97
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: beans_14
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 129
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6498cebef51171e4886ef6c2e600c14c
       vertices: []
       indices: 
       edges: []
