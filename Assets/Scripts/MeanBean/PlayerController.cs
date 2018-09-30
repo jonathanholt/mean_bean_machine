@@ -104,11 +104,11 @@ public class PlayerController : MonoBehaviour {
 				rightMove ();
 			}
 			if (Input.GetKeyUp ("a")) {
-				rotateMoveA ();
+				//rotateMoveA ();
 				//anticlockwise 
 			}
 			if (Input.GetKeyUp ("s")) {
-				rotateMoveB ();
+				//rotateMoveB ();
 				//anticlockwise
 			}
 		}

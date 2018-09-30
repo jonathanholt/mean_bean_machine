@@ -12,8 +12,10 @@ public class Bean : MonoBehaviour {
 	public int inPlay;
 	public int position;
 	public int rotationInt = 0;
-
+	public int horizontalPosition;
+	
 	void Start () {
+		horizontalPosition = 0;
 		Player = GameObject.Find("Player");
 		beanArray = GameObject.Find("allbeans");
 		size = 0;
@@ -31,6 +33,22 @@ public class Bean : MonoBehaviour {
 
 	public void incrementRotationInt(){
 		rotationInt += 1;
+	}
+	
+	public void incrementHorizontalPosition(){
+		horizontalPosition += 1;
+	}
+	
+	public void decrementHorizontalPosition(){
+		horizontalPosition -= 1;
+	}
+	
+	public int getHorizontalPosition(){
+		return horizontalPosition;
+	}
+	
+	public void pedalBackRotationInt(){
+		rotationInt -= 1;
 	}
 
 	public int getRotationInt(){
