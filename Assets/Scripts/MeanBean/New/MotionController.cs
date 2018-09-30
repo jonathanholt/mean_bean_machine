@@ -48,13 +48,11 @@ public class MotionController : MonoBehaviour {
 
 		if (Input.GetKeyDown ("left")) {
 				if(currentPosition - 1 != -1){
-					currentPosition -= 1;
 					bool moveEnabled = true;
 					GameObject beanArray1 = GameObject.Find ("allbeans");
 					foreach (Transform child in beanArray1.transform) {
 					if (child.GetComponent<Bean> ().getInPlay () != 0) {
 						int rotationInt = (int) (child.GetComponent<Bean>().getRotationInt() % 4);
-						Debug.Log(rotationInt);
 						if((rotationInt == 3 || rotationInt == -1) && 
 						child.GetComponent<Bean>().getHorizontalPosition() == -1){
 							moveEnabled = false;	
@@ -64,6 +62,7 @@ public class MotionController : MonoBehaviour {
 				
 				
 				if(moveEnabled){
+					currentPosition -= 1;
 				GameObject moveToPosition = startPoints[currentPosition];
 				moveBothBeans(moveToPosition, "left");
 				foreach (Transform child in beanArray1.transform) {
@@ -78,7 +77,6 @@ public class MotionController : MonoBehaviour {
 		}
 			if (Input.GetKeyDown ("right")) {
 				if(currentPosition + 1 != 5){
-					currentPosition += 1;
 					bool moveEnabled = true;
 					GameObject beanArray1 = GameObject.Find ("allbeans");
 					foreach (Transform child in beanArray1.transform) {
@@ -92,6 +90,7 @@ public class MotionController : MonoBehaviour {
 					}
 				}
 				if(moveEnabled){
+					currentPosition += 1;
 					GameObject moveToPosition = startPoints[currentPosition];
 					moveBothBeans(moveToPosition, "right");
 					
