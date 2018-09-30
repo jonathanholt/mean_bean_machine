@@ -54,7 +54,8 @@ public class MotionController : MonoBehaviour {
 					foreach (Transform child in beanArray1.transform) {
 					if (child.GetComponent<Bean> ().getInPlay () != 0) {
 						int rotationInt = (int) (child.GetComponent<Bean>().getRotationInt() % 4);
-						if(rotationInt == 3 && 
+						Debug.Log(rotationInt);
+						if((rotationInt == 3 || rotationInt == -1) && 
 						child.GetComponent<Bean>().getHorizontalPosition() == -1){
 							moveEnabled = false;	
 						}
@@ -78,6 +79,19 @@ public class MotionController : MonoBehaviour {
 			if (Input.GetKeyDown ("right")) {
 				if(currentPosition + 1 != 5){
 					currentPosition += 1;
+					bool moveEnabled = true;
+					GameObject beanArray1 = GameObject.Find ("allbeans");
+					foreach (Transform child in beanArray1.transform) {
+					if (child.GetComponent<Bean> ().getInPlay () != 0) {
+						int rotationInt = (int) (child.GetComponent<Bean>().getRotationInt() % 4);
+						Debug.Log(rotationInt);
+						if((rotationInt == -3 || rotationInt == 1) && 
+						child.GetComponent<Bean>().getHorizontalPosition() == 1){
+							moveEnabled = false;	
+						}
+					}
+				}
+				if(moveEnabled){
 					GameObject moveToPosition = startPoints[currentPosition];
 					moveBothBeans(moveToPosition, "right");
 					
@@ -86,10 +100,9 @@ public class MotionController : MonoBehaviour {
 					foreach (Transform child in beanArray.transform) {
 					if (child.GetComponent<Bean> ().getInPlay () != 0) {
 						child.GetComponent<Bean> ().incrementHorizontalPosition ();
-						Debug.Log(child.GetComponent<Bean> ().getHorizontalPosition ());
 					}
 				}
-				
+				}
 				
 				
 				}
@@ -101,19 +114,18 @@ public class MotionController : MonoBehaviour {
 					switch (System.Math.Abs(child.GetComponent<Bean>().getRotationInt() % 4))
 					{
 					case 0:
-					Debug.Log('R');
+					if(child.GetComponent<Bean> ().getHorizontalPosition () < 2){
 						child.transform.position -= Vector3.left * movementShiftValue;
 						child.transform.position += Vector3.up * movementShiftValue;
 						child.GetComponent<Bean> ().incrementRotationInt ();
+					}
 						break;
 					case 1:
-					Debug.Log('U');
 						child.transform.position -= Vector3.right * movementShiftValue;
 						child.transform.position += Vector3.up * movementShiftValue;
 						child.GetComponent<Bean> ().incrementRotationInt ();
 						break;
 					case 2:
-					Debug.Log('L');
 					Debug.Log(child.GetComponent<Bean> ().getHorizontalPosition ());
 					if(child.GetComponent<Bean> ().getHorizontalPosition () > -2){
 						child.transform.position -= Vector3.right * movementShiftValue;
@@ -122,7 +134,6 @@ public class MotionController : MonoBehaviour {
 					}
 						break;
 					case 3:
-					Debug.Log('D');
 						child.transform.position -= Vector3.left * movementShiftValue;
 						child.transform.position += Vector3.down * movementShiftValue;
 						child.GetComponent<Bean> ().incrementRotationInt ();
@@ -139,25 +150,31 @@ public class MotionController : MonoBehaviour {
 			GameObject beanArray = GameObject.Find ("allbeans");
 			foreach (Transform child in beanArray.transform) {
 				if (child.GetComponent<Bean> ().getInPlay () != 0) {
-					child.GetComponent<Bean> ().pedalBackRotationInt ();
 					switch (System.Math.Abs(child.GetComponent<Bean>().getRotationInt() % 4))
 					{
 					case 0:
+					if(child.GetComponent<Bean> ().getHorizontalPosition () > -2){
 						child.transform.position += Vector3.left * movementShiftValue;
-						child.transform.position += Vector3.down * movementShiftValue;
+						child.transform.position += Vector3.up * movementShiftValue;
+						child.GetComponent<Bean> ().pedalBackRotationInt ();
+					}
 						break;
 					case 1:
-						Debug.Log("L");
-						child.transform.position += Vector3.left * movementShiftValue;
+					child.transform.position += Vector3.right * movementShiftValue;
 						child.transform.position += Vector3.up * movementShiftValue;
+						child.GetComponent<Bean> ().pedalBackRotationInt ();
 						break;
 					case 2:
-						child.transform.position += Vector3.right * movementShiftValue;
-						child.transform.position += Vector3.up * movementShiftValue;
-						break;
-					case 3:
+					if(child.GetComponent<Bean> ().getHorizontalPosition () < 2){
 						child.transform.position += Vector3.right * movementShiftValue;
 						child.transform.position += Vector3.down * movementShiftValue;
+						child.GetComponent<Bean> ().pedalBackRotationInt ();
+					}
+						break;
+					case 3:
+						child.transform.position += Vector3.left * movementShiftValue;
+						child.transform.position += Vector3.down * movementShiftValue;
+						child.GetComponent<Bean> ().pedalBackRotationInt ();
 						break;
 					default:
 						//transform.position = startPoint.transform.position;
@@ -165,7 +182,6 @@ public class MotionController : MonoBehaviour {
 					}
 					break;
 				}
-				child.GetComponent<Bean> ().pedalBackRotationInt ();
 			}
 		}
 	}
