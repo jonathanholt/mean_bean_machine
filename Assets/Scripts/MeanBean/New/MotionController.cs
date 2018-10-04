@@ -8,6 +8,7 @@ public class MotionController : MonoBehaviour {
 	public GameObject[] startPoints;
 	int currentPosition = 2;
 	float movementShiftValue = 0.63f;
+	public int lastDirection;
 	
 	void Start () {
 		inMotion = true;	
@@ -45,22 +46,28 @@ public class MotionController : MonoBehaviour {
 			}
 		}
 
-
-		if (Input.GetKeyDown ("left")) {
+		if (Input.GetKeyDown ("left")) {			
 				if(currentPosition - 1 != -1){
 					bool moveEnabled = true;
 					GameObject beanArray1 = GameObject.Find ("allbeans");
 					foreach (Transform child in beanArray1.transform) {
 					if (child.GetComponent<Bean> ().getInPlay () != 0) {
-						int rotationInt = (int) (child.GetComponent<Bean>().getRotationInt() % 4);
+						
+						Vector2 direction = new Vector2(-1, 0);
+						RaycastHit2D hit = child.GetComponent<Bean> ().CheckRaycast(direction);
+						if(hit.collider){
+							Debug.Log("Hit the collidable object " + hit.collider.name);
+							moveEnabled = false;
+						}
+						else{
+								int rotationInt = (int) (child.GetComponent<Bean>().getRotationInt() % 4);
 						if((rotationInt == 3 || rotationInt == -1) && 
 						child.GetComponent<Bean>().getHorizontalPosition() == -1){
 							moveEnabled = false;	
 						}
+						}
 					}
 				}
-				
-				
 				if(moveEnabled){
 					currentPosition -= 1;
 				GameObject moveToPosition = startPoints[currentPosition];
@@ -75,17 +82,26 @@ public class MotionController : MonoBehaviour {
 				
 			}
 		}
+		
 			if (Input.GetKeyDown ("right")) {
 				if(currentPosition + 1 != 5){
 					bool moveEnabled = true;
 					GameObject beanArray1 = GameObject.Find ("allbeans");
 					foreach (Transform child in beanArray1.transform) {
 					if (child.GetComponent<Bean> ().getInPlay () != 0) {
+						Vector2 direction = new Vector2(-1, 0);
+						RaycastHit2D hit = child.GetComponent<Bean> ().CheckRaycast(direction);
+						if(hit.collider){
+							Debug.Log("Hit the collidable object " + hit.collider.name);
+							moveEnabled = false;
+						}
+						else{
 						int rotationInt = (int) (child.GetComponent<Bean>().getRotationInt() % 4);
 						Debug.Log(rotationInt);
 						if((rotationInt == -3 || rotationInt == 1) && 
 						child.GetComponent<Bean>().getHorizontalPosition() == 1){
 							moveEnabled = false;	
+						}
 						}
 					}
 				}

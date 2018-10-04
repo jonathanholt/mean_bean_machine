@@ -13,6 +13,20 @@ public class Bean : MonoBehaviour {
 	public int position;
 	public int rotationInt = 0;
 	public int horizontalPosition;
+	public float raycastMaxDistance = 0.3f;
+	
+		void Update(){
+		if(this.GetComponent<Rigidbody2D>().velocity.y != 0){
+			Player.GetComponent<MotionController> ().setMotion (true);
+			}
+		}
+	
+	public RaycastHit2D CheckRaycast(Vector2 direction){
+		float directionOriginOffset = (direction.x > 0 ? 0.35f :  -0.35f);
+		Vector2 startingPosition = new Vector2(transform.position.x + directionOriginOffset, transform.position.y);
+		Debug.DrawRay(startingPosition, direction * raycastMaxDistance, Color.red);
+		return Physics2D.Raycast(startingPosition, direction, raycastMaxDistance);
+	}
 	
 	void Start () {
 		horizontalPosition = 0;
@@ -53,12 +67,6 @@ public class Bean : MonoBehaviour {
 
 	public int getRotationInt(){
 		return rotationInt;
-	}
-
-	void Update(){
-		if(this.GetComponent<Rigidbody2D>().velocity.y != 0){
-			Player.GetComponent<MotionController> ().setMotion (true);
-		}
 	}
 
 	public void OnCollisionEnter2D(Collision2D other){
