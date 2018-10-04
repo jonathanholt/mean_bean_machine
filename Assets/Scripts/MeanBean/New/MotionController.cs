@@ -130,11 +130,19 @@ public class MotionController : MonoBehaviour {
 					{
 					case 0:
 					Debug.Log("A RIGHT");
+					Vector2 directionright = new Vector2(1, 0);
+						RaycastHit2D hitright = child.GetComponent<Bean> ().CheckRaycast(directionright);
+						if(hitright.collider){
+							Debug.Log("Hit the collidable object " + hitright.collider.name);
+							break;
+						}
+						else{
 					if(child.GetComponent<Bean> ().getHorizontalPosition () < 2){
 						child.transform.position -= Vector3.left * movementShiftValue;
 						child.transform.position += Vector3.up * movementShiftValue;
 						child.GetComponent<Bean> ().incrementRotationInt ();
 					}
+						}
 						break;
 					case 1: case -3:
 					Debug.Log("A UP");
@@ -145,11 +153,19 @@ public class MotionController : MonoBehaviour {
 					case 2: case -2:
 					Debug.Log("A LEFT");
 					Debug.Log(child.GetComponent<Bean> ().getHorizontalPosition ());
+					Vector2 directionleft = new Vector2(-1, 0);
+						RaycastHit2D hitleft = child.GetComponent<Bean> ().CheckRaycast(directionleft);
+						if(hitleft.collider){
+							Debug.Log("Hit the collidable object " + hitleft.collider.name);
+							break;
+						}
+						else{
 					if(child.GetComponent<Bean> ().getHorizontalPosition () > -2){
 						child.transform.position -= Vector3.right * movementShiftValue;
 						child.transform.position += Vector3.down * movementShiftValue;
 						child.GetComponent<Bean> ().incrementRotationInt ();
 					}
+						}
 						break;
 					case 3: case -1:
 					Debug.Log("A DOWN");
@@ -173,11 +189,19 @@ public class MotionController : MonoBehaviour {
 					{
 					case 0:
 					Debug.Log("S LEFT");
+					Vector2 directionleft = new Vector2(-1, 0);
+						RaycastHit2D hitleft = child.GetComponent<Bean> ().CheckRaycast(directionleft);
+						if(hitleft.collider){
+							Debug.Log("Hit the collidable object " + hitleft.collider.name);
+							break;
+						}
+						else{
 					if(child.GetComponent<Bean> ().getHorizontalPosition () > -2){
 						child.transform.position += Vector3.left * movementShiftValue;
 						child.transform.position += Vector3.up * movementShiftValue;
 						child.GetComponent<Bean> ().pedalBackRotationInt ();
 					}
+						}
 						break;
 					case -1: case 3:
 					Debug.Log("S UP " + (child.GetComponent<Bean>().getRotationInt() % 4));
@@ -187,11 +211,19 @@ public class MotionController : MonoBehaviour {
 						break;
 					case 2: case -2:
 					Debug.Log("S RIGHT");
+					Vector2 directionright = new Vector2(1, 0);
+						RaycastHit2D hitright = child.GetComponent<Bean> ().CheckRaycast(directionright);
+						if(hitright.collider){
+							Debug.Log("Hit the collidable object " + hitright.collider.name);
+							break;
+						}
+						else{
 					if(child.GetComponent<Bean> ().getHorizontalPosition () < 2){
 						child.transform.position += Vector3.right * movementShiftValue;
 						child.transform.position += Vector3.down * movementShiftValue;
 						child.GetComponent<Bean> ().pedalBackRotationInt ();
 					}
+						}
 						break;
 					case -3: case 1:
 					Debug.Log("S DOWN");
