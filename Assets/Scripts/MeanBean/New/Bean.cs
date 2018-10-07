@@ -16,7 +16,7 @@ public class Bean : MonoBehaviour {
 	public float raycastMaxDistance = 0.3f;
 	
 		void Update(){
-		if(this.GetComponent<Rigidbody2D>().velocity.y != 0){
+		if(this.GetComponent<Rigidbody2D>().velocity.y != 0 && Player){
 			Player.GetComponent<MotionController> ().setMotion (true);
 			}
 		}
@@ -30,15 +30,22 @@ public class Bean : MonoBehaviour {
 	
 	void Start () {
 		horizontalPosition = 0;
-		Player = GameObject.Find("Player");
-		beanArray = GameObject.Find("allbeans");
 		size = 0;
 		waitingTime = 0.5f;
 		this.transform.parent = beanArray.transform;
 	}
+	
 
 	public void setInPlay(int beanNumber){
 		inPlay = beanNumber;
+	}
+	
+	public void SetPlayer(GameObject thePlayer){
+		Player = thePlayer;
+	}
+
+	public void SetBeanArray(GameObject arrayofBeans){
+		beanArray = arrayofBeans;
 	}
 	
 	public int getInPlay(){
@@ -78,7 +85,8 @@ public class Bean : MonoBehaviour {
 		}
 		float height = this.GetComponent<SpriteRenderer> ().bounds.size.y;
 		this.GetComponent<BoxCollider2D> ().size = new Vector3(0.62f, height, height);
-		Player.GetComponent<MotionController> ().setMotion (false);
+		if(Player)
+			Player.GetComponent<MotionController> ().setMotion (false);
 
 		StartCoroutine(BeanStopped (waitingTime));
 		StartCoroutine(GameHaltedChecked (waitingTime));
@@ -120,8 +128,7 @@ public class Bean : MonoBehaviour {
 		anyBeansFalling = Player.GetComponent<MotionController> ().getMotion ();
 		if(!anyBeansFalling){
 				Player.GetComponent<AvalancheController> ().processAvalanche ();
-				GameObject BeanController = GameObject.Find("allbeans");
-				BeanController.GetComponent<BeanFactory> ().createNext ();
+				beanArray.GetComponent<BeanFactory> ().createNext ();
 		}
 	}
 

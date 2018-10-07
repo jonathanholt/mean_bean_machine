@@ -9,6 +9,7 @@ public class MotionController : MonoBehaviour {
 	int currentPosition = 2;
 	float movementShiftValue = 0.63f;
 	public int lastDirection;
+	public GameObject beanArray;
 	
 	void Start () {
 		inMotion = true;	
@@ -28,7 +29,6 @@ public class MotionController : MonoBehaviour {
 	
 	void Update () {
 		if (Input.GetKeyDown ("down")) {
-			GameObject beanArray = GameObject.Find ("allbeans");
 			foreach (Transform child in beanArray.transform) {
 				if (child.GetComponent<Bean> ().getInPlay () != 0) {
 					child.GetComponent<Rigidbody2D> ().gravityScale = 0.3f;
@@ -38,7 +38,6 @@ public class MotionController : MonoBehaviour {
 		}
 
 		if (Input.GetKeyUp ("down")) {
-			GameObject beanArray = GameObject.Find ("allbeans");
 			foreach (Transform child in beanArray.transform) {
 				if (child.GetComponent<Bean> ().getInPlay () != 0) {
 					child.GetComponent<Animator> ().SetBool ("falling", false);
@@ -49,8 +48,7 @@ public class MotionController : MonoBehaviour {
 		if (Input.GetKeyDown ("left")) {			
 				if(currentPosition - 1 != -1){
 					bool moveEnabled = true;
-					GameObject beanArray1 = GameObject.Find ("allbeans");
-					foreach (Transform child in beanArray1.transform) {
+					foreach (Transform child in beanArray.transform) {
 					if (child.GetComponent<Bean> ().getInPlay () != 0) {
 						
 						Vector2 direction = new Vector2(-1, 0);
@@ -72,7 +70,7 @@ public class MotionController : MonoBehaviour {
 					currentPosition -= 1;
 				GameObject moveToPosition = startPoints[currentPosition];
 				moveBothBeans(moveToPosition, "left");
-				foreach (Transform child in beanArray1.transform) {
+				foreach (Transform child in beanArray.transform) {
 					if (child.GetComponent<Bean> ().getInPlay () != 0) {
 						child.GetComponent<Bean> ().decrementHorizontalPosition ();
 						Debug.Log(child.GetComponent<Bean> ().getHorizontalPosition ());
@@ -86,8 +84,7 @@ public class MotionController : MonoBehaviour {
 			if (Input.GetKeyDown ("right")) {
 				if(currentPosition + 1 != 5){
 					bool moveEnabled = true;
-					GameObject beanArray1 = GameObject.Find ("allbeans");
-					foreach (Transform child in beanArray1.transform) {
+					foreach (Transform child in beanArray.transform) {
 					if (child.GetComponent<Bean> ().getInPlay () != 0) {
 						Vector2 direction = new Vector2(-1, 0);
 						RaycastHit2D hit = child.GetComponent<Bean> ().CheckRaycast(direction);
@@ -109,9 +106,7 @@ public class MotionController : MonoBehaviour {
 					currentPosition += 1;
 					GameObject moveToPosition = startPoints[currentPosition];
 					moveBothBeans(moveToPosition, "right");
-					
-					
-										GameObject beanArray = GameObject.Find ("allbeans");
+	
 					foreach (Transform child in beanArray.transform) {
 					if (child.GetComponent<Bean> ().getInPlay () != 0) {
 						child.GetComponent<Bean> ().incrementHorizontalPosition ();
@@ -123,7 +118,6 @@ public class MotionController : MonoBehaviour {
 				}
 			}
 		if (Input.GetKeyDown ("a")) {
-			GameObject beanArray = GameObject.Find ("allbeans");
 			foreach (Transform child in beanArray.transform) {
 				if (child.GetComponent<Bean> ().getInPlay () != 0) {
 					switch (child.GetComponent<Bean>().getRotationInt() % 4)
@@ -182,7 +176,6 @@ public class MotionController : MonoBehaviour {
 		}
 		
 		if (Input.GetKeyDown ("s")) {
-			GameObject beanArray = GameObject.Find ("allbeans");
 			foreach (Transform child in beanArray.transform) {
 				if (child.GetComponent<Bean> ().getInPlay () != 0) {
 					switch (child.GetComponent<Bean>().getRotationInt() % 4)
@@ -242,7 +235,6 @@ public class MotionController : MonoBehaviour {
 	}
 	
 	public void moveBothBeans(GameObject destination, string direction){
-		GameObject beanArray = GameObject.Find("allbeans");
 		foreach (Transform child in beanArray.transform) {
 			if(child.GetComponent<Bean> ().getInPlay() != 0){
 				if(direction == "right")
