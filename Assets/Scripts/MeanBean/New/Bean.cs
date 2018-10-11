@@ -13,11 +13,33 @@ public class Bean : MonoBehaviour {
 	public int position;
 	public int rotationInt = 0;
 	public int horizontalPosition;
-	public float raycastMaxDistance = 0.3f;
-	
-		void Update(){
+	public float raycastMaxDistance = 0.5f;
+	public bool inMotion = true;
+
+	void Update(){
+
+		if (Input.GetKeyDown ("x")) {
+			float directionOriginOffset = (0.35f);
+			Vector2 direction = new Vector2 (1, 0);
+			Vector2 startingPosition = new Vector2(transform.position.x + directionOriginOffset, transform.position.y);
+			Debug.DrawRay(startingPosition, direction * raycastMaxDistance, Color.red);
+		}
+
+		if (Input.GetKeyDown ("c")) {
+			float directionOriginOffset = (-0.35f);
+			Vector2 direction = new Vector2 (-1, 0);
+			Vector2 startingPosition = new Vector2(transform.position.x + directionOriginOffset, transform.position.y);
+			Debug.DrawRay(startingPosition, direction * raycastMaxDistance, Color.red);
+		}
+
+
+
 		if(this.GetComponent<Rigidbody2D>().velocity.y != 0 && Player){
 			Player.GetComponent<MotionController> ().setMotion (true);
+			this.inMotion = true;
+			}
+			else{
+				this.inMotion = false;
 			}
 		}
 	
@@ -76,21 +98,38 @@ public class Bean : MonoBehaviour {
 		return rotationInt;
 	}
 
+	public void collisionMatchChecker(GameObject otherColliderGameObject, string debugMessage = null){
+		string objectCollidedWith = otherColliderGameObject.name;
+		if (objectCollidedWith.Contains (this.name.Substring(0, this.name.Length - 1))) {
+			this.transform.parent = otherColliderGameObject.transform;
+			if (debugMessage != null)
+				Debug.Log (debugMessage);
+		}
+	}
+
 	public void OnCollisionEnter2D(Collision2D other){
 		inPlay = 0;
 		this.GetComponent<Animator> ().SetBool ("collision", true);
-		string objectCollidedWith = other.collider.gameObject.name;
-		if (objectCollidedWith.Contains (this.name.Substring(0, this.name.Length - 1))) {
-			this.transform.parent = other.collider.gameObject.transform;
+		this.collisionMatchChecker (other.collider.gameObject, "Collision with bottom");
+
+		//float height = this.GetComponent<SpriteRenderer> ().bounds.size.y;
+		//this.GetComponent<BoxCollider2D> ().size = new Vector3(0.62f, height, height);
+		Vector2 direction = new Vector2(1, 0);
+		RaycastHit2D hit = this.CheckRaycast(direction);
+		if (hit) {	
+			this.collisionMatchChecker (hit.collider.gameObject, "Raycast hit right");
 		}
-		float height = this.GetComponent<SpriteRenderer> ().bounds.size.y;
-		this.GetComponent<BoxCollider2D> ().size = new Vector3(0.62f, height, height);
+		direction = new Vector2(-1, 0);
+		hit = this.CheckRaycast (direction);
+		if (hit) {
+			this.collisionMatchChecker (hit.collider.gameObject, "Raycast hit left");
+		}
 		if(Player)
 			Player.GetComponent<MotionController> ().setMotion (false);
 
 		StartCoroutine(BeanStopped (waitingTime));
 		StartCoroutine(GameHaltedChecked (waitingTime));
-		StartCoroutine(RoundOverCheck (waitingTime));
+		StartCoroutine(RoundOverCheck (waitingTime * 4));
 		StartCoroutine (StopAnimation(4.0f));
 	}
 	

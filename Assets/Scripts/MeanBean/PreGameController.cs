@@ -29,6 +29,8 @@ public class PreGameController : MonoBehaviour {
 		UI.SetActive(true);
 		BeanController = GameObject.Find("allbeans");
 		BeanController.GetComponent<BeanFactory> ().createBeanPair ();
+		//BeanController = GameObject.Find("allAIbeans");
+		//BeanController.GetComponent<BeanFactory> ().createBeanPair ();
 		Destroy (this);
 	}
 }
