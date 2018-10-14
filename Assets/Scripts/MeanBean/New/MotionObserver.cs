@@ -5,9 +5,14 @@ using UnityEngine;
 public class MotionObserver : MonoBehaviour {
 
 	public GameObject beanArray;
-
+	public bool isGameReady = false;
+	
 	void Start(){
 		Debug.Log ("MotionController Start()");
+	}
+	
+	public void isReady(){
+		isGameReady = true;
 	}
 
 	void Update () {
@@ -21,7 +26,8 @@ public class MotionObserver : MonoBehaviour {
 		}
 		if(count == stoppedCount){
 			Debug.Log("Nothing moving");
-			beanArray.GetComponent<BeanFactory> ().createNext ();
+			if(isGameReady)
+				beanArray.GetComponent<BeanFactory> ().createNext ();
 		}
 	}
 }

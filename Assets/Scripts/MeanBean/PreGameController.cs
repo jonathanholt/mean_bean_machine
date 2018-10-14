@@ -28,9 +28,10 @@ public class PreGameController : MonoBehaviour {
 		cameraAnimator.SetBool ("cameraMove", true);
 		UI.SetActive(true);
 		BeanController = GameObject.Find("allbeans");
-		BeanController.GetComponent<BeanFactory> ().createBeanPair ();
+		//BeanController.GetComponent<BeanFactory> ().createBeanPair ();
 		//BeanController = GameObject.Find("allAIbeans");
 		//BeanController.GetComponent<BeanFactory> ().createBeanPair ();
+		BeanController.GetComponent<MotionObserver> ().isReady ();
 		Destroy (this);
 	}
 }
