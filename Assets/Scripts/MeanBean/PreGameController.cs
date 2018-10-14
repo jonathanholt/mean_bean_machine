@@ -9,6 +9,7 @@ public class PreGameController : MonoBehaviour {
 	public GameObject gameArea;
 	public GameObject UI;
 	public GameObject BeanController;
+	public GameObject AIBeanController;
 	Animator cameraAnimator;
 
 	void Start(){
@@ -27,11 +28,10 @@ public class PreGameController : MonoBehaviour {
 	public void moveCamera(){
 		cameraAnimator.SetBool ("cameraMove", true);
 		UI.SetActive(true);
-		BeanController = GameObject.Find("allbeans");
 		//BeanController.GetComponent<BeanFactory> ().createBeanPair ();
-		//BeanController = GameObject.Find("allAIbeans");
 		//BeanController.GetComponent<BeanFactory> ().createBeanPair ();
 		BeanController.GetComponent<MotionObserver> ().isReady ();
+		AIBeanController.GetComponent<MotionObserver> ().isReady ();
 		Destroy (this);
 	}
 }

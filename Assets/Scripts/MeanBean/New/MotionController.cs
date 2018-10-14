@@ -28,6 +28,11 @@ public class MotionController : MonoBehaviour {
 	}
 	
 	void Update () {
+		
+		if (Input.GetKeyUp ("z")) {
+			PauseController.togglePause ();
+		}
+		
 		if (Input.GetKeyDown ("down")) {
 			foreach (Transform child in beanArray.transform) {
 				if (child.GetComponent<Bean> ().getInPlay () != 0) {
