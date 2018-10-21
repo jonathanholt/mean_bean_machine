@@ -28,6 +28,7 @@ public class MotionController : MonoBehaviour {
 	}
 	
 	void Update () {
+		if(beanArray.GetComponent<BeanFactory>().canMove){
 		
 		if (Input.GetKeyUp ("z")) {
 			PauseController.togglePause ();
@@ -236,6 +237,7 @@ public class MotionController : MonoBehaviour {
 					break;
 				}
 			}
+		}
 		}
 	}
 	

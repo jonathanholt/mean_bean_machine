@@ -5,10 +5,11 @@ using UnityEngine;
 public class MotionObserver : MonoBehaviour {
 
 	public GameObject beanArray;
+	public GameObject Player;
 	public bool isGameReady = false;
 	
 	void Start(){
-		Debug.Log ("MotionController Start()");
+		////Debug.Log ("MotionController Start()");
 	}
 	
 	public void isReady(){
@@ -25,9 +26,10 @@ public class MotionObserver : MonoBehaviour {
 			}
 		}
 		if(count == stoppedCount){
-			Debug.Log("Nothing moving");
-			if(isGameReady)
+			////Debug.Log("Nothing moving");
+			if (isGameReady) {
 				beanArray.GetComponent<BeanFactory> ().createNext ();
+			}
 		}
 	}
 }

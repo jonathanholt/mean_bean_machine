@@ -139,6 +139,7 @@ public class Bean : MonoBehaviour {
 				if (allChildCount >= 4) {
 					Destroy (child.gameObject);
 					Player.GetComponent<AvalancheController> ().incrementAvalancheCount ();
+				Debug.Log ("Avalanche count incremented");
 				}
 			}
 	}
@@ -166,8 +167,9 @@ public class Bean : MonoBehaviour {
 		yield return new WaitForSeconds (delayTime);
 		anyBeansFalling = Player.GetComponent<MotionController> ().getMotion ();
 		if(!anyBeansFalling){
-				Player.GetComponent<AvalancheController> ().processAvalanche ();
-				beanArray.GetComponent<BeanFactory> ().createNext ();
+				Player.GetComponent<AvalancheController> ().queueAvalanche ();
+				Debug.Log ("Avalanche queued");
+				//beanArray.GetComponent<BeanFactory> ().createNext ();
 		}
 	}
 
