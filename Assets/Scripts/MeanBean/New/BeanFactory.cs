@@ -55,7 +55,7 @@ public class BeanFactory : MonoBehaviour {
 		if(!readyForNext){
 			readyForNext = true;
 			if (thePlayer.GetComponent<AvalancheController>().avalancheCount > 0) {
-				Debug.Log ("Avalanche!!");
+				//Debug.Log ("Avalanche!!");
 				thePlayer.GetComponent<AvalancheController> ().queueAvalanche ();
 			}
 

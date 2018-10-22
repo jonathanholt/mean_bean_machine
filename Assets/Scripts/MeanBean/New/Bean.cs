@@ -102,8 +102,8 @@ public class Bean : MonoBehaviour {
 		string objectCollidedWith = otherColliderGameObject.name;
 		if (objectCollidedWith.Contains (this.name.Substring(0, this.name.Length - 1))) {
 			this.transform.parent = otherColliderGameObject.transform;
-			if (debugMessage != null)
-				Debug.Log (debugMessage);
+			//if (debugMessage != null)
+				//Debug.Log (debugMessage);
 		}
 	}
 
@@ -134,16 +134,39 @@ public class Bean : MonoBehaviour {
 	}
 	
 	public void DeleteAnyBeans(){
+		//Debug.Log("DELETE");
 		foreach (Transform child in beanArray.transform) {
 			int allChildCount = this.checkAllChildren (child);
 				if (allChildCount >= 4) {
+					this.checkNuisance(child.gameObject);
 					Destroy (child.gameObject);
 					Player.GetComponent<AvalancheController> ().incrementAvalancheCount ();
-				Debug.Log ("Avalanche count incremented");
+				//Debug.Log ("Avalanche count incremented");
 				}
 			}
 	}
-
+	
+	public void checkNuisance(GameObject oldChild){
+		Vector2[] startPointArray = {new Vector2(transform.position.x + 0.35f, transform.position.y),
+									new Vector2(transform.position.x - 0.35f, transform.position.y),
+									new Vector2(transform.position.x, transform.position.y + 0.35f),
+									new Vector2(transform.position.x, transform.position.y - 0.35f)};
+									
+		Vector2[] directionArray = {new Vector2 (1, 0), new Vector2 (-1, 0), new Vector2 (0, -1), new Vector2 (0, 1)}; 							
+		foreach(Vector2 startPoint in startPointArray){
+			foreach(Vector2 newdirection in directionArray){
+		Debug.DrawRay(startPoint, startPoint * raycastMaxDistance, Color.red);
+		RaycastHit2D hit = Physics2D.Raycast(startPoint, newdirection, raycastMaxDistance);	
+		if(hit){
+			string name = hit.collider.gameObject.name;
+			if(name.Contains("grey")){
+				Destroy (hit.collider.gameObject);
+			}
+		}
+		}
+		}
+	}
+	
 	public int checkAllChildren(Transform cluster){
 		int counter = 1;
 		int clusterCount = cluster.transform.childCount;
@@ -168,7 +191,7 @@ public class Bean : MonoBehaviour {
 		anyBeansFalling = Player.GetComponent<MotionController> ().getMotion ();
 		if(!anyBeansFalling){
 				Player.GetComponent<AvalancheController> ().queueAvalanche ();
-				Debug.Log ("Avalanche queued");
+				//Debug.Log ("Avalanche queued");
 				//beanArray.GetComponent<BeanFactory> ().createNext ();
 		}
 	}
