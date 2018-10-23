@@ -15,7 +15,21 @@ public class BeanFactory : MonoBehaviour {
 	public bool avalancheNext;
 	public bool canMove = true;
 
-	public void createBeanPair (bool isAvalanche) {
+	public void createBeanPair (bool isAvalanche, int avalancheCount = 0) {
+		if(avalancheCount > 2){
+			Debug.Log("HIGHER THAN 2!!!");
+				thePlayer.GetComponent<MotionController>().resetCurrentPosition(2);
+				string randomPrefab1 = greyString;
+				for(int i = 0; i < 5; i ++){
+					GameObject bean1 = Instantiate(Resources.Load(randomPrefab1)) as GameObject;
+					bean1.GetComponent<Bean>().SetPlayer(thePlayer);
+					bean1.GetComponent<Bean>().SetBeanArray(beanArray);
+					bean1.name = randomPrefab1;
+					bean1.GetComponent<Bean> ().setInPlay (1);
+					bean1.transform.position = startPointArray[i].transform.position;
+				}
+		}
+		else{
 		thePlayer.GetComponent<MotionController>().resetCurrentPosition(2);
 		string randomPrefab1;
 		if(isAvalanche)
@@ -29,6 +43,7 @@ public class BeanFactory : MonoBehaviour {
 		bean1.name = randomPrefab1;
 		bean1.GetComponent<Bean> ().setInPlay (1);
 		if(isAvalanche){
+			Debug.Log("avalanche..."+thePlayer.GetComponent<AvalancheController>().avalancheToFall);
 			int resetPosition = Random.Range(0, 4);
 			bean1.transform.position = startPointArray[resetPosition].transform.position;
 		}
@@ -43,6 +58,7 @@ public class BeanFactory : MonoBehaviour {
 			bean2.name = randomPrefab2;
 			bean2.GetComponent<Bean> ().setInPlay (2);
 			bean2.transform.position = startPointUpper.transform.position;
+		}
 		}
 	}
 	

@@ -110,6 +110,7 @@ public class Bean : MonoBehaviour {
 	public void OnCollisionEnter2D(Collision2D other){
 		inPlay = 0;
 		this.GetComponent<Animator> ().SetBool ("collision", true);
+		if(this.name != "grey1"){
 		this.collisionMatchChecker (other.collider.gameObject, "Collision with bottom");
 
 		//float height = this.GetComponent<SpriteRenderer> ().bounds.size.y;
@@ -126,7 +127,7 @@ public class Bean : MonoBehaviour {
 		}
 		if(Player)
 			Player.GetComponent<MotionController> ().setMotion (false);
-
+		}
 		StartCoroutine(BeanStopped (waitingTime));
 		StartCoroutine(GameHaltedChecked (waitingTime));
 		StartCoroutine(RoundOverCheck (waitingTime * 4));
@@ -135,15 +136,18 @@ public class Bean : MonoBehaviour {
 	
 	public void DeleteAnyBeans(){
 		//Debug.Log("DELETE");
+		bool anyBeansDeleted = false;
 		foreach (Transform child in beanArray.transform) {
 			int allChildCount = this.checkAllChildren (child);
 				if (allChildCount >= 4) {
+					anyBeansDeleted = true;
 					this.checkNuisance(child.gameObject);
 					Destroy (child.gameObject);
-					Player.GetComponent<AvalancheController> ().incrementAvalancheCount ();
 				//Debug.Log ("Avalanche count incremented");
 				}
 			}
+			if(anyBeansDeleted)
+				Player.GetComponent<AvalancheController> ().incrementAvalancheCount ();
 	}
 	
 	public void checkNuisance(GameObject oldChild){
