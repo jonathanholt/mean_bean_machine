@@ -16,6 +16,7 @@ public class BeanFactory : MonoBehaviour {
 	public bool canMove = true;
 
 	public void createBeanPair (bool isAvalanche, int avalancheCount = 0) {
+		//HasBeanController.chooseAnimation ();
 		if(avalancheCount > 2){
 			Debug.Log("HIGHER THAN 2!!!");
 				thePlayer.GetComponent<MotionController>().resetCurrentPosition(2);

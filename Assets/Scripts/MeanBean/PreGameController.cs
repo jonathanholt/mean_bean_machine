@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PreGameController : MonoBehaviour {
 
@@ -11,6 +12,7 @@ public class PreGameController : MonoBehaviour {
 	public GameObject BeanController;
 	public GameObject AIBeanController;
 	Animator cameraAnimator;
+	public Text enemyDialog;
 
 	void Start(){
 		gameArea.SetActive(false);
@@ -26,6 +28,7 @@ public class PreGameController : MonoBehaviour {
 	}
 
 	public void moveCamera(){
+		Destroy(enemyDialog);
 		cameraAnimator.SetBool ("cameraMove", true);
 		UI.SetActive(true);
 		//BeanController.GetComponent<BeanFactory> ().createBeanPair ();
