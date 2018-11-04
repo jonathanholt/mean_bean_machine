@@ -31,8 +31,12 @@ public class PreGameController : MonoBehaviour {
 		Destroy(enemyDialog);
 		cameraAnimator.SetBool ("cameraMove", true);
 		UI.SetActive(true);
-		//BeanController.GetComponent<BeanFactory> ().createBeanPair ();
-		//BeanController.GetComponent<BeanFactory> ().createBeanPair ();
+		Debug.Log("READY1");
+		StartCoroutine (controllersReady (3.6f));
+	}
+	
+	IEnumerator controllersReady(float yieldTime){
+		yield return new WaitForSeconds(yieldTime);
 		BeanController.GetComponent<MotionObserver> ().isReady ();
 		AIBeanController.GetComponent<MotionObserver> ().isReady ();
 		Destroy (this);
