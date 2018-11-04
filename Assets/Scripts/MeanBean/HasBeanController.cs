@@ -17,7 +17,7 @@ public class HasBeanController : MonoBehaviour {
 		newAnimationNow = 0;
 	}
 
-	public static void chooseAnimation(){
+	public void chooseAnimation(){
 		newAnimationNow++;
 		if (whichAnimation == 0) {
 			int animationsCountAmended = animationsCount;
