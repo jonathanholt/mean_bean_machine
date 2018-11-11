@@ -53,10 +53,6 @@ public class Bean : MonoBehaviour {
 			float directionOriginOffset = (direction.x > 0 ? 0.35f :  -0.35f);
 			startingPosition = new Vector2(transform.position.x + directionOriginOffset, transform.position.y);
 		}
-		else{
-			float directionOriginOffset = 3f;
-			startingPosition = new Vector2(transform.position.x, transform.position.y + directionOriginOffset);
-		}
 		Debug.DrawRay(startingPosition, direction * raycastMaxDistance, Color.red);
 		return Physics2D.Raycast(startingPosition, direction, raycastMaxDistance);
 	}
@@ -111,36 +107,22 @@ public class Bean : MonoBehaviour {
 
 	public void collisionMatchChecker(GameObject otherColliderGameObject, string debugMessage = null){
 		string objectCollidedWith = otherColliderGameObject.name;
-	
-	
-		if (objectCollidedWith.Contains ("GameOverPoint")) {
-			//Debug.Log("GAME OVER!");
-			//beanArray.GetComponent<BeanFactory>().isGameOver = true;
-			//beanArray.GetComponent<BeanFactory>().gameOver();
-		}
-		
+
 		if (objectCollidedWith.Contains (this.name.Substring(0, this.name.Length - 1)) && debugMessage != "up") {
 			this.transform.parent = otherColliderGameObject.transform;
-			//if (debugMessage != null)
-				//Debug.Log (debugMessage);
 		}
 	}
 
 	public void OnCollisionEnter2D(Collision2D other){
 		if(inPlay == 1 && this.gameObject.transform.position.y > 1.69f){
-			Debug.Log("GAME OVER");
-			//float dist = GameObject.Find("GameOverPoint").transform.position.y;
-			//Debug.Log("Gameoverpoint y value: " + dist);
-			//Debug.Log("My y value: " + this.gameObject.transform.position.y);
+			beanArray.GetComponent<BeanFactory>().isGameOver = true;
+			beanArray.GetComponent<BeanFactory>().gameOver();
 		}
 		
 		inPlay = 0;
 		this.GetComponent<Animator> ().SetBool ("collision", true);
 		if(this.name != "grey1"){
 		this.collisionMatchChecker (other.collider.gameObject, "Collision with bottom");
-
-		//float height = this.GetComponent<SpriteRenderer> ().bounds.size.y;
-		//this.GetComponent<BoxCollider2D> ().size = new Vector3(0.62f, height, height);
 		Vector2 direction = new Vector2(1, 0);
 		RaycastHit2D hit = this.CheckRaycast(direction);
 		if (hit) {	
@@ -154,14 +136,6 @@ public class Bean : MonoBehaviour {
 		if(Player)
 			Player.GetComponent<MotionController> ().setMotion (false);
 		
-		direction = new Vector2(0, 100);
-		hit = this.CheckRaycast (direction);
-		if (hit) {
-			//Debug.Log("GAME OVER");
-			this.collisionMatchChecker (hit.collider.gameObject, "up");
-		}
-			
-		
 		}
 		StartCoroutine(BeanStopped (waitingTime));
 		StartCoroutine(GameHaltedChecked (waitingTime));
@@ -170,7 +144,6 @@ public class Bean : MonoBehaviour {
 	}
 	
 	public void DeleteAnyBeans(){
-		//Debug.Log("DELETE");
 		bool anyBeansDeleted = false;
 		foreach (Transform child in beanArray.transform) {
 			int allChildCount = this.checkAllChildren (child);
@@ -178,7 +151,6 @@ public class Bean : MonoBehaviour {
 					anyBeansDeleted = true;
 					this.checkNuisance(child.gameObject);
 					Destroy (child.gameObject);
-				//Debug.Log ("Avalanche count incremented");
 				}
 			}
 			if(anyBeansDeleted)
@@ -230,8 +202,6 @@ public class Bean : MonoBehaviour {
 		anyBeansFalling = Player.GetComponent<MotionController> ().getMotion ();
 		if(!anyBeansFalling){
 				Player.GetComponent<AvalancheController> ().queueAvalanche ();
-				//Debug.Log ("Avalanche queued");
-				//beanArray.GetComponent<BeanFactory> ().createNext ();
 		}
 	}
 
