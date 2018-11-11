@@ -16,8 +16,15 @@ public class BeanFactory : MonoBehaviour {
 	public bool canMove = true;
 	public bool isPlayer;
 	public GameObject hasBean;
+	public bool isGameOver;
 	
+
 	public void createBeanPair (bool isAvalanche, int avalancheCount = 0) {
+		if(isPlayer){
+			//isGameOver = true;
+			//gameOver();
+		}
+		
 		if(isPlayer)
 			hasBean.GetComponent<HasBeanController>().chooseAnimation();
 		if(avalancheCount > 2){
@@ -72,6 +79,8 @@ public class BeanFactory : MonoBehaviour {
 	}
 	
 	public void createNext(){
+		if(!isGameOver){
+		
 		if(!readyForNext){
 			readyForNext = true;
 			if (thePlayer.GetComponent<AvalancheController>().avalancheCount > 0) {
@@ -92,9 +101,44 @@ public class BeanFactory : MonoBehaviour {
 			}
 		}
 	}
+	}
 	
 	IEnumerator LongPause(float delayTime){
 		yield return new WaitForSeconds (delayTime);
 		readyForNext = false;
+	}
+	
+	void Update () {
+		if(isGameOver){/**
+			Vector2 aPosition1 = new Vector2(30,30);
+			GameObject gameOverText = GameObject.Find("GameOverFont");
+			GameObject gameOverTarget = GameObject.Find("GameOverPixel");
+			gameOverText.transform.position = Vector2.MoveTowards(new Vector2(gameOverText.transform.position.x, gameOverText.transform.position.y), gameOverTarget.transform.position, 3 * Time.deltaTime);
+
+			Animator gameOverAnimator;
+			gameOverAnimator = GameObject.Find("BlueGameOver").GetComponent<Animator> ();
+			gameOverAnimator.SetBool ("gameOver", true);
+
+			gameOverAnimator = GameObject.Find("RedGameOver").GetComponent<Animator> ();
+			gameOverAnimator.SetBool ("gameOver", true);
+
+			gameOverAnimator = GameObject.Find("YellowGameOver").GetComponent<Animator> ();
+			gameOverAnimator.SetBool ("gameOver", true);
+
+			gameOverAnimator = GameObject.Find("GreenGameOver").GetComponent<Animator> ();
+			gameOverAnimator.SetBool ("gameOver", true);
+
+			gameOverAnimator = GameObject.Find("PurpleGameOver").GetComponent<Animator> ();
+			gameOverAnimator.SetBool ("gameOver", true); **/
+		}
+	}
+		
+		public void gameOver(){
+		EnemyController.changeAnimationWinning ();
+		EnemyLowerController.changeAnimationWinning ();
+		GameObject ground = GameObject.Find("Ground");
+		Destroy (ground);
+		GameObject playerFrameFloor = GameObject.Find("PlayerFrameFloor");
+		Destroy (playerFrameFloor);
 	}
 }

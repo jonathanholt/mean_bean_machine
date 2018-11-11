@@ -17,6 +17,10 @@ public class Bean : MonoBehaviour {
 	public bool inMotion = true;
 
 	void Update(){
+		
+		if(inPlay != 0 && beanArray.GetComponent<BeanFactory>().isGameOver){
+			Destroy(gameObject);
+		}
 
 		if (Input.GetKeyDown ("x")) {
 			float directionOriginOffset = (0.35f);
@@ -44,8 +48,15 @@ public class Bean : MonoBehaviour {
 		}
 	
 	public RaycastHit2D CheckRaycast(Vector2 direction){
-		float directionOriginOffset = (direction.x > 0 ? 0.35f :  -0.35f);
-		Vector2 startingPosition = new Vector2(transform.position.x + directionOriginOffset, transform.position.y);
+		Vector2 startingPosition = new Vector2(transform.position.x, transform.position.y);
+		if(!(direction.y > 1)){
+			float directionOriginOffset = (direction.x > 0 ? 0.35f :  -0.35f);
+			startingPosition = new Vector2(transform.position.x + directionOriginOffset, transform.position.y);
+		}
+		else{
+			float directionOriginOffset = 3f;
+			startingPosition = new Vector2(transform.position.x, transform.position.y + directionOriginOffset);
+		}
 		Debug.DrawRay(startingPosition, direction * raycastMaxDistance, Color.red);
 		return Physics2D.Raycast(startingPosition, direction, raycastMaxDistance);
 	}
@@ -100,7 +111,15 @@ public class Bean : MonoBehaviour {
 
 	public void collisionMatchChecker(GameObject otherColliderGameObject, string debugMessage = null){
 		string objectCollidedWith = otherColliderGameObject.name;
-		if (objectCollidedWith.Contains (this.name.Substring(0, this.name.Length - 1))) {
+	
+	
+		if (objectCollidedWith.Contains ("GameOverPoint")) {
+			//Debug.Log("GAME OVER!");
+			//beanArray.GetComponent<BeanFactory>().isGameOver = true;
+			//beanArray.GetComponent<BeanFactory>().gameOver();
+		}
+		
+		if (objectCollidedWith.Contains (this.name.Substring(0, this.name.Length - 1)) && debugMessage != "up") {
 			this.transform.parent = otherColliderGameObject.transform;
 			//if (debugMessage != null)
 				//Debug.Log (debugMessage);
@@ -108,6 +127,13 @@ public class Bean : MonoBehaviour {
 	}
 
 	public void OnCollisionEnter2D(Collision2D other){
+		if(inPlay == 1 && this.gameObject.transform.position.y > 1.69f){
+			Debug.Log("GAME OVER");
+			//float dist = GameObject.Find("GameOverPoint").transform.position.y;
+			//Debug.Log("Gameoverpoint y value: " + dist);
+			//Debug.Log("My y value: " + this.gameObject.transform.position.y);
+		}
+		
 		inPlay = 0;
 		this.GetComponent<Animator> ().SetBool ("collision", true);
 		if(this.name != "grey1"){
@@ -127,6 +153,15 @@ public class Bean : MonoBehaviour {
 		}
 		if(Player)
 			Player.GetComponent<MotionController> ().setMotion (false);
+		
+		direction = new Vector2(0, 100);
+		hit = this.CheckRaycast (direction);
+		if (hit) {
+			//Debug.Log("GAME OVER");
+			this.collisionMatchChecker (hit.collider.gameObject, "up");
+		}
+			
+		
 		}
 		StartCoroutine(BeanStopped (waitingTime));
 		StartCoroutine(GameHaltedChecked (waitingTime));

@@ -11,6 +11,7 @@ public class GameOverObserver : MonoBehaviour {
 	bool videoStarted = false;
 
 	void Start(){
+		Debug.Log("gameoverobserver");
 		videoPlayerObject = GameObject.Find("VideoPlayer");
 		videoPlayer = videoPlayerObject.GetComponent<VideoPlayer>();
 	}
