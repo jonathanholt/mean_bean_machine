@@ -10,6 +10,7 @@ public class MotionController : MonoBehaviour {
 	float movementShiftValue = 0.63f;
 	public int lastDirection;
 	public GameObject beanArray;
+	public bool isPlayer;
 	
 	void Start () {
 		inMotion = true;	
@@ -29,7 +30,7 @@ public class MotionController : MonoBehaviour {
 	
 	void Update () {
 		if(beanArray.GetComponent<BeanFactory>().canMove){
-		
+		if(isPlayer){
 		if (Input.GetKeyUp ("z")) {
 			PauseController.togglePause ();
 		}
@@ -236,7 +237,7 @@ public class MotionController : MonoBehaviour {
 					}
 					break;
 				}
-			}
+		}}
 		}
 		}
 	}
