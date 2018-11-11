@@ -116,7 +116,7 @@ public class Bean : MonoBehaviour {
 	public void OnCollisionEnter2D(Collision2D other){
 		if(inPlay == 1 && this.gameObject.transform.position.y > 1.69f){
 			beanArray.GetComponent<BeanFactory>().isGameOver = true;
-			beanArray.GetComponent<BeanFactory>().gameOver();
+			beanArray.GetComponent<BeanFactory>().gameOver(Player.name);
 		}
 		
 		inPlay = 0;

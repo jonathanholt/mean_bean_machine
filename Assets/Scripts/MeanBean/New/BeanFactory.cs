@@ -133,12 +133,21 @@ public class BeanFactory : MonoBehaviour {
 		}
 	}
 		
-		public void gameOver(){
+		public void gameOver(string playername){
+		if(playername == "AIPlayer"){
+			EnemyController.changeAnimationLost ();
+			GameObject ground = GameObject.Find("EnemyGround");
+			Destroy (ground);
+			GameObject playerFrameFloor = GameObject.Find("EnemyFrameFloor");
+			Destroy (playerFrameFloor);
+		}
+		else{
 		EnemyController.changeAnimationWinning ();
 		EnemyLowerController.changeAnimationWinning ();
 		GameObject ground = GameObject.Find("Ground");
 		Destroy (ground);
 		GameObject playerFrameFloor = GameObject.Find("PlayerFrameFloor");
 		Destroy (playerFrameFloor);
+		}
 	}
 }
