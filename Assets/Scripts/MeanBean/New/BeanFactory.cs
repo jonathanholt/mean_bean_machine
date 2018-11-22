@@ -140,6 +140,8 @@ public class BeanFactory : MonoBehaviour {
 			Destroy (ground);
 			GameObject playerFrameFloor = GameObject.Find("EnemyFrameFloor");
 			Destroy (playerFrameFloor);
+			GameObject YouWinComponents = GameObject.Find("YouWinComponents");
+			YouWinComponents.transform.position = new Vector3(YouWinComponents.transform.position.x,YouWinComponents.transform.position.y + 6.75f, YouWinComponents.transform.position.z);
 		}
 		else{
 		EnemyController.changeAnimationWinning ();
