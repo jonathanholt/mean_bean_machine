@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using UnityEngine.Video;
 
 public class LevelSelectManager : MonoBehaviour {
 	
@@ -46,7 +47,9 @@ public class LevelSelectManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (videoPlaying < 3 && Input.GetKeyUp ("a")) {
-			videoPlaying++;
+			if(GameObject.Find("VideoPlayer").GetComponent<VideoPlayer>().clip.name != "sega"){
+				videoPlaying++;
+			}
 			if (videoPlaying > 1) {
 				selectSfx.PlayOneShot (soundToPlay, 1);
 			}
@@ -98,7 +101,6 @@ public class LevelSelectManager : MonoBehaviour {
 		if (flashing == 1 && GameObject.Find("menubean") != null) {
 			flashBean (GameObject.Find ("menubean"));
 		}
-		Debug.Log ("Are we getting here? "+subflashing);
 		if (subflashing == 1) {
 			flashBean (GameObject.Find ("submenubean"));
 		}

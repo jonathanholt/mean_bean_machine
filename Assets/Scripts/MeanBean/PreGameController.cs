@@ -31,7 +31,7 @@ public class PreGameController : MonoBehaviour {
 		Destroy(enemyDialog);
 		cameraAnimator.SetBool ("cameraMove", true);
 		UI.SetActive(true);
-		StartCoroutine (controllersReady (3.6f));
+		StartCoroutine (controllersReady (3.125f));
 	}
 	
 	IEnumerator controllersReady(float yieldTime){

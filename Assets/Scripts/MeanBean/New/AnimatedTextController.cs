@@ -17,6 +17,14 @@ public class AnimatedTextController : MonoBehaviour {
 	
 	IEnumerator addChar(float yieldTime){
 		foreach(string sentence in sentenceArray){
+        if(sentence.Length < 30){
+            GameObject.Find("textbubble_large").GetComponent<Renderer>().enabled = false;
+            GameObject.Find("textbubble").GetComponent<Renderer>().enabled = true;
+        }
+        else{
+            GameObject.Find("textbubble_large").GetComponent<Renderer>().enabled = true;
+            GameObject.Find("textbubble").GetComponent<Renderer>().enabled = false;
+        }
 		char[] textArray = sentence.ToCharArray();
 		foreach (char singleLetter in textArray) {
 			if(m_MyText){
