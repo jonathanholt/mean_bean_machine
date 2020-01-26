@@ -40,4 +40,6 @@ ehthumbs.db
 
 /Assets/Videos
 Assets/Videos
-
+*.log
+*.rar
+*.exe
