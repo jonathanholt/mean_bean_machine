@@ -8,6 +8,12 @@ TextureImporter:
   - first:
       213: 3354378605701273616
     second: game_over_background
+  - first:
+      213: -238847032988671714
+    second: game_over_countdown_9
+  - first:
+      213: 3484248901594570251
+    second: game_over_text
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -129,6 +135,48 @@ TextureImporter:
       bones: []
       spriteID: 570e1edb84079a74a8b1303027c77a8d
       internalID: 3354378605701273616
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: game_over_countdown_9
+      rect:
+        serializedVersion: 2
+        x: 323
+        y: 44
+        width: 38
+        height: 54
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2819683976a87c54cb26e06ead3718aa
+      internalID: -238847032988671714
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: game_over_text
+      rect:
+        serializedVersion: 2
+        x: 323
+        y: 27
+        width: 340
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 02ba5124fa080304dbb1acd1da94b4ca
+      internalID: 3484248901594570251
       vertices: []
       indices: 
       edges: []
