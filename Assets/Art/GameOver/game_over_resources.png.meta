@@ -14,6 +14,33 @@ TextureImporter:
   - first:
       213: 3484248901594570251
     second: game_over_text
+  - first:
+      213: -2358147958170424859
+    second: game_over_countdown_8
+  - first:
+      213: -4218443799226822244
+    second: game_over_countdown_7
+  - first:
+      213: 5716622907889769198
+    second: game_over_countdown_6
+  - first:
+      213: -5865006666436881438
+    second: game_over_countdown_5
+  - first:
+      213: -501741949240696179
+    second: game_over_countdown_4
+  - first:
+      213: -629531918427749942
+    second: game_over_countdown_3
+  - first:
+      213: 1232820788785469626
+    second: game_over_countdown_0
+  - first:
+      213: -5263046455958408084
+    second: game_over_countdown_2
+  - first:
+      213: 6486028662869745957
+    second: game_over_countdown_1
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -177,6 +204,195 @@ TextureImporter:
       bones: []
       spriteID: 02ba5124fa080304dbb1acd1da94b4ca
       internalID: 3484248901594570251
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: game_over_countdown_8
+      rect:
+        serializedVersion: 2
+        x: 364
+        y: 43
+        width: 38
+        height: 54
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4a54c0dec40f1e74d8c4920afb463dda
+      internalID: -2358147958170424859
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: game_over_countdown_7
+      rect:
+        serializedVersion: 2
+        x: 405
+        y: 43
+        width: 38
+        height: 54
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ea208a3cc9c18f4469b7a893f835664c
+      internalID: -4218443799226822244
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: game_over_countdown_6
+      rect:
+        serializedVersion: 2
+        x: 446
+        y: 43
+        width: 38
+        height: 54
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6a314fd939f8e8242a718f3526498edf
+      internalID: 5716622907889769198
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: game_over_countdown_5
+      rect:
+        serializedVersion: 2
+        x: 487
+        y: 43
+        width: 38
+        height: 54
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 029f84f7caf87d544b2374f8284a07c4
+      internalID: -5865006666436881438
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: game_over_countdown_4
+      rect:
+        serializedVersion: 2
+        x: 528
+        y: 43
+        width: 38
+        height: 54
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 297296bb14548b1418de11eb80a90b8e
+      internalID: -501741949240696179
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: game_over_countdown_3
+      rect:
+        serializedVersion: 2
+        x: 569
+        y: 43
+        width: 38
+        height: 54
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c9a3d1d9c82717b4bbde53e43e2fa85b
+      internalID: -629531918427749942
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: game_over_countdown_0
+      rect:
+        serializedVersion: 2
+        x: 692
+        y: 44
+        width: 38
+        height: 54
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a3dd449db559f1441b46776fde3a76c6
+      internalID: 1232820788785469626
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: game_over_countdown_2
+      rect:
+        serializedVersion: 2
+        x: 610
+        y: 43
+        width: 38
+        height: 54
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c25816a748b2bc745a812b1f2dadd1b0
+      internalID: -5263046455958408084
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: game_over_countdown_1
+      rect:
+        serializedVersion: 2
+        x: 652
+        y: 43
+        width: 38
+        height: 54
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2e99f68e4315c4c42b0bc68e64889022
+      internalID: 6486028662869745957
       vertices: []
       indices: 
       edges: []
