@@ -41,6 +41,30 @@ TextureImporter:
   - first:
       213: 6486028662869745957
     second: game_over_countdown_1
+  - first:
+      213: 2343443991482650456
+    second: game_over_resources_g
+  - first:
+      213: -8111393168385177666
+    second: game_over_resources_a
+  - first:
+      213: 6652874195617879267
+    second: game_over_resources_m
+  - first:
+      213: 3939389715882588098
+    second: game_over_resources_e
+  - first:
+      213: 2939205902731825949
+    second: game_over_resources_o
+  - first:
+      213: 7235538266733207873
+    second: game_over_resources_v
+  - first:
+      213: -1692246598154519610
+    second: game_over_resources_0
+  - first:
+      213: -4224042229185810223
+    second: game_over_resources_r
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -393,6 +417,174 @@ TextureImporter:
       bones: []
       spriteID: 2e99f68e4315c4c42b0bc68e64889022
       internalID: 6486028662869745957
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: game_over_resources_g
+      rect:
+        serializedVersion: 2
+        x: 323
+        y: 2
+        width: 22
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 41d543eba77e8e846a0ac5b755d64263
+      internalID: 2343443991482650456
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: game_over_resources_a
+      rect:
+        serializedVersion: 2
+        x: 348
+        y: 2
+        width: 22
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b71ba1c22bb013b478c08c8707c3a8c7
+      internalID: -8111393168385177666
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: game_over_resources_m
+      rect:
+        serializedVersion: 2
+        x: 373
+        y: 2
+        width: 22
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0f361f031c723194c8f289599264f038
+      internalID: 6652874195617879267
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: game_over_resources_e
+      rect:
+        serializedVersion: 2
+        x: 398
+        y: 2
+        width: 22
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ef4307e6394ce2c478d1f33b20bf1c6d
+      internalID: 3939389715882588098
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: game_over_resources_o
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 2
+        width: 22
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 32a90319d3f5236438d1d85e0b0e175c
+      internalID: 2939205902731825949
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: game_over_resources_v
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 2
+        width: 22
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c3c3750547761404fa7e056be37e3436
+      internalID: 7235538266733207873
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: game_over_resources_0
+      rect:
+        serializedVersion: 2
+        x: 473
+        y: 2
+        width: 22
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 392404f168fc38f48bbd7890303a62a1
+      internalID: -1692246598154519610
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: game_over_resources_r
+      rect:
+        serializedVersion: 2
+        x: 498
+        y: 2
+        width: 22
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fcc1480c0b5323146b800f2f6870a83f
+      internalID: -4224042229185810223
       vertices: []
       indices: 
       edges: []
