@@ -13,6 +13,7 @@ public class Spiral : MonoBehaviour
 	 public GameObject targetGameobject;
 	 public int moveUp;
 	 public float step;
+	 public float newStep;
  
      private void Start()
      {
@@ -32,14 +33,20 @@ public class Spiral : MonoBehaviour
 				VerticalMotion(8f);
 			}
 			if(VerticalPositionCheck(8f)){
-				step = 6f * Time.deltaTime;
+				step = newStep * Time.deltaTime;
 			}
 			if(VerticalPositionCheck(8f) || moveUp == 2){
-				step = 3f * Time.deltaTime;
+				if(step != newStep * Time.deltaTime){
+					step = newStep * Time.deltaTime;	
+				}
+				else{
+					step = 4f * Time.deltaTime;
+				}
 				moveUp = 2;
 				VerticalMotion(3f);
 			}
 			if(VerticalPositionCheck(3f) || moveUp == 3){
+				step = 4f * Time.deltaTime;
 				moveUp = 3;
 				VerticalMotion(5f);
 			}
