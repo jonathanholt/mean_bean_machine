@@ -38,7 +38,12 @@ public class MainMenuController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-			if (Input.GetKeyUp ("up")) {
+		
+		 if(Vector3.Distance(GameObject.Find ("SubMenus").transform.position, subMenuDestination.transform.position) < 0.1f){
+				flashing = 0;
+		 }
+		 
+			if (Input.GetKeyUp ("up") && flashing == 0 && subflashing == 0) {
 				if (menuLevel > 0) {
 					subMenuUpdater (1);
 					subBeanMover ();
@@ -52,7 +57,7 @@ public class MainMenuController : MonoBehaviour {
 
 			}
 
-			if (Input.GetKeyUp ("down")) {
+			if (Input.GetKeyUp ("down") && flashing == 0 && subflashing == 0) {
 				if (menuLevel > 0) {
 					subMenuUpdater (2);
 					subBeanMover ();
@@ -124,35 +129,14 @@ public class MainMenuController : MonoBehaviour {
 		float step = speed * Time.deltaTime;
 		menuBeanSprite = GameObject.Find ("Menus");
 		subMenuBeanSprite = GameObject.Find ("SubMenus");
-		//if (subMenuBeanSprite.transform.position != subMenuDestination.transform.position) {
 	    subMenuBeanSprite.transform.position = Vector3.MoveTowards (subMenuBeanSprite.transform.position, subMenuDestination.transform.position,  step);
-		//}
-		//if (menuBeanSprite.transform.position != mainMenuDestination.transform.position) {
 		menuBeanSprite.transform.position = Vector3.MoveTowards (menuBeanSprite.transform.position, mainMenuDestination.transform.position, step);
-		//}
-		
-		
-		
-		//float speed = 0.005f;
-		//float step = speed * Time.deltaTime;
-		//menuBeanSprite = GameObject.Find ("Menus");
-		//subMenuBeanSprite = GameObject.Find ("SubMenus");
-		//if (subMenuBeanSprite.transform.position != subMenuDestination.transform.position) {
-		//	subMenuBeanSprite.transform.position = Vector3.MoveTowards (subMenuBeanSprite.transform.position, subMenuDestination.transform.position,  step);
-		//}
-		//if (menuBeanSprite.transform.position != mainMenuDestination.transform.position) {
-		//	menuBeanSprite.transform.position = Vector3.MoveTowards (menuBeanSprite.transform.position, mainMenuDestination.transform.position, step);
-		//} 
-		//else {
-		//	menuLevel = 2;
-		//}
 	}
 
 
 	IEnumerator Begin(float delayTime){
 		Destroy (GameObject.Find("menubean"));
 		subflashing = 1;
-		Debug.Log ("Flashing!");
 		yield return new WaitForSeconds (delayTime);
 		int nextLevelNum = 2;
 		SceneManager.LoadScene (nextLevelNum);
