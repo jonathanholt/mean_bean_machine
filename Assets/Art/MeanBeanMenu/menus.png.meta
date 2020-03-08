@@ -386,27 +386,6 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: menus_1
-      rect:
-        serializedVersion: 2
-        x: 308
-        y: 203
-        width: 271
-        height: 159
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 83305410000000000800000000000000
-      internalID: 21300024
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: menus_2
       rect:
         serializedVersion: 2
@@ -469,10 +448,31 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: menus_1
+      rect:
+        serializedVersion: 2
+        x: 309
+        y: 203
+        width: 271
+        height: 159
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dc381aeeeaaff32478017c742d09453b
+      internalID: 21300024
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 59398e7a1653e3640a993b9f6cccc80e
     internalID: 0
     vertices: []
     indices: 
