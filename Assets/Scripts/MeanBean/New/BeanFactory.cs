@@ -8,7 +8,7 @@ public class BeanFactory : MonoBehaviour {
 	public GameObject[] startPointArray;
 	public GameObject startPointUpper;
 	bool readyForNext = false;
-	string[] prefabs = {"purple1", "red1", "blue1", "green1", "yellow1"};
+	string[] prefabs = {"purple1", "red1", "blue1", "green1", "yellow1", "grey1"};
 	string greyString = "grey1";
 	public GameObject thePlayer;
 	public GameObject beanArray;
@@ -62,20 +62,20 @@ public class BeanFactory : MonoBehaviour {
 			bean1.transform.position = startPoint.transform.position;
 		}
 		if (!isAvalanche) {
-			//string randomPrefab2 = choosePrefab ();
-			//GameObject bean2 = Instantiate (Resources.Load (randomPrefab2)) as GameObject;
-			//bean2.GetComponent<Bean> ().SetPlayer (thePlayer);
-			//bean2.GetComponent<Bean> ().SetBeanArray (beanArray);
-			//bean2.name = randomPrefab2;
-			//bean2.GetComponent<Bean> ().setInPlay (2);
-			//bean2.transform.position = startPointUpper.transform.position;
+			string randomPrefab2 = choosePrefab ();
+			GameObject bean2 = Instantiate (Resources.Load (randomPrefab2)) as GameObject;
+			bean2.GetComponent<Bean> ().SetPlayer (thePlayer);
+			bean2.GetComponent<Bean> ().SetBeanArray (beanArray);
+			bean2.name = randomPrefab2;
+			bean2.GetComponent<Bean> ().setInPlay (2);
+			bean2.transform.position = startPointUpper.transform.position;
 		}
 		}
 	}
 	
 	public string choosePrefab(){
 		int randomNumber = Random.Range(0, 5);
-		return prefabs[0];
+		return prefabs[1];
 	}
 	
 	public void createNext(){
