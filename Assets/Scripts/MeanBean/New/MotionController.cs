@@ -7,7 +7,7 @@ public class MotionController : MonoBehaviour {
 	public bool inMotion;
 	public GameObject[] startPoints;
 	int currentPosition = 2;
-	float movementShiftValue = 0.63f;
+	float movementShiftValue = 0.53f;
 	public int lastDirection;
 	public GameObject beanArray;
 	public bool isPlayer;
@@ -89,7 +89,7 @@ public class MotionController : MonoBehaviour {
 		}
 		
 			if (Input.GetKeyDown ("right")) {
-				if(currentPosition + 1 != 5){
+				if(currentPosition + 1 != 6){
 					bool moveEnabled = true;
 					foreach (Transform child in beanArray.transform) {
 					if (child.GetComponent<Bean> ().getInPlay () != 0) {

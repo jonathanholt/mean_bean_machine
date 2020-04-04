@@ -122,16 +122,16 @@ public class Bean : MonoBehaviour {
 		inPlay = 0;
 		this.GetComponent<Animator> ().SetBool ("collision", true);
 		if(this.name != "grey1"){
-		this.collisionMatchChecker (other.collider.gameObject, "Collision with bottom");
+		//this.collisionMatchChecker (other.collider.gameObject, "Collision with bottom");
 		Vector2 direction = new Vector2(1, 0);
 		RaycastHit2D hit = this.CheckRaycast(direction);
 		if (hit) {	
-			this.collisionMatchChecker (hit.collider.gameObject, "Raycast hit right");
+			//this.collisionMatchChecker (hit.collider.gameObject, "Raycast hit right");
 		}
 		direction = new Vector2(-1, 0);
 		hit = this.CheckRaycast (direction);
 		if (hit) {
-			this.collisionMatchChecker (hit.collider.gameObject, "Raycast hit left");
+			//this.collisionMatchChecker (hit.collider.gameObject, "Raycast hit left");
 		}
 		if(Player)
 			Player.GetComponent<MotionController> ().setMotion (false);
