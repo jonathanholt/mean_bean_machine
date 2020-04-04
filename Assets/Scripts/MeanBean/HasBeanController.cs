@@ -10,7 +10,6 @@ public class HasBeanController : MonoBehaviour {
 	public static int newAnimationNow;
 
 	void Start () {
-		Debug.Log("HasBeanStart!");
 		anim = GetComponent<Animator> ();
 		animationsCount = 10;
 		whichAnimation = 0;
@@ -30,7 +29,6 @@ public class HasBeanController : MonoBehaviour {
 	}
 
 	public static void changeAnimation(int animation){
-		Debug.Log("HasBean Intro!");
 		whichAnimation = animation;
 		anim.SetInteger ("Animation", animation);
 	}

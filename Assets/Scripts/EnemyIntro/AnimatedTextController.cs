@@ -99,11 +99,9 @@ public class AnimatedTextController : MonoBehaviour {
         }
 		char[] textArray = sentence.ToCharArray();
 		foreach (char singleLetter in textArray) {
-            Debug.Log("Letter..."+singleLetter);
             
 			if(m_MyText){
 				if(fontDictionary.ContainsKey(singleLetter)){
-					Debug.Log("Contains..."+singleLetter);
 					m_MyText.text = m_MyText.text + fontDictionary[singleLetter];
 				}
 				else{
