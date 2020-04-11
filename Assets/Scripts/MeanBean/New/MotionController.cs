@@ -31,7 +31,7 @@ public class MotionController : MonoBehaviour {
 	
 	void Update () {
 		if(beanArray.GetComponent<BeanFactory>().canMove){
-		if(isPlayer){
+		//if(isPlayer){
 		if (Input.GetKeyUp ("z")) {
 			PauseController.togglePause ();
 		}
@@ -131,18 +131,18 @@ public class MotionController : MonoBehaviour {
 					switch (child.GetComponent<Bean>().getRotationInt() % 4)
 					{
 					case 0:
-					Debug.Log("A RIGHT");
+					//Debug.Log("A RIGHT");
 					Vector2 directionright = new Vector2(1, 0);
 						RaycastHit2D hitright = child.GetComponent<Bean> ().CheckRaycast(directionright);
 						if(hitright.collider && hitright.collider.GetComponent<Bean> ().getInPlay() == 0){
-							Debug.Log("POINT A");
-							Debug.Log("Hit the collidable object " + hitright.collider.name);
+							//Debug.Log("POINT A");
+							//Debug.Log("Hit the collidable object " + hitright.collider.name);
 							break;
 						}
 						else{
 							Debug.Log("POINT B");
 					if(child.GetComponent<Bean> ().getHorizontalPosition () < 2){
-						Debug.Log("POINT C");
+						//Debug.Log("POINT C");
 						child.transform.position -= Vector3.left * rotationtShiftValue;
 						child.transform.position += Vector3.up * rotationtShiftValue;
 						child.GetComponent<Bean> ().incrementRotationInt ();
@@ -151,18 +151,18 @@ public class MotionController : MonoBehaviour {
 						}
 						break;
 					case 1: case -3:
-						Debug.Log("A UP");
+						//Debug.Log("A UP");
 						child.transform.position -= Vector3.right * rotationtShiftValue;
 						child.transform.position += Vector3.up * rotationtShiftValue;
 						child.GetComponent<Bean> ().incrementRotationInt ();
 						break;
 					case 2: case -2:
-					Debug.Log("A LEFT");
-					Debug.Log(child.GetComponent<Bean> ().getHorizontalPosition ());
+					//Debug.Log("A LEFT");
+					//Debug.Log(child.GetComponent<Bean> ().getHorizontalPosition ());
 					Vector2 directionleft = new Vector2(-1, 0);
 						RaycastHit2D hitleft = child.GetComponent<Bean> ().CheckRaycast(directionleft);
 						if(hitleft.collider && hitleft.collider.GetComponent<Bean> ().getInPlay() == 0){
-							Debug.Log("Hit the collidable object " + hitleft.collider.name);
+							//Debug.Log("Hit the collidable object " + hitleft.collider.name);
 							break;
 						}
 						else{
@@ -174,7 +174,7 @@ public class MotionController : MonoBehaviour {
 						}
 						break;
 					case 3: case -1:
-					Debug.Log("A DOWN");
+					//Debug.Log("A DOWN");
 						child.transform.position -= Vector3.left * rotationtShiftValue;
 						child.transform.position += Vector3.down * rotationtShiftValue;
 						child.GetComponent<Bean> ().incrementRotationInt ();
@@ -242,7 +242,8 @@ public class MotionController : MonoBehaviour {
 					}
 					break;
 				}
-		}}
+		}
+		//}
 		}
 		}
 	}
