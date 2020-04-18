@@ -31,7 +31,7 @@ public class MotionController : MonoBehaviour {
 	
 	void Update () {
 		if(beanArray.GetComponent<BeanFactory>().canMove){
-		//if(isPlayer){
+		if(isPlayer){
 		if (Input.GetKeyUp ("z")) {
 			PauseController.togglePause ();
 		}
@@ -54,79 +54,40 @@ public class MotionController : MonoBehaviour {
 		}
 
 		if (Input.GetKeyDown ("left")) {			
-				if(currentPosition - 1 != -1){
-					bool moveEnabled = true;
-					foreach (Transform child in beanArray.transform) {
-					if (child.GetComponent<Bean> ().getInPlay () != 0) {
-						
-						Vector2 direction = new Vector2(-1, 0);
-						RaycastHit2D hit = child.GetComponent<Bean> ().CheckRaycast(direction);
-						if(hit.collider && hit.collider.GetComponent<Bean> ().getInPlay() == 0){
-							////Debug.Log("Hit the collidable object " + hit.collider.name);
-							moveEnabled = false;
-						}
-						else{
-								int rotationInt = (int) (child.GetComponent<Bean>().getRotationInt() % 4);
-						if((rotationInt == 3 || rotationInt == -1) && 
-						child.GetComponent<Bean>().getHorizontalPosition() == -1){
-							moveEnabled = false;	
-						}
-						}
-					}
-				}
-				if(moveEnabled){
-					currentPosition -= 1;
-				GameObject moveToPosition = startPoints[currentPosition];
-				moveBothBeans(moveToPosition, "left");
-				foreach (Transform child in beanArray.transform) {
-					if (child.GetComponent<Bean> ().getInPlay () != 0) {
-						child.GetComponent<Bean> ().decrementHorizontalPosition ();
-						////Debug.Log(child.GetComponent<Bean> ().getHorizontalPosition ());
-					}	
-				}
-				}
-				
-			}
+			moveLeft();
 		}
 		
 			if (Input.GetKeyDown ("right")) {
-				if(currentPosition + 1 != 6){
-					bool moveEnabled = true;
-					foreach (Transform child in beanArray.transform) {
-					if (child.GetComponent<Bean> ().getInPlay () != 0) {
-						Vector2 direction = new Vector2(-1, 0);
-						RaycastHit2D hit = child.GetComponent<Bean> ().CheckRaycast(direction);
-						if(hit.collider && hit.collider.GetComponent<Bean> ().getInPlay() == 0){
-							////Debug.Log("Hit the collidable object " + hit.collider.name);
-							moveEnabled = false;
-						}
-						else{
-						int rotationInt = (int) (child.GetComponent<Bean>().getRotationInt() % 4);
-						////Debug.Log(rotationInt);
-						if((rotationInt == -3 || rotationInt == 1) && 
-						child.GetComponent<Bean>().getHorizontalPosition() == 1){
-							moveEnabled = false;	
-						}
-						}
-					}
-				}
-				if(moveEnabled){
-					currentPosition += 1;
-					GameObject moveToPosition = startPoints[currentPosition];
-					moveBothBeans(moveToPosition, "right");
-	
-					foreach (Transform child in beanArray.transform) {
-					if (child.GetComponent<Bean> ().getInPlay () != 0) {
-						child.GetComponent<Bean> ().incrementHorizontalPosition ();
-					}
-				}
-				}
-				
-				
-				}
+				moveRight();
 			}
+			
 		if (Input.GetKeyDown ("a")) {
-			foreach (Transform child in beanArray.transform) {
+			rotateClockwise();
+		}
+		
+		if (Input.GetKeyDown ("s")) {
+			rotateAntiClockwise();
+		}
+		}
+		}
+	}
+	
+	public void moveBothBeans(GameObject destination, string direction){
+		Debug.Log("MOVEBOTHBEANS");
+		foreach (Transform child in beanArray.transform) {
+			Debug.Log("INPLAY value = "+child.GetComponent<Bean> ().getInPlay());
+			if(child.GetComponent<Bean> ().getInPlay() != 0){
+				Debug.Log("MOVING BEANS IN "+direction+" direction by "+movementShiftValue);
+				if(direction == "right")
+					child.transform.position -= Vector3.left * movementShiftValue;
+				else
+					child.transform.position -= Vector3.right * movementShiftValue;
+			}
+		}
+	}
+	
+	public void rotateClockwise(){
+		foreach (Transform child in beanArray.transform) {
 				if (child.GetComponent<Bean> ().getInPlay () != 0) {
 					switch (child.GetComponent<Bean>().getRotationInt() % 4)
 					{
@@ -185,10 +146,10 @@ public class MotionController : MonoBehaviour {
 					break;
 				}
 			}
-		}
-		
-		if (Input.GetKeyDown ("s")) {
-			foreach (Transform child in beanArray.transform) {
+	}
+	
+	public void rotateAntiClockwise(){
+		foreach (Transform child in beanArray.transform) {
 				if (child.GetComponent<Bean> ().getInPlay () != 0) {
 					switch (child.GetComponent<Bean>().getRotationInt() % 4)
 					{
@@ -243,19 +204,83 @@ public class MotionController : MonoBehaviour {
 					break;
 				}
 		}
-		//}
-		}
-		}
 	}
 	
-	public void moveBothBeans(GameObject destination, string direction){
-		foreach (Transform child in beanArray.transform) {
-			if(child.GetComponent<Bean> ().getInPlay() != 0){
-				if(direction == "right")
-					child.transform.position -= Vector3.left * movementShiftValue;
-				else
-					child.transform.position -= Vector3.right * movementShiftValue;
+	public void moveRight(){
+		Debug.Log("Moving Right AI!");
+		if(currentPosition + 1 != 6){
+			Debug.Log("Current position = "+currentPosition);
+					bool moveEnabled = true;
+					foreach (Transform child in beanArray.transform) {
+					if (child.GetComponent<Bean> ().getInPlay () != 0) {
+						Vector2 direction = new Vector2(-1, 0);
+						RaycastHit2D hit = child.GetComponent<Bean> ().CheckRaycast(direction);
+						if(hit.collider && hit.collider.GetComponent<Bean> ().getInPlay() == 0){
+							Debug.Log("MOVE NOT ENABLED 1");
+							////Debug.Log("Hit the collidable object " + hit.collider.name);
+							moveEnabled = false;
+						}
+						else{
+						int rotationInt = (int) (child.GetComponent<Bean>().getRotationInt() % 4);
+						////Debug.Log(rotationInt);
+						if((rotationInt == -3 || rotationInt == 1) && 
+						child.GetComponent<Bean>().getHorizontalPosition() == 1){
+							Debug.Log("MOVE NOT ENABLED 2");
+							moveEnabled = false;	
+						}
+						}
+					}
+				}
+				if(moveEnabled){
+					Debug.Log("MOVE ENABLED");
+					currentPosition += 1;
+					GameObject moveToPosition = startPoints[currentPosition];
+					moveBothBeans(moveToPosition, "right");
+	
+					foreach (Transform child in beanArray.transform) {
+					if (child.GetComponent<Bean> ().getInPlay () != 0) {
+						child.GetComponent<Bean> ().incrementHorizontalPosition ();
+					}
+				}
+				}
+				
+				
+				}
+	}
+	
+	public void moveLeft(){
+						if(currentPosition - 1 != -1){
+					bool moveEnabled = true;
+					foreach (Transform child in beanArray.transform) {
+					if (child.GetComponent<Bean> ().getInPlay () != 0) {
+						
+						Vector2 direction = new Vector2(-1, 0);
+						RaycastHit2D hit = child.GetComponent<Bean> ().CheckRaycast(direction);
+						if(hit.collider && hit.collider.GetComponent<Bean> ().getInPlay() == 0){
+							////Debug.Log("Hit the collidable object " + hit.collider.name);
+							moveEnabled = false;
+						}
+						else{
+								int rotationInt = (int) (child.GetComponent<Bean>().getRotationInt() % 4);
+						if((rotationInt == 3 || rotationInt == -1) && 
+						child.GetComponent<Bean>().getHorizontalPosition() == -1){
+							moveEnabled = false;	
+						}
+						}
+					}
+				}
+				if(moveEnabled){
+					currentPosition -= 1;
+				GameObject moveToPosition = startPoints[currentPosition];
+				moveBothBeans(moveToPosition, "left");
+				foreach (Transform child in beanArray.transform) {
+					if (child.GetComponent<Bean> ().getInPlay () != 0) {
+						child.GetComponent<Bean> ().decrementHorizontalPosition ();
+						////Debug.Log(child.GetComponent<Bean> ().getHorizontalPosition ());
+					}	
+				}
+				}
+				
 			}
-		}
 	}
 }

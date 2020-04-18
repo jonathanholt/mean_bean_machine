@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class BeanFactory : MonoBehaviour {
 	
@@ -17,6 +18,8 @@ public class BeanFactory : MonoBehaviour {
 	public bool isPlayer;
 	public GameObject hasBean;
 	public bool isGameOver;
+	
+	public UnityEvent newPair;
 	
 
 	public void createBeanPair (bool isAvalanche, int avalancheCount = 0) {
@@ -69,6 +72,10 @@ public class BeanFactory : MonoBehaviour {
 			bean2.name = randomPrefab2;
 			bean2.GetComponent<Bean> ().setInPlay (2);
 			bean2.transform.position = startPointUpper.transform.position;
+			
+			if(!isPlayer){
+				StartCoroutine (InvokePause (1.5f));
+			}
 		}
 		}
 	}
@@ -101,6 +108,11 @@ public class BeanFactory : MonoBehaviour {
 			}
 		}
 	}
+	}
+	
+	IEnumerator InvokePause(float delayTime){
+		yield return new WaitForSeconds (delayTime);
+		newPair.Invoke();
 	}
 	
 	IEnumerator LongPause(float delayTime){
