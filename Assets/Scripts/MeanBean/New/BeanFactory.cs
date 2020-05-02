@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class BeanFactory : MonoBehaviour {
 	
@@ -192,6 +193,7 @@ public class BeanFactory : MonoBehaviour {
 			yield return null;
 		}
 		canvasGroup.interactable = false;
+		SceneManager.LoadScene (3);
 		yield return null;
 	}
 }

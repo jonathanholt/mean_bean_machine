@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class GameOverController : MonoBehaviour {
 
 	public void gameEnd(){
-		SceneManager.LoadScene (3);
+		//SceneManager.LoadScene (3);
 	}
 
 }
