@@ -45,22 +45,22 @@ public class AIController : MonoBehaviour
 	}
 	
 	public void rotateClockwise(int rotations){
-		Debug.Log("Rotating Clockwise "+rotations+" times");
+		//Debug.Log("Rotating Clockwise "+rotations+" times");
 		rotateAIClockwiseEvent.Invoke();
 	}
 	
 	public void rotateAntiClockwise(int rotations){
-		Debug.Log("Rotating Anti-Clockwise "+rotations+" times");
+		//Debug.Log("Rotating Anti-Clockwise "+rotations+" times");
 		rotateAIAntiClockwiseEvent.Invoke();
 	}
 	
 	public void moveRight(int steps){
-		Debug.Log("Moving right "+steps+" times");
+		//Debug.Log("Moving right "+steps+" times");
 		moveAIRightEvent.Invoke();
 	}
 	
 	public void moveLeft(int steps){
-		Debug.Log("Moving left "+steps+" times");
+		//Debug.Log("Moving left "+steps+" times");
 		moveAILeftEvent.Invoke();
 	}
 }

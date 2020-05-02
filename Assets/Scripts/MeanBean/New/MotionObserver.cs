@@ -9,7 +9,7 @@ public class MotionObserver : MonoBehaviour {
 	public bool isGameReady = false;
 	
 	void Start(){
-		////Debug.Log ("MotionController Start()");
+		//////Debug.Log ("MotionController Start()");
 	}
 	
 	public void isReady(){
@@ -26,7 +26,7 @@ public class MotionObserver : MonoBehaviour {
 			}
 		}
 		if(count == stoppedCount){
-			////Debug.Log("Nothing moving");
+			//////Debug.Log("Nothing moving");
 			if (isGameReady) {
 				beanArray.GetComponent<BeanFactory> ().createNext ();
 			}

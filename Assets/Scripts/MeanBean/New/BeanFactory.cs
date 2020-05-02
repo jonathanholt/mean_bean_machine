@@ -18,6 +18,7 @@ public class BeanFactory : MonoBehaviour {
 	public bool isPlayer;
 	public GameObject hasBean;
 	public bool isGameOver;
+	public GameObject panel;
 	
 	public UnityEvent newPair;
 	
@@ -31,7 +32,7 @@ public class BeanFactory : MonoBehaviour {
 		if(isPlayer)
 			hasBean.GetComponent<HasBeanController>().chooseAnimation();
 		if(avalancheCount > 2){
-			Debug.Log("HIGHER THAN 2!!!");
+			//Debug.Log("HIGHER THAN 2!!!");
 				thePlayer.GetComponent<MotionController>().resetCurrentPosition(2);
 				string randomPrefab1 = greyString;
 				for(int i = 0; i < 5; i ++){
@@ -57,7 +58,7 @@ public class BeanFactory : MonoBehaviour {
 		bean1.name = randomPrefab1;
 		bean1.GetComponent<Bean> ().setInPlay (1);
 		if(isAvalanche){
-			Debug.Log("avalanche..."+thePlayer.GetComponent<AvalancheController>().avalancheToFall);
+			//Debug.Log("avalanche..."+thePlayer.GetComponent<AvalancheController>().avalancheToFall);
 			int resetPosition = Random.Range(0, 4);
 			bean1.transform.position = startPointArray[resetPosition].transform.position;
 		}
@@ -91,7 +92,7 @@ public class BeanFactory : MonoBehaviour {
 		if(!readyForNext){
 			readyForNext = true;
 			if (thePlayer.GetComponent<AvalancheController>().avalancheCount > 0) {
-				//Debug.Log ("Avalanche!!");
+				////Debug.Log ("Avalanche!!");
 				thePlayer.GetComponent<AvalancheController> ().queueAvalanche ();
 			}
 
@@ -121,11 +122,20 @@ public class BeanFactory : MonoBehaviour {
 	}
 	
 	void Update () {
-		if(isGameOver){/**
+		if (Input.GetKeyUp ("p")) {
+			gameOver("AIPlayer");
+		}
+		
+		if (Input.GetKeyUp ("o")) {
+			gameOver("HumanPlayer");
+		}
+		
+		
+		if(isGameOver){
 			Vector2 aPosition1 = new Vector2(30,30);
 			GameObject gameOverText = GameObject.Find("GameOverFont");
 			GameObject gameOverTarget = GameObject.Find("GameOverPixel");
-			gameOverText.transform.position = Vector2.MoveTowards(new Vector2(gameOverText.transform.position.x, gameOverText.transform.position.y), gameOverTarget.transform.position, 3 * Time.deltaTime);
+			gameOverText.transform.position = Vector2.MoveTowards(new Vector2(gameOverText.transform.position.x, gameOverText.transform.position.y), gameOverTarget.transform.position, Time.deltaTime);
 
 			Animator gameOverAnimator;
 			gameOverAnimator = GameObject.Find("BlueGameOver").GetComponent<Animator> ();
@@ -141,12 +151,15 @@ public class BeanFactory : MonoBehaviour {
 			gameOverAnimator.SetBool ("gameOver", true);
 
 			gameOverAnimator = GameObject.Find("PurpleGameOver").GetComponent<Animator> ();
-			gameOverAnimator.SetBool ("gameOver", true); **/
+			gameOverAnimator.SetBool ("gameOver", true);
 		}
 	}
 		
 		public void gameOver(string playername){
+			isGameOver = true;
+			Debug.Log("Game Over");
 		if(playername == "AIPlayer"){
+			Debug.Log("For AI player");
 			EnemyController.changeAnimationLost ();
 			GameObject ground = GameObject.Find("EnemyGround");
 			Destroy (ground);
@@ -156,12 +169,29 @@ public class BeanFactory : MonoBehaviour {
 			YouWinComponents.transform.position = new Vector3(YouWinComponents.transform.position.x,YouWinComponents.transform.position.y + 6.75f, YouWinComponents.transform.position.z);
 		}
 		else{
+			Debug.Log("For Human Player");
 		EnemyController.changeAnimationWinning ();
 		EnemyLowerController.changeAnimationWinning ();
 		GameObject ground = GameObject.Find("Ground");
 		Destroy (ground);
 		GameObject playerFrameFloor = GameObject.Find("PlayerFrameFloor");
 		Destroy (playerFrameFloor);
+		GameObject AIPlayer = GameObject.Find("AIPlayer");
+		Destroy (AIPlayer);
+		// fade to black and go to game over screen after a certain amount of time
+		StartCoroutine(Transition(3f));
 		}
+	}
+	
+		IEnumerator Transition(float delayTime){
+		yield return new WaitForSeconds (delayTime);
+		Debug.Log("Fade to black");
+		CanvasGroup canvasGroup = panel.GetComponent<CanvasGroup>();
+		while(canvasGroup.alpha < 1){
+			canvasGroup.alpha += Time.deltaTime;
+			yield return null;
+		}
+		canvasGroup.interactable = false;
+		yield return null;
 	}
 }
