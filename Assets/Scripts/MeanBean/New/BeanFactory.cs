@@ -19,6 +19,7 @@ public class BeanFactory : MonoBehaviour {
 	public bool isPlayer;
 	public GameObject hasBean;
 	public bool isGameOver;
+	public bool hasWon;
 	public GameObject panel;
 	
 	public UnityEvent newPair;
@@ -154,22 +155,42 @@ public class BeanFactory : MonoBehaviour {
 			gameOverAnimator = GameObject.Find("PurpleGameOver").GetComponent<Animator> ();
 			gameOverAnimator.SetBool ("gameOver", true);
 		}
+		
+		if(hasWon){
+			Vector2 aPosition1 = new Vector2(30,30);
+			
+			Animator gameOverAnimator;
+			gameOverAnimator = GameObject.Find("BlueYouWin").GetComponent<Animator> ();
+			gameOverAnimator.SetBool ("gameOver", true);
+
+			gameOverAnimator = GameObject.Find("RedYouWin").GetComponent<Animator> ();
+			gameOverAnimator.SetBool ("gameOver", true);
+
+			gameOverAnimator = GameObject.Find("YellowYouWin").GetComponent<Animator> ();
+			gameOverAnimator.SetBool ("gameOver", true);
+
+			gameOverAnimator = GameObject.Find("PurpleYouWin").GetComponent<Animator> ();
+			gameOverAnimator.SetBool ("gameOver", true);
+		}
 	}
 		
 		public void gameOver(string playername){
-			isGameOver = true;
 			Debug.Log("Game Over");
 		if(playername == "AIPlayer"){
+			hasWon = true;
 			Debug.Log("For AI player");
 			EnemyController.changeAnimationLost ();
 			GameObject ground = GameObject.Find("EnemyGround");
 			Destroy (ground);
 			GameObject playerFrameFloor = GameObject.Find("EnemyFrameFloor");
 			Destroy (playerFrameFloor);
+			GameObject AIPlayer = GameObject.Find("Player");
+			Destroy (AIPlayer);
 			GameObject YouWinComponents = GameObject.Find("YouWinComponents");
-			YouWinComponents.transform.position = new Vector3(YouWinComponents.transform.position.x,YouWinComponents.transform.position.y + 6.75f, YouWinComponents.transform.position.z);
+			YouWinComponents.transform.position = new Vector3(YouWinComponents.transform.position.x - 0.15f ,YouWinComponents.transform.position.y + 3.50f, YouWinComponents.transform.position.z);
 		}
 		else{
+			isGameOver = true;
 			Debug.Log("For Human Player");
 		EnemyController.changeAnimationWinning ();
 		EnemyLowerController.changeAnimationWinning ();
