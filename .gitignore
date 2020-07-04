@@ -43,3 +43,8 @@ Assets/Videos
 *.log
 *.rar
 *.exe
+
+# ====== #
+# Others #
+# ====== #
+Builds

@@ -23,12 +23,12 @@ public class EnemyMugshotController : MonoBehaviour {
 			if (flashes > 0) {
 				Color tmp = GameObject.Find ("EnemyMugshotFullColour").GetComponent<SpriteRenderer> ().color;
 				if (direction == 0) {
-					tmp.a = tmp.a - 0.1f;
+					tmp.a = tmp.a - 0.25f;
 					if (GameObject.Find ("EnemyMugshotFullColour").GetComponent<SpriteRenderer> ().color.a < 0.4f) {
 						direction = 1;
 					}
 				} else {
-					tmp.a = tmp.a + 0.1f;
+					tmp.a = tmp.a + 0.25f;
 					if (GameObject.Find ("EnemyMugshotFullColour").GetComponent<SpriteRenderer> ().color.a > 0.99f) {
 						direction = 0;
 						flashes--;
