@@ -121,6 +121,10 @@ public class MainMenuController : MonoBehaviour {
 		yield return new WaitForSeconds (delayTime);
 		updateMenus ();
 	}
+	
+	public void test(){
+		Debug.Log("Test");
+	}
 
 	public void updateMenus(){
 		
