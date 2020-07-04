@@ -46,11 +46,7 @@ public class MotionController : MonoBehaviour {
 		}
 
 		if (Input.GetKeyUp ("down")) {
-			foreach (Transform child in beanArray.transform) {
-				if (child.GetComponent<Bean> ().getInPlay () != 0) {
-					child.GetComponent<Animator> ().SetBool ("falling", false);
-				}
-			}
+			moveFaster();
 		}
 
 		if (Input.GetKeyDown ("left")) {			
@@ -281,6 +277,14 @@ public class MotionController : MonoBehaviour {
 				}
 				}
 				
+			}
+	}
+	
+	public void moveFaster(){
+		foreach (Transform child in beanArray.transform) {
+				if (child.GetComponent<Bean> ().getInPlay () != 0) {
+					child.GetComponent<Animator> ().SetBool ("falling", false);
+				}
 			}
 	}
 }

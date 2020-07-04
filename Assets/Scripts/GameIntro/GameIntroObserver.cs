@@ -30,7 +30,16 @@ public class GameIntroObserver : MonoBehaviour {
             }
         }
 		if(Input.GetKeyUp("a")){
-			if(videoPlayer.clip.name != "sega"){
+				buttonPress();
+		}
+	}
+	
+	public void left(){
+		Debug.Log("Test");
+	}
+	
+	public void buttonPress(){
+					if(videoPlayer.clip.name != "sega"){
 			this.introProgress++;
 			if (this.introProgress == 1) {
 				videoFinish ();
@@ -40,7 +49,6 @@ public class GameIntroObserver : MonoBehaviour {
 				introScreenFinish ();
 			}
 			}
-		}
 	}
 
 	public void introScreenFinish(){
